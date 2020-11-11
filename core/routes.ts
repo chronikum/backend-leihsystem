@@ -34,4 +34,17 @@ router.post('/login', (req, res) => {
     res.send({});
 });
 
+/**
+ * Checks authentication state
+ */
+function checkAuthentication(req: any, res: any, next: any) {
+    if (req.isAuthenticated()) {
+        console.log("Authenticated!");
+        next();
+    } else {
+        console.log("Authentication failed.");
+        res.redirect("login");
+    }
+}
+
 module.exports = router;

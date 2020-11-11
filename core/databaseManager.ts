@@ -55,13 +55,13 @@ export default class DatabaseManager {
             subscriber.next(false);
         });
 
-        this.db.on('disconnected', (x) => {
+        this.db.on('disconnected', () => {
             this.ready = false;
             this.error = true;
             subscriber.next(false);
         });
 
-        this.db.on('connected', (x) => {
+        this.db.on('connected', () => {
             this.ready = true;
             this.connection = this.db;
             subscriber.next(true);
