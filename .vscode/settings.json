@@ -1,0 +1,14 @@
+{
+    "tslint.configFile": "tslint.json",
+    "editor.codeActionsOnSave": {
+        "source.fixAll.tslint": true
+    },
+    "prettier.requireConfig": true,
+    "eslint.alwaysShowStatus": true,
+    "eslint.format.enable": true,
+    "eslint.lintTask.enable": true,
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "dbaeumer.vscode-eslint",
+    "eslint.debug": true,
+    "git.ignoreLimitWarning": true
+}
