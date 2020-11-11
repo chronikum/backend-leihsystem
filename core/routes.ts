@@ -1,4 +1,5 @@
 // eslint-disable-next-line import/extensions
+import passport from 'passport';
 import DatabaseManager from './databaseManager';
 
 const express = require('express');
@@ -29,9 +30,9 @@ router.get('/stats', (req, res) => {
     res.send({});
 });
 
-// serves statistics
-router.post('/login', (req, res) => {
-    res.send({});
+// User Login
+router.post('/login', passport.authenticate("local"), (req, res) => {
+    res.send({ success: true });
 });
 
 /**

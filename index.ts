@@ -4,6 +4,7 @@ import passport from 'passport';
 import DatabaseManager from './core/databaseManager';
 import UserModel from './models/mongodb-models/UserModel';
 
+const crypto = require('crypto');
 const cors = require('cors');
 const session = require('express-session');
 const flash = require('connect-flash');
@@ -34,6 +35,27 @@ export default class Server {
      */
     setupAuth() {
         passport.serializeUser((user: any, done) => {
+            UserModel.findOne({ username: user.username }, function (
+                err: any,
+                user: any
+            ) {
+                console.log("Authenticating...");
+                if (err) {
+                    console.log(err);
+                    return done(err);
+                }
+                if (!user) {
+                    console.log("User not found!");
+                    return done(null, false);
+                }
+                const hashedPW = crypto.createHmac("sha256", user.password).digest("hex");
+                if (user.password !== hashedPW) {
+                    console.log("Password incorrect");
+                    return done(null, false);
+                }
+                return done(null, user);
+            });
+
             done(null, user['_id']);
         });
 
@@ -68,7 +90,7 @@ export default class Server {
 
         this.db.statusObservable.subscribe((x) => console.log(x));
 
-        // When server is starting, setup atuh
+        // When server is starting, setup auth
         this.app.listen(this.port, () => {
             console.log(`server started at http://localhost:${this.port}`);
             this.setupAuth();

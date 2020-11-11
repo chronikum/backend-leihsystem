@@ -6,11 +6,13 @@ import mongoose, { Schema } from 'mongoose';
 const userSchema = new Schema({
     userId: String,
     name: String,
+    firstname: String,
     surname: String,
     email: String,
     password: String,
     lastLogin: Number,
     session: String,
+    role: String,
 });
 
 const UserModel = mongoose.model('UserModel', userSchema);
