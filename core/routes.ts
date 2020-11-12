@@ -1,8 +1,10 @@
 // eslint-disable-next-line import/extensions
 import passport from 'passport';
+import { UserRoles } from '../enums/UserRoles';
 import { Item } from '../models/Item';
 import DatabaseManager from './databaseManager';
 import DBClient from './dbclient';
+import RoleCheck from './RoleCheck';
 
 const express = require('express');
 // The database manager
@@ -12,6 +14,11 @@ const dbManager = DatabaseManager.instance;
  * The database client
  */
 const dbClient = DBClient.instance;
+
+/**
+ * RoleCheck Client
+ */
+const roleCheck = RoleCheck.instance;
 
 const router = express.Router();
 
@@ -82,12 +89,17 @@ router.post('/logout', checkAuthentication, (req, res) => {
 
 // Create a device item in inventory
 router.post('/createItem', checkAuthentication, async (req, res) => {
-    const itemtoCreate: Item = req.body as Item;
-    const itemCreated: Item = await dbClient.createItem(itemtoCreate);
-    if (itemCreated) {
-        res.send({ success: true, item: itemCreated });
+    const { user } = req;
+    if (roleCheck.checkRole(UserRoles.ADMIN, user)) {
+        const itemtoCreate: Item = req.body as Item;
+        const itemCreated: Item = await dbClient.createItem(itemtoCreate);
+        if (itemCreated) {
+            res.send({ success: true, item: itemCreated });
+        } else {
+            res.send({ success: false, message: 'Item creation failed' });
+        }
     } else {
-        res.send({ success: false, message: 'Item creation failed' });
+        res.send({ success: false, message: 'You do not have sufficient permission' });
     }
 });
 
