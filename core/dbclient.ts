@@ -1,5 +1,6 @@
-import UserModel from "../models/mongodb-models/UserModel";
-import { User } from "../models/User";
+import SystemLogModel from '../models/mongodb-models/SystemLogModel';
+import UserModel from '../models/mongodb-models/UserModel';
+import { User } from '../models/User';
 
 const crypto = require('crypto');
 
@@ -18,26 +19,22 @@ export default class DBClient {
         return DBClient.instance;
     }
 
-    constructor() {
-
-    }
-
     /**
      * Creates a new user in the database
      * @param User to create
      */
-    async createUser(user: User) {
+    async createUser(user: User): Promise<boolean> {
         // How many users do already exist?
-        let userCount = await UserModel.countDocuments({});
-        var highestUser: number =
-            userCount === 0 ? 0 : ((((await UserModel.find()
-                .sort({ userId: -1 })
-                .limit(1)) as unknown as User[])[0].userId || 0) as number);
+        const userCount = await UserModel.countDocuments({});
+        const highestUser: number = userCount === 0 ? 0 : ((((await UserModel.find()
+            .sort({ userId: -1 })
+            .limit(1)) as unknown as User[])[0].userId || 0) as number);
 
-        const hashedPW = crypto.createHmac("sha256", user.password).digest("hex");
+        const hashedPW = crypto.createHmac('sha256', user.password).digest('hex');
+        // eslint-disable-next-line no-param-reassign
         user.userId = (highestUser + 1).toString();
 
-        var newUser = new UserModel({
+        const newUser = new UserModel({
             username: user.surname,
             userId: user.userId,
             password: hashedPW,
@@ -47,18 +44,35 @@ export default class DBClient {
             role: user.role,
         });
 
-        var existingUser = await UserModel.findOne({ userId: user.userId });
+        const existingUser = await UserModel.findOne({ userId: user.userId });
         if (existingUser) {
-            console.log("User does already exist!");
+            console.log('User does already exist!');
             return false;
-        } else {
-            console.log("User will be created!");
-            newUser.save(function (err, message) {
-                console.log("Created user");
-                if (err) return false;
-            });
-            return true;
         }
+        await newUser.save();
+        const createdUser = await UserModel.findOne({ userId: user.userId });
+        console.log(`The initial admin password is: ${user.password}`);
+        return Promise.resolve(!!createdUser);
+    }
 
+    /**
+     * Checks if this start is the first system start
+     * @returns Promise<boolean>
+     */
+    async isFirstStart(): Promise<boolean> {
+        const setupMessage = await SystemLogModel.findOne({ message: 'SETUP COMPLETED' });
+        return Promise.resolve(!setupMessage);
+    }
+
+    /**
+     * Log system logging message which can be seen in admin interface
+     */
+    systemLog(message: string) {
+        const timestamp = Date.now();
+        const systemlog = new SystemLogModel({
+            message,
+            timestamp,
+        });
+        systemlog.save();
     }
 }

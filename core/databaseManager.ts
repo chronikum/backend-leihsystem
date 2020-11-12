@@ -34,7 +34,7 @@ export default class DatabaseManager {
     // Connection to the database
     connection?: mongoose.Connection;
 
-    // Event to notify server when ready
+    // Event to notify server when connection status changes
     statusObservable = new Observable((subscriber) => {
         // Try to connect and catch when fail
 
@@ -46,6 +46,7 @@ export default class DatabaseManager {
         this.db.once('open', () => {
             this.ready = true;
             this.connection = this.db;
+            this.error = false;
             subscriber.next(true);
         });
 
@@ -63,8 +64,32 @@ export default class DatabaseManager {
 
         this.db.on('connected', () => {
             this.ready = true;
+            this.error = false;
             this.connection = this.db;
             subscriber.next(true);
+        });
+    });
+
+    // Event to notify server when ready
+    databaseReady = new Observable((subscriber) => {
+        // Try to connect and catch when fail
+
+        mongoose.connect(this.path, { useNewUrlParser: true }).catch(
+            // eslint-disable-next-line no-return-assign
+            (error) => DatabaseManager.instance.errorMessage = error,
+        );
+
+        this.db.once('open', () => {
+            this.ready = true;
+            this.connection = this.db;
+            this.error = false;
+            subscriber.next(true);
+        });
+
+        this.db.on('error', () => {
+            this.ready = false;
+            this.error = true;
+            subscriber.next(false);
         });
     });
 }

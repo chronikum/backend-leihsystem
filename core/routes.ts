@@ -9,6 +9,19 @@ const dbManager = DatabaseManager.instance;
 const router = express.Router();
 
 /**
+ * Checks authentication state
+ */
+function checkAuthentication(req: any, res: any, next: any) {
+    if (req.isAuthenticated()) {
+        console.log('Authenticated!');
+        next();
+    } else {
+        console.log('Authentication failed.');
+        res.redirect('login');
+    }
+}
+
+/**
  * Checks if database is connected
  */
 router.use((req, res, next) => {
@@ -26,26 +39,18 @@ router.get('/', (req, res) => {
 });
 
 // serves statistics
-router.get('/stats', (req, res) => {
+router.post('/stats', checkAuthentication, (req, res) => {
+    res.send({});
+});
+
+// serves statistics
+router.get('/systemlogs', checkAuthentication, (req, res) => {
     res.send({});
 });
 
 // User Login
-router.post('/login', passport.authenticate("local"), (req, res) => {
+router.post('/login', passport.authenticate('local'), (req, res) => {
     res.send({ success: true });
 });
-
-/**
- * Checks authentication state
- */
-function checkAuthentication(req: any, res: any, next: any) {
-    if (req.isAuthenticated()) {
-        console.log("Authenticated!");
-        next();
-    } else {
-        console.log("Authentication failed.");
-        res.redirect("login");
-    }
-}
 
 module.exports = router;

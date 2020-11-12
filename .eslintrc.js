@@ -20,7 +20,9 @@ module.exports = {
     ],
     rules: {
         indent: ['error', 4],
-        'class-methods-use-this': false,
-        'no-underscore-dangle':  ['error', { 'allow': ['_id'] }],
+        'class-methods-use-this': 0,
+        'no-underscore-dangle': ['error', { allow: ['_id'] }],
+        'no-console': 0,
+        'no-unresolved': 0,
     },
 };
