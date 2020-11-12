@@ -58,6 +58,16 @@ export default class DBClient {
     }
 
     /**
+     * Get user with the id
+     *
+     * @param id user id
+     * @returns Promise<User> with id
+     */
+    async getUserForId(userId: string): Promise<User> {
+        return UserModel.findOne({ userId }) as unknown as Promise<User>;
+    }
+
+    /**
      * Checks if this start is the first system start
      * @returns Promise<boolean>
      */

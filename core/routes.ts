@@ -84,7 +84,11 @@ router.post('/logout', checkAuthentication, (req, res) => {
 router.post('/createItem', checkAuthentication, async (req, res) => {
     const itemtoCreate: Item = req.body as Item;
     const itemCreated: Item = await dbClient.createItem(itemtoCreate);
-    res.send({ success: true, item: itemCreated });
+    if (itemCreated) {
+        res.send({ success: true, item: itemCreated });
+    } else {
+        res.send({ success: false, message: 'Item creation failed' });
+    }
 });
 
 // Get all items
