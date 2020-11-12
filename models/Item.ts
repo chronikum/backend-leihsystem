@@ -18,4 +18,5 @@ export interface Item {
     available: boolean,
     startDate: number,
     plannedEndDate: number,
+    itemId: number,
 }

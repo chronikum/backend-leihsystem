@@ -17,6 +17,7 @@ const itemSchema = new Schema({
     available: Boolean,
     startDate: Number,
     plannedEndDate: Number,
+    itemId: Number,
 });
 
 const ItemModel = mongoose.model('ItemModel', itemSchema);

@@ -1,5 +1,6 @@
 // eslint-disable-next-line import/extensions
 import passport from 'passport';
+import { Item } from '../models/Item';
 import DatabaseManager from './databaseManager';
 import DBClient from './dbclient';
 
@@ -80,9 +81,10 @@ router.post('/logout', checkAuthentication, (req, res) => {
  */
 
 // Create a device item in inventory
-router.post('/createItem', checkAuthentication, (req, res) => {
-    console.log(req.body);
-    res.send({ success: true });
+router.post('/createItem', checkAuthentication, async (req, res) => {
+    const itemtoCreate: Item = req.body as Item;
+    const itemCreated: Item = await dbClient.createItem(itemtoCreate);
+    res.send({ success: true, item: itemCreated });
 });
 
 // Get all items

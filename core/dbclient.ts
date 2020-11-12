@@ -86,6 +86,37 @@ export default class DBClient {
     }
 
     /**
+     * Create item with given values
+     */
+    async createItem(item: Item): Promise<Item> {
+        const itemCount = await ItemModel.countDocuments({});
+        const highestId: number = itemCount === 0 ? 0 : ((((await ItemModel.find()
+            .sort({ userId: -1 })
+            .limit(1)) as unknown as Item[])[0].itemId || 0) as number);
+
+        const itemtoCreate = new ItemModel({
+            name: item.name || undefined,
+            internalName: item.internalName || undefined,
+            serialNumber: item.serialNumber || undefined,
+            ownership: item.ownership || undefined,
+            ownershipIdentifier: item.ownershipIdentifier || undefined,
+            creationDate: item.creationDate || undefined,
+            modificationDate: item.modificationDate || undefined,
+            description: item.description || undefined,
+            model: item.model || undefined,
+            notes: item.notes || undefined,
+            available: item.available || undefined,
+            startDate: item.startDate || undefined,
+            plannedEndDate: item.plannedEndDate || undefined,
+            itemId: highestId + 1,
+        });
+
+        await itemtoCreate.save({});
+
+        return ItemModel.findOne({ itemId: (highestId + 1) }) as unknown as Item;
+    }
+
+    /**
      * Log system logging message which can be seen in admin interface
      */
     systemLog(message: string) {
