@@ -1,3 +1,5 @@
+import { Item } from '../models/Item';
+import ItemModel from '../models/mongodb-models/ItemModel';
 import SystemLogModel from '../models/mongodb-models/SystemLogModel';
 import UserModel from '../models/mongodb-models/UserModel';
 import { User } from '../models/User';
@@ -62,6 +64,25 @@ export default class DBClient {
     async isFirstStart(): Promise<boolean> {
         const setupMessage = await SystemLogModel.findOne({ message: 'SETUP COMPLETED' });
         return Promise.resolve(!setupMessage);
+    }
+
+    /**
+     * Get inventory
+     * @returns Item[] Items available
+     */
+    async getInventoryList(): Promise<Item[]> {
+        const items = ((await ItemModel.find())) as unknown as Item[] || [];
+
+        return Promise.resolve(items);
+    }
+
+    /**
+     * Returns all items which are available
+     */
+    async getAvailableItems(): Promise<Item[]> {
+        const items = ((await ItemModel.find({ available: true }))) as unknown as Item[] || [];
+
+        return Promise.resolve(items);
     }
 
     /**

@@ -1,10 +1,16 @@
 // eslint-disable-next-line import/extensions
 import passport from 'passport';
 import DatabaseManager from './databaseManager';
+import DBClient from './dbclient';
 
 const express = require('express');
 // The database manager
 const dbManager = DatabaseManager.instance;
+
+/**
+ * The database client
+ */
+const dbClient = DBClient.instance;
 
 const router = express.Router();
 
@@ -41,10 +47,9 @@ router.get('/', (req, res) => {
  * Routes requiring authentication
  */
 
-// User Login
-router.post('/login', passport.authenticate('local'), (req, res) => {
-    res.send({ success: true });
-});
+/**
+ * System Information
+ */
 
 // serves statistics
 router.post('/stats', checkAuthentication, (req, res) => {
@@ -56,10 +61,40 @@ router.get('/systemlogs', checkAuthentication, (req, res) => {
     res.send({});
 });
 
+/**
+  * User Routes
+  */
+// User Login
+router.post('/login', passport.authenticate('local'), (req, res) => {
+    res.send({ success: true });
+});
+
 // User Logout
 router.post('/logout', checkAuthentication, (req, res) => {
     req.logout();
     res.send({ success: true });
+});
+
+/**
+ * Item Routes
+ */
+
+// Create a device item in inventory
+router.post('/createItem', checkAuthentication, (req, res) => {
+    console.log(req.body);
+    res.send({ success: true });
+});
+
+// Get all items
+router.post('/getInventory', checkAuthentication, async (req, res) => {
+    const items = await dbClient.getInventoryList();
+    res.send(items);
+});
+
+// Get all items which are available
+router.post('/getAvailableItems', checkAuthentication, async (req, res) => {
+    const items = await dbClient.getAvailableItems();
+    res.send(items);
 });
 
 module.exports = router;
