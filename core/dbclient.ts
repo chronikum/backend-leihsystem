@@ -35,7 +35,7 @@ export default class DBClient {
         user.userId = (highestUser + 1).toString();
 
         const newUser = new UserModel({
-            username: user.surname,
+            username: user.username,
             userId: user.userId,
             password: hashedPW,
             email: user.email,

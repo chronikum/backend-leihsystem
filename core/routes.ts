@@ -16,8 +16,7 @@ function checkAuthentication(req: any, res: any, next: any) {
         console.log('Authenticated!');
         next();
     } else {
-        console.log('Authentication failed.');
-        res.redirect('login');
+        res.send({ success: false, message: 'You are not allowed to see this resource.' });
     }
 }
 
@@ -38,6 +37,15 @@ router.get('/', (req, res) => {
     res.send('<meta charset="utf-8"><h4>iPad Ausleihsystem Backend</h4><br>Entwickelt im Auftrag der Pädagogischen Hochschule Schwäbisch Gmünd<br><br>Version 0.1');
 });
 
+/**
+ * Routes requiring authentication
+ */
+
+// User Login
+router.post('/login', passport.authenticate('local'), (req, res) => {
+    res.send({ success: true });
+});
+
 // serves statistics
 router.post('/stats', checkAuthentication, (req, res) => {
     res.send({});
@@ -48,8 +56,9 @@ router.get('/systemlogs', checkAuthentication, (req, res) => {
     res.send({});
 });
 
-// User Login
-router.post('/login', passport.authenticate('local'), (req, res) => {
+// User Logout
+router.post('/logout', checkAuthentication, (req, res) => {
+    req.logout();
     res.send({ success: true });
 });
 

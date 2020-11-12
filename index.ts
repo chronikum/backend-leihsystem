@@ -115,28 +115,6 @@ export default class Server {
         );
 
         passport.serializeUser((user: any, done) => {
-            UserModel.findOne({ username: user.username }, (
-                err: any,
-                // eslint-disable-next-line no-shadow
-                user: any,
-            ) => {
-                console.log('Authenticating...');
-                if (err) {
-                    console.log(err);
-                    return done(err);
-                }
-                if (!user) {
-                    console.log('User not found!');
-                    return done(null, false);
-                }
-                const hashedPW = crypto.createHmac('sha256', user.password).digest('hex');
-                if (user.password !== hashedPW) {
-                    console.log('Password incorrect');
-                    return done(null, false);
-                }
-                return done(null, user);
-            });
-
             done(null, user._id);
         });
 
@@ -188,7 +166,7 @@ export default class Server {
             password: initialAdminPassword,
             email: 'fritz@nosc.io',
             role: UserRoles.ADMIN,
-            username: 'system admin',
+            username: 'systemadmin',
         };
         return this.dbClient.createUser(adminUser);
     }
