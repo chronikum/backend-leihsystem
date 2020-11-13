@@ -168,6 +168,7 @@ export default class Server {
             role: UserRoles.ADMIN,
             username: 'systemadmin',
         };
+        console.log(`The initial admin password will be: ${adminUser.password}`);
         return this.dbClient.createUser(adminUser);
     }
 }

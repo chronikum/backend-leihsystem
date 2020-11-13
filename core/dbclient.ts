@@ -1,8 +1,12 @@
+import { UserRoles } from '../enums/UserRoles';
 import { Item } from '../models/Item';
 import ItemModel from '../models/mongodb-models/ItemModel';
+import ReservationModel from '../models/mongodb-models/ReservationModel';
 import SystemLogModel from '../models/mongodb-models/SystemLogModel';
 import UserModel from '../models/mongodb-models/UserModel';
+import { Reservation } from '../models/Reservation';
 import { User } from '../models/User';
+import RoleCheck from './RoleCheck';
 
 const crypto = require('crypto');
 
@@ -53,7 +57,6 @@ export default class DBClient {
         }
         await newUser.save();
         const createdUser = await UserModel.findOne({ userId: user.userId });
-        console.log(`The initial admin password is: ${user.password}`);
         return Promise.resolve(!!createdUser);
     }
 
@@ -96,12 +99,23 @@ export default class DBClient {
     }
 
     /**
+     * Get item by id
+     *
+     * @param number id
+     */
+    async getItemById(id: number): Promise<Item> {
+        const item = ((await ItemModel.findOne({ itemId: id }))) as unknown as Item;
+
+        return item;
+    }
+
+    /**
      * Create item with given values
      */
     async createItem(item: Item): Promise<Item> {
         const itemCount = await ItemModel.countDocuments({});
         const highestId: number = itemCount === 0 ? 0 : ((((await ItemModel.find()
-            .sort({ userId: -1 })
+            .sort({ itemId: -1 })
             .limit(1)) as unknown as Item[])[0].itemId || 0) as number);
 
         const itemtoCreate = new ItemModel({
@@ -119,11 +133,54 @@ export default class DBClient {
             startDate: item.startDate || undefined,
             plannedEndDate: item.plannedEndDate || undefined,
             itemId: highestId + 1,
+            requiredRolesToReserve: item.requiredRolesToReserve || [],
         });
 
         await itemtoCreate.save({});
 
         return ItemModel.findOne({ itemId: (highestId + 1) }) as unknown as Item;
+    }
+
+    /**
+     * Reserve items with a reservation
+     */
+    async reserveItemsWithReservation(reservation: Reservation, items: Item[], user: User): Promise<Item[]> {
+        if (this.canReservationBeApplied(reservation, items, user)) {
+            // Create reservation with user ID
+            const reservationtoCreate = new ReservationModel({
+                reservationName: reservation.reservationName,
+                description: reservation.description,
+                approvalRequired: reservation.approvalRequired,
+                approved: reservation.approved || undefined,
+                responsible: user.userId,
+                itemIds: reservation.itemIds,
+                startDate: reservation.startDate,
+                plannedEndDate: reservation.plannedEndDate,
+                completed: reservation.completed || undefined,
+            });
+
+            reservationtoCreate.save();
+        } else {
+            return Promise.resolve(null);
+        }
+        return Promise.resolve(null);
+    }
+
+    /**
+     * Check if a reservation is appliable
+     */
+    // eslint-disable-next-line max-len
+    async canReservationBeApplied(reservation: Reservation, items: Item[], user: User): Promise<boolean> {
+        const permission = items.map(async (item) => {
+            // Get item details as we only know the item id and details can be modified (never trust the user)
+            const dbItem = await this.getItemById(item.itemId);
+            console.log(dbItem);
+            return dbItem.requiredRolesToReserve.includes(user.role);
+        });
+
+        console.log(permission);
+
+        return Promise.resolve(false);
     }
 
     /**

@@ -1,4 +1,5 @@
 import mongoose, { Schema } from 'mongoose';
+import { UserRoles } from '../../enums/UserRoles';
 
 /**
  * Item Schema
@@ -18,6 +19,8 @@ const itemSchema = new Schema({
     startDate: Number,
     plannedEndDate: Number,
     itemId: Number,
+    requiredRolesToReserve: [String],
+    currentReservationId: String,
 });
 
 const ItemModel = mongoose.model('ItemModel', itemSchema);

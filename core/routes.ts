@@ -2,6 +2,7 @@
 import passport from 'passport';
 import { UserRoles } from '../enums/UserRoles';
 import { Item } from '../models/Item';
+import { Reservation } from '../models/Reservation';
 import { User } from '../models/User';
 import DatabaseManager from './databaseManager';
 import DBClient from './dbclient';
@@ -91,7 +92,7 @@ router.post('/logout', checkAuthentication, (req, res) => {
 // Create a device item in inventory
 router.post('/createItem', checkAuthentication, async (req, res) => {
     const { user } = req;
-    if (roleCheck.checkRole(UserRoles.ADMIN, user)) {
+    if (roleCheck.checkRole([UserRoles.ADMIN], user)) {
         const itemtoCreate: Item = req.body as Item;
         const itemCreated: Item = await dbClient.createItem(itemtoCreate);
         if (itemCreated) {
@@ -116,13 +117,27 @@ router.post('/getAvailableItems', checkAuthentication, async (req, res) => {
     res.send(items);
 });
 
+// Book an item
+router.post('/reserveItems', checkAuthentication, async (req, res) => {
+    const reservation: Reservation = (req.body.reservation as Reservation);
+    const items: Item[] = (req.body.items as Item[]);
+    const { user } = req;
+
+    const success = await dbClient.reserveItemsWithReservation(reservation, items, user);
+    if (success) {
+        res.send({ success: true, message: 'Items reserved' });
+    } else {
+        res.send({ success: false, message: 'You do not have sufficient permissions' });
+    }
+});
+
 /**
  * Create user
  */
 // Create a device item in inventory
 router.post('/createUser', checkAuthentication, async (req, res) => {
     const { user } = req;
-    if (roleCheck.checkRole(UserRoles.ADMIN, user)) {
+    if (roleCheck.checkRole([UserRoles.ADMIN], user)) {
         const userToCreate: User = req.body as User;
         const userCreated = await dbClient.createUser(userToCreate);
         if (userCreated) {

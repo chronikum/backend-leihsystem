@@ -2,6 +2,6 @@
  * enum to describe user roles
  */
 export enum UserRoles {
-    ADMIN = 'Admin',
-    USER = 'User',
+    ADMIN = 'ADMIN',
+    USER = 'USER',
 }

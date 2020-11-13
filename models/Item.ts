@@ -1,4 +1,5 @@
 import { ItemOwnership } from '../enums/ItemOwnership';
+import { UserRoles } from '../enums/UserRoles';
 
 /**
  * Describes Item used in inventory
@@ -19,4 +20,6 @@ export interface Item {
     startDate: number,
     plannedEndDate: number,
     itemId: number,
+    requiredRolesToReserve: string[],
+    currentReservationId?: string,
 }

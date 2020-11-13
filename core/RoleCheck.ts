@@ -28,8 +28,8 @@ export default class RoleCheck {
      * @param required role
      * @param user given user - do NOT trust
      */
-    async checkRole(required: UserRoles, givenUser: User): Promise<boolean> {
+    async checkRole(required: UserRoles[], givenUser: User): Promise<boolean> {
         const userSearched = await this.dbClient.getUserForId(givenUser.userId);
-        return ((userSearched.role === required) || (userSearched.role === UserRoles.ADMIN));
+        return ((required.includes(userSearched.role)) || (userSearched.role === UserRoles.ADMIN));
     }
 }
