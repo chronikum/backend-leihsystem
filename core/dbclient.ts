@@ -46,7 +46,7 @@ export default class DBClient {
             role: user.role,
         });
 
-        const existingUser = await UserModel.findOne({ userId: user.userId });
+        const existingUser = await UserModel.findOne({ username: user.username });
         if (existingUser) {
             console.log('User does already exist!');
             return false;

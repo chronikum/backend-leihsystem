@@ -2,6 +2,7 @@
 import passport from 'passport';
 import { UserRoles } from '../enums/UserRoles';
 import { Item } from '../models/Item';
+import { User } from '../models/User';
 import DatabaseManager from './databaseManager';
 import DBClient from './dbclient';
 import RoleCheck from './RoleCheck';
@@ -113,6 +114,25 @@ router.post('/getInventory', checkAuthentication, async (req, res) => {
 router.post('/getAvailableItems', checkAuthentication, async (req, res) => {
     const items = await dbClient.getAvailableItems();
     res.send(items);
+});
+
+/**
+ * Create user
+ */
+// Create a device item in inventory
+router.post('/createUser', checkAuthentication, async (req, res) => {
+    const { user } = req;
+    if (roleCheck.checkRole(UserRoles.ADMIN, user)) {
+        const userToCreate: User = req.body as User;
+        const userCreated = await dbClient.createUser(userToCreate);
+        if (userCreated) {
+            res.send({ success: true, item: userCreated });
+        } else {
+            res.send({ success: false, message: 'Item creation failed' });
+        }
+    } else {
+        res.send({ success: false, message: 'You do not have sufficient permission' });
+    }
 });
 
 module.exports = router;
