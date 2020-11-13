@@ -1,9 +1,11 @@
 import { ItemOwnership } from '../enums/ItemOwnership';
 import { UserRoles } from '../enums/UserRoles';
+import { Reservation } from './Reservation';
 
 /**
  * Describes Item used in inventory
  * - also describes the ownership and the availability
+ * - an item holds all the reservations ids which were applied before
  */
 export interface Item {
     name: string, // Device name
@@ -17,8 +19,7 @@ export interface Item {
     model?: string,
     notes?: string,
     available: boolean,
-    startDate: number,
-    plannedEndDate: number,
+    plannedReservationsIds?: string[],
     itemId: number,
     requiredRolesToReserve: string[],
     currentReservationId?: string,

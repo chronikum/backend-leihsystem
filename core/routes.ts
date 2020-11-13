@@ -122,8 +122,8 @@ router.post('/reserveItems', checkAuthentication, async (req, res) => {
     const reservation: Reservation = (req.body.reservation as Reservation);
     const items: Item[] = (req.body.items as Item[]);
     const { user } = req;
-
     const success = await dbClient.reserveItemsWithReservation(reservation, items, user);
+    console.log(success);
     if (success) {
         res.send({ success: true, message: 'Items reserved' });
     } else {

@@ -1,5 +1,6 @@
 import mongoose, { Schema } from 'mongoose';
 import { UserRoles } from '../../enums/UserRoles';
+import ReservationModel from './ReservationModel';
 
 /**
  * Item Schema
@@ -16,8 +17,7 @@ const itemSchema = new Schema({
     model: String,
     notes: String,
     available: Boolean,
-    startDate: Number,
-    plannedEndDate: Number,
+    plannedReservationsIds: [String],
     itemId: Number,
     requiredRolesToReserve: [String],
     currentReservationId: String,

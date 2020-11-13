@@ -1,3 +1,5 @@
+import { Observable } from 'rxjs';
+import { PrimaryExpression } from 'typescript';
 import { UserRoles } from '../enums/UserRoles';
 import { Item } from '../models/Item';
 import ItemModel from '../models/mongodb-models/ItemModel';
@@ -130,8 +132,7 @@ export default class DBClient {
             model: item.model || undefined,
             notes: item.notes || undefined,
             available: item.available || undefined,
-            startDate: item.startDate || undefined,
-            plannedEndDate: item.plannedEndDate || undefined,
+            plannedReservationsIds: item.plannedReservationsIds || undefined,
             itemId: highestId + 1,
             requiredRolesToReserve: item.requiredRolesToReserve || [],
         });
@@ -144,8 +145,8 @@ export default class DBClient {
     /**
      * Reserve items with a reservation
      */
-    async reserveItemsWithReservation(reservation: Reservation, items: Item[], user: User): Promise<Item[]> {
-        if (this.canReservationBeApplied(reservation, items, user)) {
+    async reserveItemsWithReservation(reservation: Reservation, items: Item[], user: User): Promise<any> {
+        if (await this.canReservationBeApplied(reservation, items, user)) {
             // Create reservation with user ID
             const reservationtoCreate = new ReservationModel({
                 reservationName: reservation.reservationName,
@@ -159,28 +160,32 @@ export default class DBClient {
                 completed: reservation.completed || undefined,
             });
 
-            reservationtoCreate.save();
-        } else {
-            return Promise.resolve(null);
+            await reservationtoCreate.save();
+            return Promise.resolve({ sucess: true, message: 'Reservation created' });
         }
         return Promise.resolve(null);
     }
 
     /**
      * Check if a reservation is appliable
+     * - Checks if the items which the users want and the which the can access are the same
      */
     // eslint-disable-next-line max-len
     async canReservationBeApplied(reservation: Reservation, items: Item[], user: User): Promise<boolean> {
-        const permission = items.map(async (item) => {
-            // Get item details as we only know the item id and details can be modified (never trust the user)
-            const dbItem = await this.getItemById(item.itemId);
-            console.log(dbItem);
-            return dbItem.requiredRolesToReserve.includes(user.role);
-        });
+        const itemIds = items.map((item) => item.itemId);
 
-        console.log(permission);
+        // All Items requested
+        const results = await ItemModel.find().where('itemId').in(itemIds) as unknown as Item[];
 
-        return Promise.resolve(false);
+        // Items which the user can lend
+        const reservationRequestAllowed = results.filter(
+            (item) => item.requiredRolesToReserve.includes(user.role),
+        );
+
+        console.log(results);
+        console.log(reservationRequestAllowed);
+
+        return Promise.resolve(results.length === reservationRequestAllowed.length);
     }
 
     /**
