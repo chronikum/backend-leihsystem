@@ -147,9 +147,15 @@ export default class DBClient {
      */
     async reserveItemsWithReservation(reservation: Reservation, items: Item[], user: User): Promise<any> {
         if (await this.canReservationBeApplied(reservation, items, user)) {
+            const reservationCount = await ReservationModel.countDocuments({});
+            const reservationId = reservationCount + 1;
+
+            reservation.reservationId = reservationId;
+
             // Create reservation with user ID
             const reservationtoCreate = new ReservationModel({
                 reservationName: reservation.reservationName,
+                reservationId,
                 description: reservation.description,
                 approvalRequired: reservation.approvalRequired,
                 approved: reservation.approved || undefined,
@@ -159,6 +165,9 @@ export default class DBClient {
                 plannedEndDate: reservation.plannedEndDate,
                 completed: reservation.completed || undefined,
             });
+
+            console.log(`Created reservation id: ${reservationId}`);
+            this.applyReservationToItems(items, reservation);
 
             await reservationtoCreate.save();
             return Promise.resolve({ sucess: true, message: 'Reservation created' });
@@ -186,6 +195,19 @@ export default class DBClient {
         console.log(reservationRequestAllowed);
 
         return Promise.resolve(results.length === reservationRequestAllowed.length);
+    }
+
+    /**
+     * Update the items with the applied reservation
+     * - Updates the items in the database
+     */
+    applyReservationToItems(items: Item[], reservation: Reservation) {
+        const itemIds = items.map((item) => item.itemId);
+        ItemModel.updateMany(
+            { itemId: { $in: itemIds } },
+            { $push: { plannedReservationsIds: reservation.reservationId } },
+            { multi: true },
+        ).exec();
     }
 
     /**

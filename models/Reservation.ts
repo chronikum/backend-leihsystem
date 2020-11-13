@@ -6,6 +6,7 @@ import { Item } from './Item';
  */
 export interface Reservation {
     reservationName: string,
+    reservationId: number,
     description?: string,
     approvalRequired: boolean,
     approved?: boolean,

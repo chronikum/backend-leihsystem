@@ -5,6 +5,7 @@ import mongoose, { Schema } from 'mongoose';
  */
 const reservationSchema = new Schema({
     reservationName: String,
+    reservationId: Number,
     description: String,
     approvalRequired: Boolean,
     approved: Boolean,
