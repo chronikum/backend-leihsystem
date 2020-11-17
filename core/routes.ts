@@ -29,10 +29,11 @@ const router = express.Router();
  */
 function checkAuthentication(req: any, res: any, next: any) {
     if (req.isAuthenticated()) {
-        console.log('Authenticated!');
+        console.log(req.user);
         next();
     } else {
-        res.send({ success: false, message: 'You are not allowed to see this resource.' });
+        console.log(req);
+        res.status(401).send({ success: false, message: 'You are not allowed to see this resource.' });
     }
 }
 
@@ -43,6 +44,7 @@ router.use((req, res, next) => {
     if (dbManager.ready) {
         next();
     } else {
+        // eslint-disable-next-line max-len
         const response = `Could not connect to mongodb database. Please check if it is running. <br> <b>Error Message from DatabaseManager<b>:<br> <p style="color:red">${DatabaseManager.instance?.errorMessage || 'none'}</p>`;
         res.send(response);
     }
@@ -76,6 +78,11 @@ router.get('/systemlogs', checkAuthentication, (req, res) => {
   */
 // User Login
 router.post('/login', passport.authenticate('local'), (req, res) => {
+    res.send({ success: true });
+});
+
+// User Authentication Checkout
+router.post('/checkAuth', checkAuthentication, (req, res) => {
     res.send({ success: true });
 });
 

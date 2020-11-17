@@ -50,12 +50,12 @@ export default class Server {
      */
     private configure() {
         this.app.use(express.json({ type: '*/*' }));
-        this.app.use(cors({ credentials: true, origin: 'http://localhost' }));
+        this.app.use(cors({ credentials: true, origin: 'http://localhost:4200' }));
         this.app.use(
             session({
                 secret: 'oaiulhsrkfjbdhsg67iegurkzh78owgaukzrs',
                 resave: false,
-                saveUninitialized: false,
+                saveUninitialized: true,
             }),
         );
         this.app.use(passport.initialize());
