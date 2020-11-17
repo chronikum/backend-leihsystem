@@ -19,7 +19,7 @@ export interface Item {
     model?: string,
     notes?: string,
     available: boolean,
-    plannedReservationsIds?: string[],
+    plannedReservationsIds?: number[],
     itemId: number,
     requiredRolesToReserve: string[],
     currentReservationId?: string,

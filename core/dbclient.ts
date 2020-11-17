@@ -1,5 +1,6 @@
 import { Observable } from 'rxjs';
 import { PrimaryExpression } from 'typescript';
+import * as dayjs from 'dayjs';
 import { UserRoles } from '../enums/UserRoles';
 import { Item } from '../models/Item';
 import ItemModel from '../models/mongodb-models/ItemModel';
@@ -145,11 +146,15 @@ export default class DBClient {
     /**
      * Reserve items with a reservation
      */
+    // eslint-disable-next-line max-len
     async reserveItemsWithReservation(reservation: Reservation, items: Item[], user: User): Promise<any> {
-        if (await this.canReservationBeApplied(reservation, items, user)) {
+        const canBeApplied = await this.canReservationBeApplied(reservation, items, user);
+        console.log(`Can be applied: ${canBeApplied}`);
+        if (canBeApplied) {
             const reservationCount = await ReservationModel.countDocuments({});
             const reservationId = reservationCount + 1;
 
+            // eslint-disable-next-line no-param-reassign
             reservation.reservationId = reservationId;
 
             // Create reservation with user ID
@@ -178,23 +183,62 @@ export default class DBClient {
     /**
      * Check if a reservation is appliable
      * - Checks if the items which the users want and the which the can access are the same
+     * - Checks if the reservation collides with another reservation which has been applied
      */
     // eslint-disable-next-line max-len
     async canReservationBeApplied(reservation: Reservation, items: Item[], user: User): Promise<boolean> {
         const itemIds = items.map((item) => item.itemId);
 
-        // All Items requested
+        // Load items from database
         const results = await ItemModel.find().where('itemId').in(itemIds) as unknown as Item[];
 
         // Items which the user can lend
         const reservationRequestAllowed = results.filter(
             (item) => item.requiredRolesToReserve.includes(user.role),
         );
+        const affectedReservationIds: Set<number> = new Set<number>();
 
-        console.log(results);
-        console.log(reservationRequestAllowed);
+        // All affected reservation ids
+        results.forEach((item) => item.plannedReservationsIds.forEach((id) => affectedReservationIds.add(id)));
+        // Load the affected reservations
+        const affectedReservations = await ReservationModel.find().where('reservationId').in(Array.from(affectedReservationIds)) as unknown as Reservation[];
 
-        return Promise.resolve(results.length === reservationRequestAllowed.length);
+        const validReservationRequest = this.reservationHasNoCollisions(affectedReservations, reservation);
+
+        // return Promise.resolve(true);
+        return Promise.resolve(
+            ((results.length === reservationRequestAllowed.length) && validReservationRequest),
+        );
+    }
+
+    /**
+     * Checks if any reservations collisions occure
+     * @param reservationIds
+     * @param newReservation
+     *
+     * @returns true if no collision exists
+     */
+    // eslint-disable-next-line max-len
+    reservationHasNoCollisions(currentReservations: Reservation[], newReservation: Reservation): boolean {
+        const validDates = currentReservations.filter((reservation) => {
+            if (newReservation.startDate && newReservation.plannedEndDate) {
+                const startDatePlanned = dayjs.unix(reservation.startDate);
+                const endDatePlanned = dayjs.unix(reservation.plannedEndDate);
+                const newReservationStartDate = dayjs.unix(newReservation.startDate);
+                const newReservationEndDate = dayjs.unix(newReservation.plannedEndDate);
+
+                // Dates are both before the time span or after
+                // eslint-disable-next-line max-len
+                if ((newReservationStartDate.isBefore(startDatePlanned) && newReservationEndDate.isBefore(startDatePlanned)) || ((newReservationStartDate.isAfter(endDatePlanned) && newReservationEndDate.isAfter(endDatePlanned)))) {
+                    return true;
+                }
+                return false;
+            }
+            return false;
+        });
+        const valid = (validDates.length === currentReservations.length);
+        console.log(`Is valid: ${valid}`);
+        return valid;
     }
 
     /**
@@ -208,6 +252,14 @@ export default class DBClient {
             { $push: { plannedReservationsIds: reservation.reservationId } },
             { multi: true },
         ).exec();
+    }
+
+    /**
+     * get details about an existing reservation
+     * @param reservationId id of the reservation
+     */
+    async getReservationById(reservationId: number): Promise<Reservation> {
+        return ReservationModel.find({ reservationId }) as unknown as Promise<Reservation>;
     }
 
     /**

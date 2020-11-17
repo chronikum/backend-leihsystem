@@ -17,7 +17,7 @@ const itemSchema = new Schema({
     model: String,
     notes: String,
     available: Boolean,
-    plannedReservationsIds: [String],
+    plannedReservationsIds: [Number],
     itemId: Number,
     requiredRolesToReserve: [String],
     currentReservationId: String,

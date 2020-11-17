@@ -16,7 +16,8 @@ const router = require('./core/routes');
 
 /**
  * Serves endpoints which can be called.
- * Handles authentication
+ * - Handles authentication
+ * - Manages database
  * {@link Server}
  */
 export default class Server {
@@ -173,5 +174,7 @@ export default class Server {
     }
 }
 
-// Start server
+/**
+ * Start server
+ */
 const server = new Server();
