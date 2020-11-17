@@ -149,7 +149,6 @@ export default class DBClient {
     // eslint-disable-next-line max-len
     async reserveItemsWithReservation(reservation: Reservation, items: Item[], user: User): Promise<any> {
         const canBeApplied = await this.canReservationBeApplied(reservation, items, user);
-        console.log(`Can be applied: ${canBeApplied}`);
         if (canBeApplied) {
             const reservationCount = await ReservationModel.countDocuments({});
             const reservationId = reservationCount + 1;
@@ -202,10 +201,9 @@ export default class DBClient {
         results.forEach((item) => item.plannedReservationsIds.forEach((id) => affectedReservationIds.add(id)));
         // Load the affected reservations
         const affectedReservations = await ReservationModel.find().where('reservationId').in(Array.from(affectedReservationIds)) as unknown as Reservation[];
-
+        // Check if reservation collides with any collisions
         const validReservationRequest = this.reservationHasNoCollisions(affectedReservations, reservation);
 
-        // return Promise.resolve(true);
         return Promise.resolve(
             ((results.length === reservationRequestAllowed.length) && validReservationRequest),
         );
