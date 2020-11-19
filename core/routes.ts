@@ -33,7 +33,7 @@ function checkAuthentication(req: any, res: any, next: any) {
         next();
     } else {
         console.log(req);
-        res.status(401).send({ success: false, message: 'You are not allowed to see this resource.' });
+        res.send({ success: false, message: 'You are not allowed to see this resource.' });
     }
 }
 
