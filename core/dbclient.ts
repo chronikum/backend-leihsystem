@@ -93,15 +93,6 @@ export default class DBClient {
     }
 
     /**
-     * Returns all items which are available
-     */
-    async getAvailableItems(): Promise<Item[]> {
-        const items = ((await ItemModel.find({ available: true }))) as unknown as Item[] || [];
-
-        return Promise.resolve(items);
-    }
-
-    /**
      * Get item by id
      *
      * @param number id

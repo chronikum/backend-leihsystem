@@ -120,7 +120,7 @@ router.post('/getInventory', checkAuthentication, async (req, res) => {
 
 // Get all items which are available
 router.post('/getAvailableItems', checkAuthentication, async (req, res) => {
-    const items = await dbClient.getAvailableItems();
+    const items = await dbClient.getInventoryList();
     res.send(items);
 });
 
