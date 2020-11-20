@@ -135,6 +135,14 @@ export default class DBClient {
     }
 
     /**
+     * Check availability of items
+     */
+    async updateAvailabilityOfItems(items: Item[]): Promise<Item[]> {
+        const itemsWithAvailability = await this.itemsAvailableinCollection(items);
+        return itemsWithAvailability;
+    }
+
+    /**
      * Reserve items with a reservation
      */
     // eslint-disable-next-line max-len
@@ -201,6 +209,46 @@ export default class DBClient {
     }
 
     /**
+     * Checks if a item should be available right now (a reservation is currently active)
+     *
+     * @TODO This can be optimized for sure
+     * @TODO Ask if items are surely being scanned before they are being lended
+     * @TODO Maybe deprecated in prod
+     */
+    async itemsAvailableinCollection(items: Item[]): Promise<Item[]> {
+        const itemIds = items.map((item) => item.itemId);
+        const existingItems = await ItemModel.find().where('itemId').in(itemIds) as unknown as Item[];
+
+        // Get all reservations
+        const allReservations = await this.reservationsInItemCollection(existingItems);
+
+        // Returns an array with all valid reservations
+        const validReservations = allReservations.filter((reservation) => {
+            if (reservation.startDate && reservation.plannedEndDate) {
+                const startDatePlanned = dayjs.unix(reservation.startDate);
+                const endDatePlanned = dayjs.unix(reservation.plannedEndDate);
+                const newReservationStartDate = dayjs.unix(Date.now());
+                const newReservationEndDate = dayjs.unix(Date.now());
+
+                // Dates are both before the time span or after
+                // eslint-disable-next-line max-len
+                if ((newReservationStartDate.isBefore(startDatePlanned) && newReservationEndDate.isBefore(startDatePlanned)) || ((newReservationStartDate.isAfter(endDatePlanned) && newReservationEndDate.isAfter(endDatePlanned)))) {
+                    return true;
+                }
+                return false;
+            }
+            return false;
+        });
+        const validReservationIds = validReservations.map((reservation) => reservation.reservationId);
+
+        // eslint-disable-next-line no-param-reassign, no-return-assign
+        existingItems.forEach((item) => item.available = ((item.plannedReservationsIds || []).every((id) => validReservationIds.includes(id))));
+        const itemsAvailable = existingItems.filter((item) => item.available);
+        console.log(`${existingItems.length}/${itemsAvailable.length} are available`);
+        return existingItems;
+    }
+
+    /**
      * Checks if any reservations collisions occure
      * @param reservationIds
      * @param newReservation
@@ -249,6 +297,22 @@ export default class DBClient {
      */
     async getReservationById(reservationId: number): Promise<Reservation> {
         return ReservationModel.find({ reservationId }) as unknown as Promise<Reservation>;
+    }
+
+    /**
+     * Returns all the reservations an item holds
+     *
+     * @param items
+     *
+     * @returns Reservations
+     */
+    async reservationsInItemCollection(items: Item[]): Promise<Reservation[]> {
+        const affectedReservationIds: Set<number> = new Set<number>();
+
+        const itemIds = items.map((item) => item.itemId);
+        const results = await ItemModel.find().where('itemId').in(itemIds) as unknown as Item[];
+        results.forEach((item) => item.plannedReservationsIds.forEach((id) => affectedReservationIds.add(id)));
+        return ReservationModel.find().where('reservationId').in(Array.from(affectedReservationIds)) as unknown as Reservation[];
     }
 
     /**

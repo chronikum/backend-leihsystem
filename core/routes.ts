@@ -118,10 +118,15 @@ router.post('/getInventory', checkAuthentication, async (req, res) => {
     res.send(items);
 });
 
-// Get all items which are available
+// Get all items which are available from the items parameter
+// param: items[]
+//
+// This can be handled client side, too – but server has more detailed information
+//
 router.post('/getAvailableItems', checkAuthentication, async (req, res) => {
-    const items = await dbClient.getInventoryList();
-    res.send(items);
+    const items: Item[] = req.body?.items as Item[] || [];
+    const availableItems = await dbClient.updateAvailabilityOfItems(items || []);
+    res.send(availableItems);
 });
 
 // Book an item
