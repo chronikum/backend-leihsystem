@@ -136,6 +136,8 @@ export default class DBClient {
 
     /**
      * Check availability of items
+     *
+     * @TODO MAYBE USE MONGOOSE RANGE SELECTOR INSTEAD!
      */
     async updateAvailabilityOfItems(items: Item[]): Promise<Item[]> {
         const itemsWithAvailability = await this.itemsAvailableinCollection(items);
@@ -211,6 +213,8 @@ export default class DBClient {
     /**
      * Checks if a item should be available right now (a reservation is currently active)
      *
+     * @TODO MAYBE USE MONGOOSE RANGE SELECTOR INSTEAD!
+     *
      * @TODO This can be optimized for sure
      * @TODO Ask if items are surely being scanned before they are being lended
      * @TODO Maybe deprecated in prod
@@ -276,6 +280,23 @@ export default class DBClient {
         const valid = (validDates.length === currentReservations.length);
         console.log(`Is valid: ${valid}`);
         return valid;
+    }
+
+    /**
+     * Delete items (if permission exists)
+     *
+     * @TODO Currently only admins can modify items data
+     */
+    async deleteItems(items: Item[]): Promise<boolean> {
+        // All the item ids
+        const itemIds = items.map((item) => item.itemId);
+        const res = await ItemModel.deleteMany({
+            itemId: {
+                $in: itemIds || [],
+            },
+        });
+
+        return Promise.resolve(!!res);
     }
 
     /**

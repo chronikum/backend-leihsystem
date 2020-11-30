@@ -2,6 +2,8 @@
 import passport from 'passport';
 import { UserRoles } from '../enums/UserRoles';
 import { Item } from '../models/Item';
+import ReservationModel from '../models/mongodb-models/ReservationModel';
+import UserModel from '../models/mongodb-models/UserModel';
 import { Reservation } from '../models/Reservation';
 import { User } from '../models/User';
 import DatabaseManager from './databaseManager';
@@ -29,10 +31,8 @@ const router = express.Router();
  */
 function checkAuthentication(req: any, res: any, next: any) {
     if (req.isAuthenticated()) {
-        console.log(req.user);
         next();
     } else {
-        console.log(req);
         res.send({ success: false, message: 'You are not allowed to see this resource.' });
     }
 }
@@ -76,17 +76,24 @@ router.get('/systemlogs', checkAuthentication, (req, res) => {
 /**
   * User Routes
   */
-// User Login
+
+/**
+ * User Login
+ */
 router.post('/login', passport.authenticate('local'), (req, res) => {
     res.send({ success: true });
 });
 
-// User Authentication Checkout
+/**
+ * User Authentication Checkout
+ */
 router.post('/checkAuth', checkAuthentication, (req, res) => {
     res.send({ success: true });
 });
 
-// User Logout
+/**
+ * User authentication log out
+ */
 router.post('/logout', checkAuthentication, (req, res) => {
     req.logout();
     res.send({ success: true });
@@ -96,7 +103,9 @@ router.post('/logout', checkAuthentication, (req, res) => {
  * Item Routes
  */
 
-// Create a device item in inventory
+/**
+ * Create an item in the device inventory
+ */
 router.post('/createItem', checkAuthentication, async (req, res) => {
     const { user } = req;
     if (roleCheck.checkRole([UserRoles.ADMIN], user)) {
@@ -112,34 +121,95 @@ router.post('/createItem', checkAuthentication, async (req, res) => {
     }
 });
 
-// Get all items
+/**
+ * Get available ownerships
+ *
+ * @TODO make dynamic
+ */
+router.post('/availableOwnerships', checkAuthentication, async (req, res) => {
+    res.send(['USER', 'ADMIN', 'UNKNOWN']);
+});
+
+/**
+ * Get all inventory items
+ *
+ */
 router.post('/getInventory', checkAuthentication, async (req, res) => {
     const items = await dbClient.getInventoryList();
     res.send(items);
 });
 
-// Get all items which are available from the items parameter
-// param: items[]
-//
-// This can be handled client side, too – but server has more detailed information
-//
+/**
+ * Delete items (admin only currently!)
+ *
+ * @param items
+ */
+router.post('/deleteItems', checkAuthentication, async (req, res) => {
+    const { user } = req; // The real user
+    console.log('Deletion requested');
+    if (roleCheck.checkRole([UserRoles.ADMIN], user)) {
+        const itemIdsToDelete: Item[] = req.body.items as Item[];
+        const deleted = await dbClient.deleteItems(itemIdsToDelete);
+        console.log(`DELETED: ${deleted}`);
+        res.send({ success: true });
+    } else {
+        res.send({ success: false, message: 'You are not allowed to delete those items.' });
+    }
+});
+
+/**
+ * Get all items which are available
+ */
 router.post('/getAvailableItems', checkAuthentication, async (req, res) => {
+    const items = await dbClient.getInventoryList();
+    const availableItems = await dbClient.updateAvailabilityOfItems(items || []);
+    res.send(availableItems);
+});
+
+/**
+ *  Get all items which are available from the items parameter
+ * param: items[]
+ * This can be handled client side, too – but server has more detailed information
+ */
+router.post('/getAvailableItemsForItems', checkAuthentication, async (req, res) => {
     const items: Item[] = req.body?.items as Item[] || [];
     const availableItems = await dbClient.updateAvailabilityOfItems(items || []);
     res.send(availableItems);
 });
 
-// Book an item
+/**
+ * Reserve several items
+ */
 router.post('/reserveItems', checkAuthentication, async (req, res) => {
     const reservation: Reservation = (req.body.reservation as Reservation);
     const items: Item[] = (req.body.items as Item[]);
     const { user } = req;
     const success = await dbClient.reserveItemsWithReservation(reservation, items, user);
+    console.log(success);
     if (success) {
         res.send({ success: true, message: 'Items reserved' });
     } else {
         res.send({ success: false, message: 'A reservation in the given time range does already eexist.' });
     }
+});
+
+/**
+ * Get all reservations on the system
+ */
+router.post('/allReservations', checkAuthentication, async (req, res) => {
+    const reservations = await ReservationModel.find() as unknown as Reservation[];
+    res.send(reservations);
+});
+
+/**
+ * Get user Count of the system
+ */
+router.post('/getUserCount', checkAuthentication, async (req, res) => {
+    const userCount = await UserModel.find() as unknown as User[] || [];
+    res.send({
+        success: true,
+        userCount: userCount.length,
+    });
 });
 
 /**
@@ -159,6 +229,16 @@ router.post('/createUser', checkAuthentication, async (req, res) => {
     } else {
         res.send({ success: false, message: 'You do not have sufficient permission' });
     }
+});
+
+/**
+ * Get user information
+ *
+ * @TODO SENSITIVE DATA - MASK!
+ */
+router.post('/getUserProfile', checkAuthentication, async (req, res) => {
+    const { user } = req; // The real user
+    res.send(user);
 });
 
 module.exports = router;
