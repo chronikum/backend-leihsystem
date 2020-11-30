@@ -41,7 +41,8 @@ export default class DBClient {
 
         const hashedPW = crypto.createHmac('sha256', user.password).digest('hex');
         // eslint-disable-next-line no-param-reassign
-        user.userId = (highestUser + 1).toString();
+        // eslint-disable-next-line radix
+        user.userId = (parseInt((highestUser as any)) + 1).toString();
 
         const newUser = new UserModel({
             username: user.username,
