@@ -259,7 +259,6 @@ export default class DBClient {
      *
      * @returns true if no collision exists
      */
-    // eslint-disable-next-line max-len
     reservationHasNoCollisions(currentReservations: Reservation[], newReservation: Reservation): boolean {
         const validDates = currentReservations.filter((reservation) => {
             if (newReservation.startDate && newReservation.plannedEndDate) {
@@ -334,6 +333,23 @@ export default class DBClient {
         const results = await ItemModel.find().where('itemId').in(itemIds) as unknown as Item[];
         results.forEach((item) => item.plannedReservationsIds.forEach((id) => affectedReservationIds.add(id)));
         return ReservationModel.find().where('reservationId').in(Array.from(affectedReservationIds)) as unknown as Reservation[];
+    }
+
+    /**
+     * Gets all users in an array
+     */
+    async getAllUsers(): Promise<User[]> {
+        const users = await UserModel.find() as unknown as User[];
+        return Promise.resolve(users);
+    }
+
+    /**
+     * A users logs in - sets last login time
+     */
+    newLogin(user: User) {
+        const dateNow = Date.now();
+        console.log(user);
+        UserModel.updateOne({ userId: user.userId }, { lastLogin: dateNow }).exec();
     }
 
     /**

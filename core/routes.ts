@@ -79,8 +79,13 @@ router.get('/systemlogs', checkAuthentication, (req, res) => {
 
 /**
  * User Login
+ *
+ * Also sets last login time
  */
 router.post('/login', passport.authenticate('local'), (req, res) => {
+    const { user } = req;
+    console.log('LOGIN! SETTING LAST LOGIN TIME');
+    dbClient.newLogin(user);
     res.send({ success: true });
 });
 
@@ -89,6 +94,15 @@ router.post('/login', passport.authenticate('local'), (req, res) => {
  */
 router.post('/checkAuth', checkAuthentication, (req, res) => {
     res.send({ success: true });
+});
+
+/**
+ * Gets all users
+ *
+ */
+router.post('/getAllUsers', checkAuthentication, async (req, res) => {
+    const users = await dbClient.getAllUsers();
+    res.send(users);
 });
 
 /**
