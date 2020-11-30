@@ -246,6 +246,26 @@ router.post('/createUser', checkAuthentication, async (req, res) => {
 });
 
 /**
+ * Delete users provided
+ *
+ * - Attention: Will delete users, one-way operation
+ */
+router.post('/deleteUsers', checkAuthentication, async (req, res) => {
+    const { user } = req; // The real user
+    if (roleCheck.checkRole([UserRoles.ADMIN], user)) {
+        const usersToDelete: User[] = req.body as User[];
+        const userCreated = await dbClient.deleteUsers(usersToDelete);
+        if (userCreated) {
+            res.send({ success: true, item: userCreated });
+        } else {
+            res.send({ success: false, message: 'Item creation failed' });
+        }
+    } else {
+        res.send({ success: false, message: 'You do not have sufficient permission' });
+    }
+});
+
+/**
  * Get user information
  *
  * @TODO SENSITIVE DATA - MASK!

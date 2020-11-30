@@ -64,6 +64,16 @@ export default class DBClient {
     }
 
     /**
+     * Delete users provided
+     *
+     * @param User[]
+     */
+    async deleteUsers(users: User[]): Promise<boolean> {
+        const userIds = users.map((item) => item.userId);
+        return UserModel.deleteMany({ userId: { $in: userIds } }).exec().then((x) => (x.ok === 1));
+    }
+
+    /**
      * Get user with the id
      *
      * @param id user id
