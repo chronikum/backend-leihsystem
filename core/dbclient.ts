@@ -261,6 +261,8 @@ export default class DBClient {
     /**
      * Checks if a item should be available right now (a reservation is currently active)
      *
+     * Also sets the current reservationId if necessary
+     *
      * @TODO MAYBE USE MONGOOSE RANGE SELECTOR INSTEAD!
      *
      * @TODO This can be optimized for sure
