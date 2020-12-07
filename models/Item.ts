@@ -23,4 +23,5 @@ export interface Item {
     itemId: number,
     requiredRolesToReserve: string[],
     currentReservationId?: string,
+    generatedUniqueIdentifier: string, // The string which identifies the device and will be on the qr code
 }

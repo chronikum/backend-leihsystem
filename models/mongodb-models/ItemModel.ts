@@ -21,6 +21,7 @@ const itemSchema = new Schema({
     itemId: Number,
     requiredRolesToReserve: [String],
     currentReservationId: String,
+    generatedUniqueIdentifier: String,
 });
 
 const ItemModel = mongoose.model('ItemModel', itemSchema);

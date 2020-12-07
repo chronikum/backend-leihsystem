@@ -208,6 +208,19 @@ router.post('/reserveItems', checkAuthentication, async (req, res) => {
 });
 
 /**
+ * Get item by unique generated code
+ */
+router.post('/getItemByUnique', checkAuthentication, async (req, res) => {
+    const { uniqueGeneratedString } = req.body;
+    const item = await dbClient.getItemByUnique(uniqueGeneratedString);
+    if (item) {
+        res.send({ success: true, items: [item] });
+    } else {
+        res.send({ success: false, message: 'A reservation in the given time range does already eexist.' });
+    }
+});
+
+/**
  * Get all reservations on the system
  */
 router.post('/allReservations', checkAuthentication, async (req, res) => {
@@ -235,6 +248,7 @@ router.post('/createUser', checkAuthentication, async (req, res) => {
     if (roleCheck.checkRole([UserRoles.ADMIN], user)) {
         const userToCreate: User = req.body as User;
         const userCreated = await dbClient.createUser(userToCreate);
+
         if (userCreated) {
             res.send({ success: true, item: userCreated });
         } else {
@@ -254,11 +268,34 @@ router.post('/deleteUsers', checkAuthentication, async (req, res) => {
     const { user } = req; // The real user
     if (roleCheck.checkRole([UserRoles.ADMIN], user)) {
         const usersToDelete: User[] = req.body as User[];
-        const userCreated = await dbClient.deleteUsers(usersToDelete);
-        if (userCreated) {
-            res.send({ success: true, item: userCreated });
+        const deletionSuccess = await dbClient.deleteUsers(usersToDelete);
+
+        if (deletionSuccess) {
+            res.send({ success: true, message: 'Deletion successful' });
         } else {
-            res.send({ success: false, message: 'Item creation failed' });
+            res.send({ success: false, message: 'Item deleten failed' });
+        }
+    } else {
+        res.send({ success: false, message: 'You do not have sufficient permission' });
+    }
+});
+
+/**
+ * Changes password for a user
+ *
+ * - needs admin privilege
+ */
+router.post('/changePasswordForUser', checkAuthentication, async (req, res) => {
+    const { user } = req; // The real user
+    if (roleCheck.checkRole([UserRoles.ADMIN], user)) {
+        const userToModify: User = req.body.user as User;
+        const newPassword: string = req.body.newPassword as string;
+
+        const passwordChangeSuccess = await dbClient.changePasswordForUser(userToModify, newPassword);
+        if (passwordChangeSuccess) {
+            res.send({ success: true, item: 'Changes password successfully!' });
+        } else {
+            res.send({ success: false, message: 'Could not change users password' });
         }
     } else {
         res.send({ success: false, message: 'You do not have sufficient permission' });

@@ -74,6 +74,19 @@ export default class DBClient {
     }
 
     /**
+     * Change a users password
+     *
+     * @param user which passwords should be changed
+     * @param newPassword to set
+     *
+     * @returns true, if successful
+     */
+    changePasswordForUser(user: User, newPassword: string): Promise<boolean> {
+        const hashedPW = crypto.createHmac('sha256', newPassword).digest('hex');
+        return UserModel.updateOne({ userId: user.userId }, { password: hashedPW }).exec().then((x) => x.ok === 1);
+    }
+
+    /**
      * Get user with the id
      *
      * @param id user id
@@ -114,13 +127,30 @@ export default class DBClient {
     }
 
     /**
+     * Get item by unique generated string
+     *
+     * @param number generatedUniqueIdentifier
+     */
+    async getItemByUnique(unique: string): Promise<Item> {
+        const item = ((await ItemModel.findOne({ generatedUniqueIdentifier: unique }))) as unknown as Item;
+        return item;
+    }
+
+    /**
      * Create item with given values
+     *
+     * @param item
+     *
+     * @returns Created Item
      */
     async createItem(item: Item): Promise<Item> {
         const itemCount = await ItemModel.countDocuments({});
         const highestId: number = itemCount === 0 ? 0 : ((((await ItemModel.find()
             .sort({ itemId: -1 })
             .limit(1)) as unknown as Item[])[0].itemId || 0) as number);
+
+        const initialAdminPassword = crypto.randomBytes(4).toString('hex');
+        const generatedUniqueIdentifier = `${highestId}${initialAdminPassword}`;
 
         const itemtoCreate = new ItemModel({
             name: item.name || undefined,
@@ -137,6 +167,7 @@ export default class DBClient {
             plannedReservationsIds: item.plannedReservationsIds || undefined,
             itemId: highestId + 1,
             requiredRolesToReserve: item.requiredRolesToReserve || [],
+            generatedUniqueIdentifier,
         });
 
         await itemtoCreate.save({});
