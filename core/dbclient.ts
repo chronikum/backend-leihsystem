@@ -195,7 +195,6 @@ export default class DBClient {
             const reservationCount = await ReservationModel.countDocuments({});
             const reservationId = reservationCount + 1;
 
-            // eslint-disable-next-line no-param-reassign
             reservation.reservationId = reservationId;
 
             // Create reservation with user ID
@@ -290,12 +289,10 @@ export default class DBClient {
                 // Dates are both before the time span or after
                 // eslint-disable-next-line max-len
                 if ((newReservationStartDate.isBefore(startDatePlanned) && newReservationEndDate.isBefore(startDatePlanned)) || ((newReservationStartDate.isAfter(endDatePlanned) && newReservationEndDate.isAfter(endDatePlanned)))) {
-                    // eslint-disable-next-line no-param-reassign
                     reservation.active = false;
                     inactiveReservation.push(reservation);
                     return reservation;
                 }
-                // eslint-disable-next-line no-param-reassign
                 reservation.active = true;
                 return reservation;
             }
@@ -304,7 +301,7 @@ export default class DBClient {
 
         const activeReservations = inactiveReservation.map((reservation) => reservation.reservationId);
 
-        // eslint-disable-next-line no-param-reassign, no-return-assign
+        // eslint-disable-next-line no-return-assign
         existingItems.forEach((item) => item.available = ((item.plannedReservationsIds || []).every((id) => activeReservations.includes(id))));
         const itemsAvailable = existingItems.filter((item) => item.available);
         console.log(`${existingItems.length}/${itemsAvailable.length} are available`);

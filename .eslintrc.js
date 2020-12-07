@@ -26,5 +26,6 @@ module.exports = {
         'no-unresolved': 0,
         'import/prefer-default-export': 0,
         'max-len': ['error', { code: 180 }],
+        'no-param-reassign': 0,
     },
 };
