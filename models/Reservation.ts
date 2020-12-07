@@ -15,4 +15,5 @@ export interface Reservation {
     startDate: number,
     plannedEndDate: number,
     completed: boolean,
+    active?: boolean, // Only needed during runtime
 }

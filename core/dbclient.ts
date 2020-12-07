@@ -276,8 +276,11 @@ export default class DBClient {
         // Get all reservations
         const allReservations = await this.reservationsInItemCollection(existingItems);
 
+        // An array with all currently inactive reservations
+        const inactiveReservation = [];
+
         // Returns an array with all valid reservations
-        const validReservations = allReservations.filter((reservation) => {
+        const updatedReservations = allReservations.map((reservation) => {
             if (reservation.startDate && reservation.plannedEndDate) {
                 const startDatePlanned = dayjs.unix(reservation.startDate);
                 const endDatePlanned = dayjs.unix(reservation.plannedEndDate);
@@ -287,18 +290,27 @@ export default class DBClient {
                 // Dates are both before the time span or after
                 // eslint-disable-next-line max-len
                 if ((newReservationStartDate.isBefore(startDatePlanned) && newReservationEndDate.isBefore(startDatePlanned)) || ((newReservationStartDate.isAfter(endDatePlanned) && newReservationEndDate.isAfter(endDatePlanned)))) {
-                    return true;
+                    // eslint-disable-next-line no-param-reassign
+                    reservation.active = false;
+                    inactiveReservation.push(reservation);
+                    return reservation;
                 }
-                return false;
+                // eslint-disable-next-line no-param-reassign
+                reservation.active = true;
+                return reservation;
             }
-            return false;
+            return reservation;
         });
-        const validReservationIds = validReservations.map((reservation) => reservation.reservationId);
+
+        const activeReservations = inactiveReservation.map((reservation) => reservation.reservationId);
 
         // eslint-disable-next-line no-param-reassign, no-return-assign
-        existingItems.forEach((item) => item.available = ((item.plannedReservationsIds || []).every((id) => validReservationIds.includes(id))));
+        existingItems.forEach((item) => item.available = ((item.plannedReservationsIds || []).every((id) => activeReservations.includes(id))));
         const itemsAvailable = existingItems.filter((item) => item.available);
         console.log(`${existingItems.length}/${itemsAvailable.length} are available`);
+        const totalActiveReservations = updatedReservations.filter((reservation: Reservation) => reservation.active);
+        console.log(`In total there are ${totalActiveReservations.length} reservations active`);
+
         return existingItems;
     }
 
