@@ -15,6 +15,11 @@ const LocalStrategy = require('passport-local').Strategy;
 const router = require('./core/routes');
 
 /**
+ * Determines if the server is running in production
+ */
+const production = process.argv.slice(2);
+
+/**
  * Serves endpoints which can be called.
  * - Handles authentication
  * - Manages database
@@ -43,14 +48,35 @@ export default class Server {
     }
 
     /**
-     * Configure System
+     * Configure System with production or development environment
      * - express with json, session, flash and passport
      * - calls setupAuth() when ready
      * - Creates initial admin users if necessary
      */
     private configure() {
+        /**
+         * ENV VARIABLES
+         */
+
+        let corsOrigin = '';
+        const apiUri = '';
+
+        // CORS
+        const developingOrigin = 'http://localhost:4200';
+        const productionOrigin = 'https://irrturm.de';
+
+        // Uri of the API
+        const productionUri = 'http://localhost:8080';
+        const developingUri = 'https://irrturm.de/api';
+
+        corsOrigin = developingOrigin;
+        if (production[0] === 'prod') {
+            console.log('Detected production setting.');
+            corsOrigin = productionOrigin;
+        }
+
         this.app.use(express.json({ type: '*/*' }));
-        this.app.use(cors({ credentials: true, origin: 'http://localhost:4200' }));
+        this.app.use(cors({ credentials: true, origin: corsOrigin }));
         this.app.use(
             session({
                 secret: 'oaiulhsrkfjbdhsg67iegurkzh78owgaukzrs',
