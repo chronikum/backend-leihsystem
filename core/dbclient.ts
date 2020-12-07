@@ -234,9 +234,16 @@ export default class DBClient {
         const results = await ItemModel.find().where('itemId').in(itemIds) as unknown as Item[];
 
         // Items which the user can lend
+        // Always allows ADMIN role
+        // TODO: Make roles dynamic
         const reservationRequestAllowed = results.filter(
-            (item) => item.requiredRolesToReserve.includes(user.role),
+            (item) => {
+                const userRoleCheck = item.requiredRolesToReserve.includes(user.role);
+                const isAdminCheck = user.role === UserRoles.ADMIN;
+                return (userRoleCheck || isAdminCheck);
+            },
         );
+
         const affectedReservationIds: Set<number> = new Set<number>();
 
         // All affected reservation ids
