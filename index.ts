@@ -59,7 +59,6 @@ export default class Server {
          */
 
         let corsOrigin = '';
-        const apiUri = '';
 
         // CORS
         const developingOrigin = 'http://localhost:4200';

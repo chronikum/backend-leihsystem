@@ -133,7 +133,9 @@ export default class DBClient {
      */
     async getItemByUnique(unique: string): Promise<Item> {
         const item = ((await ItemModel.findOne({ generatedUniqueIdentifier: unique }))) as unknown as Item;
-        return item;
+        const updatedAvailability = await this.updateAvailabilityOfItems([item]);
+        console.log(updatedAvailability);
+        return updatedAvailability[0];
     }
 
     /**
@@ -304,9 +306,8 @@ export default class DBClient {
         // eslint-disable-next-line no-return-assign
         existingItems.forEach((item) => item.available = ((item.plannedReservationsIds || []).every((id) => activeReservations.includes(id))));
         const itemsAvailable = existingItems.filter((item) => item.available);
-        console.log(`${existingItems.length}/${itemsAvailable.length} are available`);
+
         const totalActiveReservations = updatedReservations.filter((reservation: Reservation) => reservation.active);
-        console.log(`In total there are ${totalActiveReservations.length} reservations active`);
 
         return existingItems;
     }

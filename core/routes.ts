@@ -213,6 +213,7 @@ router.post('/reserveItems', checkAuthentication, async (req, res) => {
 router.post('/getItemByUnique', checkAuthentication, async (req, res) => {
     const { uniqueGeneratedString } = req.body;
     const item = await dbClient.getItemByUnique(uniqueGeneratedString);
+    console.log(`ITEM: ${item}`);
     if (item) {
         res.send({ success: true, items: [item] });
     } else {
