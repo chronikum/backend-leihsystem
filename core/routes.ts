@@ -4,6 +4,7 @@ import { UserRoles } from '../enums/UserRoles';
 import { Item } from '../models/Item';
 import ReservationModel from '../models/mongodb-models/ReservationModel';
 import UserModel from '../models/mongodb-models/UserModel';
+import { PublicUser } from '../models/PublicUser';
 import { Reservation } from '../models/Reservation';
 import { User } from '../models/User';
 import DatabaseManager from './databaseManager';
@@ -83,17 +84,19 @@ router.get('/systemlogs', checkAuthentication, (req, res) => {
  * Also sets last login time
  */
 router.post('/login', passport.authenticate('local'), (req, res) => {
+    // user which logged in
     const { user } = req;
-    console.log('LOGIN! SETTING LAST LOGIN TIME');
     dbClient.newLogin(user);
-    res.send({ success: true });
+    user.password = '';
+    res.send({ success: true, user });
 });
 
 /**
  * User Authentication Checkout
  */
 router.post('/checkAuth', checkAuthentication, (req, res) => {
-    res.send({ success: true });
+    const { user } = req;
+    res.send({ success: true, user });
 });
 
 /**
@@ -101,8 +104,13 @@ router.post('/checkAuth', checkAuthentication, (req, res) => {
  *
  */
 router.post('/getAllUsers', checkAuthentication, async (req, res) => {
-    const users = await dbClient.getAllUsers();
-    res.send(users);
+    const users = await dbClient.getAllUsers() as User[];
+    // REMOVE SENSITIVE INFORMATION
+    const unsensitiveUser = users.map((user) => {
+        user.password = '';
+        return user;
+    });
+    res.send(unsensitiveUser);
 });
 
 /**
