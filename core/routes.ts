@@ -144,6 +144,24 @@ router.post('/createItem', checkAuthentication, async (req, res) => {
 });
 
 /**
+ * Update an item with new properties
+ */
+router.post('/updateItem', checkAuthentication, async (req, res) => {
+    const { user } = req;
+    if (roleCheck.checkRole([UserRoles.ADMIN], user)) {
+        const itemToUpdate: Item = req.body as Item;
+        const updatedItem: Item = await dbClient.updateItem(itemToUpdate);
+        if (updatedItem) {
+            res.send({ success: true, item: updatedItem });
+        } else {
+            res.send({ success: false, message: 'Item update failed' });
+        }
+    } else {
+        res.send({ success: false, message: 'You do not have sufficient permission' });
+    }
+});
+
+/**
  * Get available ownerships
  *
  * @TODO make dynamic

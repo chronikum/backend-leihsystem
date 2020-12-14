@@ -178,6 +178,25 @@ export default class DBClient {
     }
 
     /**
+     * Update an item with new properties
+     *
+     * @param item item which should be updated
+     * @returns updatedItem
+     */
+    async updateItem(item: Item): Promise<Item> {
+        const updatedItem = await ItemModel.updateOne({
+            itemId: item.itemId,
+        }, {
+            name: item.name,
+            internalName: item.internalName,
+            description: item.description,
+            requiredRolesToReserve: item.requiredRolesToReserve,
+        }, { upsert: false });
+
+        return updatedItem;
+    }
+
+    /**
      * Check availability of items
      *
      * @TODO MAYBE USE MONGOOSE RANGE SELECTOR INSTEAD!
