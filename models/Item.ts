@@ -16,8 +16,10 @@ export interface Item {
     creationDate: number,
     modificationDate?: number,
     description?: string,
+    caIdentifier?: string, // ZfM asset tag
     model?: string,
     notes?: string,
+    managed: boolean,
     available: boolean,
     plannedReservationsIds?: number[],
     itemId: number,

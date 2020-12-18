@@ -159,12 +159,14 @@ export default class DBClient {
             internalName: item.internalName || undefined,
             serialNumber: item.serialNumber || undefined,
             ownership: item.ownership || undefined,
+            caIdentifier: item.caIdentifier || undefined,
             ownershipIdentifier: item.ownershipIdentifier || undefined,
             creationDate: item.creationDate || undefined,
             modificationDate: item.modificationDate || undefined,
             description: item.description || undefined,
             model: item.model || undefined,
             notes: item.notes || undefined,
+            managed: item.managed || undefined,
             available: item.available || undefined,
             plannedReservationsIds: item.plannedReservationsIds || undefined,
             itemId: highestId + 1,
@@ -191,6 +193,8 @@ export default class DBClient {
             internalName: item.internalName,
             description: item.description,
             requiredRolesToReserve: item.requiredRolesToReserve,
+            managed: item.managed,
+            caIdentifier: item.caIdentifier,
         }, { upsert: false });
 
         return updatedItem;
@@ -412,6 +416,25 @@ export default class DBClient {
         const results = await ItemModel.find().where('itemId').in(itemIds) as unknown as Item[];
         results.forEach((item) => item.plannedReservationsIds.forEach((id) => affectedReservationIds.add(id)));
         return ReservationModel.find().where('reservationId').in(Array.from(affectedReservationIds)) as unknown as Reservation[];
+    }
+
+    /**
+     * Returns all the reservations available and relevant
+     *
+     * @param items
+     *
+     * @returns Reservations
+     */
+    async getReservations(): Promise<Reservation[]> {
+        const date = Date.now();
+        const allReservations: Reservation[] = await ReservationModel.find({
+            $or: [
+                { startDate: date },
+                { plannedEndDate: date },
+            ],
+        }) as unknown as Reservation[];
+
+        return allReservations;
     }
 
     /**

@@ -14,6 +14,8 @@ const itemSchema = new Schema({
     creationDate: Number,
     modificationDate: Number,
     description: String,
+    caIdentifier: String, // ZfM asset tag
+    managed: Boolean,
     model: String,
     notes: String,
     available: Boolean,

@@ -339,4 +339,15 @@ router.post('/getUserProfile', checkAuthentication, async (req, res) => {
     res.send(user);
 });
 
+/**
+ * Get all reservation information
+ *
+ */
+router.post('/getReservations', checkAuthentication, async (req, res) => {
+    const { user } = req; // The real user
+    const reservations = await dbClient.getReservations();
+
+    res.send(reservations);
+});
+
 module.exports = router;
