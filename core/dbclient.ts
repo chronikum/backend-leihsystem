@@ -188,14 +188,7 @@ export default class DBClient {
     async updateItem(item: Item): Promise<Item> {
         const updatedItem = await ItemModel.updateOne({
             itemId: item.itemId,
-        }, {
-            name: item.name,
-            internalName: item.internalName,
-            description: item.description,
-            requiredRolesToReserve: item.requiredRolesToReserve,
-            managed: item.managed,
-            caIdentifier: item.caIdentifier,
-        }, { upsert: false });
+        }, item, { upsert: false });
 
         return updatedItem;
     }
