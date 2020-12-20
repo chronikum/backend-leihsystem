@@ -292,7 +292,32 @@ export default class DBClient {
 
         // Get all reservations
         const allReservations = await this.reservationsInItemCollection(existingItems);
+        const allReservationIds = allReservations.map((reservation: Reservation) => reservation.reservationId);
 
+        const newReservationStartDate = dayjs.unix(Date.now());
+        const newReservationEndDate = dayjs.unix(Date.now());
+
+        const reservationsAvailable = await ReservationModel.find({
+            $or: [
+                { // BEFORE RESERVATION
+                    $and: [
+                        { plannedEndDate: { $lt: newReservationEndDate } },
+                        { startDate: { $lt: newReservationStartDate } },
+                        { reservationId: { $in: allReservationIds } },
+                    ],
+                },
+                { // AFTER RESERVATION
+                    $and: [
+                        { plannedEndDate: { $gt: newReservationEndDate } },
+                        { startDate: { $gt: newReservationStartDate } },
+                        { reservationId: { $in: allReservationIds } },
+                    ],
+                },
+            ],
+        });
+        console.log('ITEMS QUERIED:');
+        console.log(reservationsAvailable);
+        console.log('ITEMS QUERIED:');
         // An array with all currently inactive reservations
         const inactiveReservation = [];
 
@@ -301,8 +326,6 @@ export default class DBClient {
             if (reservation.startDate && reservation.plannedEndDate) {
                 const startDatePlanned = dayjs.unix(reservation.startDate);
                 const endDatePlanned = dayjs.unix(reservation.plannedEndDate);
-                const newReservationStartDate = dayjs.unix(Date.now());
-                const newReservationEndDate = dayjs.unix(Date.now());
 
                 // Dates are both before the time span or after
                 // eslint-disable-next-line max-len
@@ -321,9 +344,12 @@ export default class DBClient {
 
         // eslint-disable-next-line no-return-assign
         existingItems.forEach((item) => item.available = ((item.plannedReservationsIds || []).every((id) => activeReservations.includes(id))));
+        console.log(existingItems);
         const itemsAvailable = existingItems.filter((item) => item.available);
 
         const totalActiveReservations = updatedReservations.filter((reservation: Reservation) => reservation.active);
+        console.log(totalActiveReservations.length);
+        console.log(reservationsAvailable.length);
 
         return existingItems;
     }
