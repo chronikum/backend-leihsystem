@@ -7,6 +7,8 @@ import { UserRoles } from './enums/UserRoles';
 import UserModel from './models/mongodb-models/UserModel';
 import { User } from './models/User';
 
+const helmet = require('helmet');
+
 const crypto = require('crypto');
 const cors = require('cors');
 const session = require('express-session');
@@ -73,6 +75,8 @@ export default class Server {
             console.log('Detected production setting.');
             corsOrigin = productionOrigin;
         }
+        // Helmet security
+        this.app.use(helmet());
 
         this.app.use(express.json({ type: '*/*' }));
         this.app.use(cors({ credentials: true, origin: corsOrigin }));
