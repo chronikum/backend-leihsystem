@@ -446,12 +446,7 @@ export default class DBClient {
      */
     async getReservations(): Promise<Reservation[]> {
         const date = Date.now();
-        const allReservations: Reservation[] = await ReservationModel.find({
-            $or: [
-                { startDate: date },
-                { plannedEndDate: date },
-            ],
-        }) as unknown as Reservation[];
+        const allReservations: Reservation[] = await ReservationModel.find({}) as unknown as Reservation[];
 
         return allReservations;
     }
