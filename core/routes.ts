@@ -10,6 +10,7 @@ import { User } from '../models/User';
 import DatabaseManager from './databaseManager';
 import DBClient from './dbclient';
 import RoleCheck from './RoleCheck';
+import { Request } from '../models/Request';
 
 const express = require('express');
 // The database manager
@@ -274,9 +275,14 @@ router.post('/getUserCount', checkAuthentication, async (req, res) => {
   * Create a new request
   */
 router.post('/createRequest', checkAuthentication, async (req, res) => {
-    const { user } = req; // The real user
     const request: Request = (req.body.request as Request); // User request
-    res.send(user);
+    // Create a new request
+    if (request) {
+        const requestCreated: Request = await dbClient.createNewRequest(request);
+        res.send({ success: true, request: requestCreated });
+    } else {
+        res.send({ success: false });
+    }
 });
 
 /**
@@ -285,7 +291,12 @@ router.post('/createRequest', checkAuthentication, async (req, res) => {
 router.post('/updateRequest', checkAuthentication, async (req, res) => {
     const { user } = req; // The real user
     const request: Request = (req.body.request as Request); // User request
-
+    if (request) {
+        const requestUpdated: Request = await dbClient.updateRequest(request);
+        res.send({ success: true, request: requestUpdated });
+    } else {
+        res.send({ success: false });
+    }
     res.send(user);
 });
 
