@@ -2,6 +2,7 @@
  * Represents a registration request
  */
 export interface Request {
+    requestId: number,
     itemIds: number[], // items which were requested
     responsibleUserId: number, // the user responsible for the requested reservation
     assignedUserId?: number, // this user could be assigned to a request operation

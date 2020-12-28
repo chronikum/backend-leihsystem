@@ -267,6 +267,29 @@ router.post('/getUserCount', checkAuthentication, async (req, res) => {
 });
 
 /**
+ * Requests Management
+ */
+
+/**
+  * Create a new request
+  */
+router.post('/createRequest', checkAuthentication, async (req, res) => {
+    const { user } = req; // The real user
+    const request: Request = (req.body.request as Request); // User request
+    res.send(user);
+});
+
+/**
+  * Update an existing request
+  */
+router.post('/updateRequest', checkAuthentication, async (req, res) => {
+    const { user } = req; // The real user
+    const request: Request = (req.body.request as Request); // User request
+
+    res.send(user);
+});
+
+/**
  * Create user
  */
 // Create a device item in inventory

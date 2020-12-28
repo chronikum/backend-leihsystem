@@ -10,6 +10,8 @@ import UserModel from '../models/mongodb-models/UserModel';
 import { Reservation } from '../models/Reservation';
 import { User } from '../models/User';
 import RoleCheck from './RoleCheck';
+import RequestModel from '../models/mongodb-models/RequestModel';
+import { Request } from '../models/Request';
 
 const crypto = require('crypto');
 
@@ -449,6 +451,53 @@ export default class DBClient {
         const allReservations: Reservation[] = await ReservationModel.find({}) as unknown as Reservation[];
 
         return allReservations;
+    }
+
+    /**
+     * Create a new request
+     * @param request to create
+     *
+     * @returns created request or failure
+     */
+    async createNewRequest(request: Request): Promise<Request> {
+        const requestCount = await RequestModel.countDocuments({});
+        const highestId: number = requestCount === 0 ? 0 : ((((await RequestModel.find()
+            .sort({ itemId: -1 })
+            .limit(1)) as unknown as Request[])[0].requestId || 0) as number);
+
+        const creationDate = Date.now();
+        // Create new RequestModel from mongoose Schema
+        const newRequest = new RequestModel({
+            requestId: (highestId + 1), // Unique identifier - increment highestId by one
+            itemIds: request.itemIds, // items which were requested
+            responsibleUserId: request.responsibleUserId, // the user responsible for the requested reservation
+            assignedUserId: request.assignedUserId, // this user could be assigned to a request operation
+            startDate: request.startDate, // start date of the reservation reqeust
+            plannedEndDate: request.plannedEndDate, // end date of the reservation request
+            note: request.note, // notes provided by the user making the request
+            created: creationDate,
+            modified: creationDate,
+            priority: request.priority,
+        });
+        // Save model
+        await newRequest.save();
+        // Verify model was saved
+        const requestCreated = await RequestModel.findOne({ requestId: request.requestId }) as unknown as Request;
+        // Return the Request
+        return Promise.resolve(requestCreated);
+    }
+
+    /**
+     * Update request
+     *
+     * @param request provided by user
+     * @returns updated Request
+     */
+    async updateRequest(request: Request) {
+        RequestModel.updateOne({ requestId: request.requestId }, { request }).exec();
+        const requestUpdated = await RequestModel.findOne({ requestId: request.requestId }) as unknown as Request;
+        // Return the updated Request
+        return Promise.resolve(requestUpdated);
     }
 
     /**
