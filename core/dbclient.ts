@@ -537,6 +537,15 @@ export default class DBClient {
     }
 
     /**
+     * Get all groups
+     *
+     * @returns Group[]
+     */
+    async getAllGroups(): Promise<Group[]> {
+        return GroupModel.find() as unknown as Group[];
+    }
+
+    /**
      * Update Group
      *
      * @param group

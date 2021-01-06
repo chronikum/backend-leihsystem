@@ -319,6 +319,18 @@ router.post('/createUserGroup', checkAuthentication, async (req, res) => {
 });
 
 /**
+  * Get all groups
+  */
+router.post('/getAllGroups', checkAuthentication, async (req, res) => {
+    const groups = await dbClient.getAllGroups();
+    if (groups) {
+        res.send({ success: true, groups });
+    } else {
+        res.send({ success: false, message: 'Error' });
+    }
+});
+
+/**
  * Create user
  */
 // Create a device item in inventory
