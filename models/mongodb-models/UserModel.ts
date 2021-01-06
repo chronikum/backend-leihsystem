@@ -13,6 +13,7 @@ const userSchema = new Schema({
     lastLogin: Number,
     session: String,
     role: String,
+    groupId: [Number],
 });
 
 const UserModel = mongoose.model('UserModel', userSchema);

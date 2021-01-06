@@ -1,4 +1,5 @@
 import { UserRoles } from '../enums/UserRoles';
+import { Group } from './Group';
 
 /**
  * Represents user
@@ -13,4 +14,5 @@ export interface User {
     lastLogin?: number,
     session?: string,
     role: UserRoles,
+    groupId: number[],
 }

@@ -11,6 +11,7 @@ import DatabaseManager from './databaseManager';
 import DBClient from './dbclient';
 import RoleCheck from './RoleCheck';
 import { Request } from '../models/Request';
+import { Group } from '../models/Group';
 
 const express = require('express');
 // The database manager
@@ -294,6 +295,23 @@ router.post('/updateRequest', checkAuthentication, async (req, res) => {
     if (request) {
         const requestUpdated: Request = await dbClient.updateRequest(request);
         res.send({ success: true, request: requestUpdated });
+    } else {
+        res.send({ success: false });
+    }
+    res.send(user);
+});
+
+/**
+ * Group Management
+ */
+/**
+  * Update an existing request
+  */
+router.post('/createUserGroup', checkAuthentication, async (req, res) => {
+    const { user } = req; // The real user
+    const group: Group = (req.body.group as Group); // User request
+    if (roleCheck.checkRole([UserRoles.ADMIN], user)) {
+        res.send({ success: true, group });
     } else {
         res.send({ success: false });
     }

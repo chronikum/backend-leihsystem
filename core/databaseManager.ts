@@ -16,8 +16,8 @@ export default class DatabaseManager {
         return DatabaseManager.instance;
     }
 
-    // The path to the database
-    private path = 'mongodb://localhost:27017/database';
+    // The path to the database (database)
+    private path = 'mongodb://localhost:27017/database2';
 
     // The connection instance
     private db = mongoose.connection;

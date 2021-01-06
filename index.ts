@@ -4,6 +4,8 @@ import passport from 'passport';
 import DatabaseManager from './core/databaseManager';
 import DBClient from './core/dbclient';
 import { UserRoles } from './enums/UserRoles';
+import { Group } from './models/Group';
+import GroupModel from './models/mongodb-models/GroupModel';
 import UserModel from './models/mongodb-models/UserModel';
 import { User } from './models/User';
 
@@ -169,6 +171,9 @@ export default class Server {
     async runInitialConfigurationIfNecessary(): Promise<boolean> {
         if (await this.dbClient.isFirstStart()) {
             console.log('Is first start. Configuring system...');
+            const group = await this.createAdministrativeGroup();
+            console.log('Created administrative group');
+            console.log(group);
             if (this.createInitialUser()) {
                 console.log('Admin user created.');
                 console.log('System setup completed');
@@ -177,7 +182,6 @@ export default class Server {
         } else {
             console.log('System was started before. System is ready');
         }
-
         return false;
     }
 
@@ -189,6 +193,7 @@ export default class Server {
      * @returns boolean success
      */
     private async createInitialUser(): Promise<boolean> {
+        // TODO: Create Admin group with identifier 0
         const initialAdminPassword = crypto.randomBytes(4).toString('hex');
         const adminUser: User = {
             firstname: 'Admin',
@@ -197,9 +202,23 @@ export default class Server {
             email: 'fritz@nosc.io',
             role: UserRoles.ADMIN,
             username: 'systemadmin',
+            groupId: [0],
         };
         console.log(`The initial admin password will be: ${adminUser.password}`);
         return this.dbClient.createUser(adminUser);
+    }
+
+    /**
+     * Creates initial administrative group
+     */
+    private async createAdministrativeGroup(): Promise<Group> {
+        const adminGroup: Group = {
+            displayName: 'Admin',
+            description: 'Administrative Gruppe',
+            role: [UserRoles.ADMIN],
+        };
+        this.dbClient.createGroup(adminGroup);
+        return GroupModel.findOne({ description: 'Administrative Gruppe' }) as unknown as Group;
     }
 }
 

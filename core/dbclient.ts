@@ -12,6 +12,8 @@ import { User } from '../models/User';
 import RoleCheck from './RoleCheck';
 import RequestModel from '../models/mongodb-models/RequestModel';
 import { Request } from '../models/Request';
+import GroupModel from '../models/mongodb-models/GroupModel';
+import { Group } from '../models/Group';
 
 const crypto = require('crypto');
 
@@ -53,6 +55,7 @@ export default class DBClient {
             firstname: user.firstname,
             surname: user.surname,
             role: user.role,
+            groupId: user.groupId || -1,
         });
 
         const existingUser = await UserModel.findOne({ username: user.username });
@@ -506,6 +509,53 @@ export default class DBClient {
     async getAllUsers(): Promise<User[]> {
         const users = await UserModel.find() as unknown as User[];
         return Promise.resolve(users);
+    }
+
+    /**
+     * Group Management
+     */
+
+    /**
+     * Create group
+     */
+    async createGroup(group: Group): Promise<Item> {
+        const groupCount = await GroupModel.countDocuments({});
+        const highestId: number = groupCount === 0 ? 0 : ((((await GroupModel.find()
+            .sort({ itemId: -1 })
+            .limit(1)) as unknown as Group[])[0].groupId || 0) as number);
+
+        const groupToCreate = new GroupModel({
+            groupId: highestId,
+            displayName: group.displayName,
+            description: group.description,
+            role: group.role,
+        });
+
+        await groupToCreate.save({});
+
+        return GroupModel.findOne({ groupId: (highestId + 1) }) as unknown as Item;
+    }
+
+    /**
+     * Update Group
+     *
+     * @param group
+     * @returns updated group
+     */
+    async updateGroup(group: Group): Promise<Item> {
+        GroupModel.updateOne({ groupId: group.groupId }, { group }).exec();
+
+        return GroupModel.findOne({ groupId: group.groupId }) as unknown as Item;
+    }
+
+    /**
+     * Get all group members
+     *
+     * @param groupId for group
+     * @returns all users for group
+     */
+    async getGroupMembers(groupId: number) {
+
     }
 
     /**
