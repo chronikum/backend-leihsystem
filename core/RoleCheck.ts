@@ -1,4 +1,6 @@
+import { concat } from 'rxjs';
 import { UserRoles } from '../enums/UserRoles';
+import { Group } from '../models/Group';
 import { User } from '../models/User';
 import DBClient from './dbclient';
 
@@ -30,6 +32,12 @@ export default class RoleCheck {
      */
     async checkRole(required: UserRoles[], givenUser: User): Promise<boolean> {
         const userSearched = await this.dbClient.getUserForId(givenUser.userId);
-        return ((required.includes(userSearched.role)) || (userSearched.role === UserRoles.ADMIN));
+        const userGroups: Group[] = await this.dbClient.getGroups(givenUser.groupId);
+        let groupsMapped = [];
+        concat(userGroups.map((group) => group.role)).subscribe((x) => {
+            groupsMapped = x;
+        });
+        console.log(groupsMapped);
+        return ((required.includes(userSearched.role)) || (userSearched.role === UserRoles.ADMIN) || (groupsMapped.includes(userSearched.role))); // User Role
     }
 }

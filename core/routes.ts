@@ -132,7 +132,7 @@ router.post('/logout', checkAuthentication, (req, res) => {
  */
 router.post('/createItem', checkAuthentication, async (req, res) => {
     const { user } = req;
-    if (roleCheck.checkRole([UserRoles.ADMIN], user)) {
+    if (roleCheck.checkRole([UserRoles.ADMIN, UserRoles.MANAGE_DEVICE], user)) {
         const itemtoCreate: Item = req.body as Item;
         const itemCreated: Item = await dbClient.createItem(itemtoCreate);
         if (itemCreated) {
@@ -150,7 +150,7 @@ router.post('/createItem', checkAuthentication, async (req, res) => {
  */
 router.post('/updateItem', checkAuthentication, async (req, res) => {
     const { user } = req;
-    if (roleCheck.checkRole([UserRoles.ADMIN], user)) {
+    if (roleCheck.checkRole([UserRoles.ADMIN, UserRoles.MANAGE_DEVICE], user)) {
         const itemToUpdate: Item = req.body as Item;
         const updatedItem: Item = await dbClient.updateItem(itemToUpdate);
         if (updatedItem) {
@@ -189,7 +189,7 @@ router.post('/getInventory', checkAuthentication, async (req, res) => {
 router.post('/deleteItems', checkAuthentication, async (req, res) => {
     const { user } = req; // The real user
     console.log('Deletion requested');
-    if (roleCheck.checkRole([UserRoles.ADMIN], user)) {
+    if (roleCheck.checkRole([UserRoles.ADMIN, UserRoles.MANAGE_DEVICE], user)) {
         const itemIdsToDelete: Item[] = req.body.items as Item[];
         const deleted = await dbClient.deleteItems(itemIdsToDelete);
         console.log(`DELETED: ${deleted}`);
@@ -310,7 +310,7 @@ router.post('/updateRequest', checkAuthentication, async (req, res) => {
 router.post('/createUserGroup', checkAuthentication, async (req, res) => {
     const { user } = req; // The real user
     const group: Group = (req.body.group as Group); // User request
-    if (roleCheck.checkRole([UserRoles.ADMIN], user)) {
+    if (roleCheck.checkRole([UserRoles.ADMIN, UserRoles.MANAGE_USERS], user)) {
         res.send({ success: true, group });
     } else {
         res.send({ success: false });
@@ -336,7 +336,7 @@ router.post('/getAllGroups', checkAuthentication, async (req, res) => {
 // Create a device item in inventory
 router.post('/createUser', checkAuthentication, async (req, res) => {
     const { user } = req;
-    if (roleCheck.checkRole([UserRoles.ADMIN], user)) {
+    if (roleCheck.checkRole([UserRoles.ADMIN, UserRoles.MANAGE_USERS], user)) {
         const userToCreate: User = req.body as User;
         const userCreated = await dbClient.createUser(userToCreate);
 
@@ -357,7 +357,7 @@ router.post('/createUser', checkAuthentication, async (req, res) => {
  */
 router.post('/deleteUsers', checkAuthentication, async (req, res) => {
     const { user } = req; // The real user
-    if (roleCheck.checkRole([UserRoles.ADMIN], user)) {
+    if (roleCheck.checkRole([UserRoles.ADMIN, UserRoles.MANAGE_USERS], user)) {
         const usersToDelete: User[] = req.body as User[];
         const deletionSuccess = await dbClient.deleteUsers(usersToDelete);
 
@@ -378,7 +378,7 @@ router.post('/deleteUsers', checkAuthentication, async (req, res) => {
  */
 router.post('/changePasswordForUser', checkAuthentication, async (req, res) => {
     const { user } = req; // The real user
-    if (roleCheck.checkRole([UserRoles.ADMIN], user)) {
+    if (roleCheck.checkRole([UserRoles.ADMIN, UserRoles.MANAGE_USERS], user)) {
         const userToModify: User = req.body.user as User;
         const newPassword: string = req.body.newPassword as string;
 
@@ -412,6 +412,39 @@ router.post('/getReservations', checkAuthentication, async (req, res) => {
     const reservations = await dbClient.getReservations();
 
     res.send(reservations);
+});
+
+/**
+ * Group
+ */
+
+/**
+ * Create an new group
+ */
+router.post('/createGroup', checkAuthentication, async (req, res) => {
+    const { user } = req;
+    if (roleCheck.checkRole([UserRoles.ADMIN, UserRoles.MANAGE_USERS], user)) {
+        const groupToCreate: Group = req.body as Group;
+        const groupCreated = await dbClient.createGroup(groupToCreate);
+        res.send({ success: true, group: groupCreated });
+    } else {
+        res.send({ success: false, message: 'You do not have sufficient permission' });
+    }
+});
+
+/**
+ * Roles
+ */
+/**
+ * Create an new group
+ */
+router.post('/rolesAvailable', checkAuthentication, async (req, res) => {
+    const { user } = req;
+    if (roleCheck.checkRole([UserRoles.ADMIN, UserRoles.MANAGE_USERS], user)) {
+        res.send({ success: true, roles: [UserRoles.ADMIN, UserRoles.USER] });
+    } else {
+        res.send({ success: false, message: 'You do not have sufficient permission' });
+    }
 });
 
 module.exports = router;
