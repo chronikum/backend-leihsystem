@@ -1,4 +1,4 @@
-import { Observable } from 'rxjs';
+import { concat, Observable } from 'rxjs';
 import { PrimaryExpression } from 'typescript';
 import * as dayjs from 'dayjs';
 import { UserRoles } from '../enums/UserRoles';
@@ -555,6 +555,22 @@ export default class DBClient {
     }
 
     /**
+     * Get all roles for user
+     * @param user
+     *
+     * @returns all the roles the user has
+     */
+    async getGroupRolesForUser(user: User): Promise<UserRoles[]> {
+        const userSearched = await this.getUserForId(user.userId);
+        const userGroups: Group[] = await this.getGroups(userSearched.groupId);
+        let groupsMapped: UserRoles[] = [];
+        concat(userGroups.map((group) => group.role)).subscribe((x) => {
+            groupsMapped = x;
+        });
+        return groupsMapped;
+    }
+
+    /**
      * Get groups for group ids
      *
      * @returns Group
@@ -582,7 +598,7 @@ export default class DBClient {
      * @returns all users for group
      */
     async getGroupMembers(groupId: number) {
-
+        return [];
     }
 
     /**

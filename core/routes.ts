@@ -85,11 +85,12 @@ router.get('/systemlogs', checkAuthentication, (req, res) => {
  *
  * Also sets last login time
  */
-router.post('/login', passport.authenticate('local'), (req, res) => {
+router.post('/login', passport.authenticate('local'), async (req, res) => {
     // user which logged in
     const { user } = req;
     dbClient.newLogin(user);
     user.password = '';
+    user.groupRoles = await dbClient.getGroupRolesForUser(user);
     res.send({ success: true, user });
 });
 
@@ -98,7 +99,9 @@ router.post('/login', passport.authenticate('local'), (req, res) => {
  */
 router.post('/checkAuth', checkAuthentication, (req, res) => {
     const { user } = req;
-    res.send({ success: true, user });
+    user.groupRoles = [];
+
+    user.groupRoles = res.send({ success: true, user });
 });
 
 /**
@@ -441,7 +444,15 @@ router.post('/createGroup', checkAuthentication, async (req, res) => {
 router.post('/rolesAvailable', checkAuthentication, async (req, res) => {
     const { user } = req;
     if (roleCheck.checkRole([UserRoles.ADMIN, UserRoles.MANAGE_USERS], user)) {
-        res.send({ success: true, roles: [UserRoles.ADMIN, UserRoles.USER] });
+        res.send({
+            success: true,
+            roles: [
+                UserRoles.ADMIN,
+                UserRoles.USER,
+                UserRoles.MANAGE_DEVICE,
+                UserRoles.MANAGE_USERS,
+            ],
+        });
     } else {
         res.send({ success: false, message: 'You do not have sufficient permission' });
     }

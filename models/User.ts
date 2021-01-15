@@ -15,4 +15,5 @@ export interface User {
     session?: string,
     role: UserRoles,
     groupId: number[],
+    groupRoles?: UserRoles[], // Is being supplied by backend - represents roles which the user has been assigned through group management
 }
