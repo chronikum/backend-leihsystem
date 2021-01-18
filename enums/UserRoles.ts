@@ -4,6 +4,6 @@
 export enum UserRoles {
     ADMIN = 'ADMIN',
     USER = 'USER',
-    MANAGE_DEVICE = 'MANAGE_DEV)CE',
+    MANAGE_DEVICE = 'MANAGE_DEVICE',
     MANAGE_USERS = 'MANAGE_USERS',
 }

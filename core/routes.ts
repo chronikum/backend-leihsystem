@@ -354,6 +354,26 @@ router.post('/createUser', checkAuthentication, async (req, res) => {
 });
 
 /**
+ * Updates an user
+ */
+router.post('/updateUser', checkAuthentication, async (req, res) => {
+    const { user } = req;
+    if (roleCheck.checkRole([UserRoles.ADMIN, UserRoles.MANAGE_USERS], user)) {
+        const userToUpdate: User = req.body.user as User;
+        const updatedUser = await dbClient.updateUser(userToUpdate);
+        console.log('D');
+        console.log(updatedUser);
+        if (updatedUser) {
+            res.send({ success: true, user: updatedUser });
+        } else {
+            res.send({ success: false, message: 'User update failed' });
+        }
+    } else {
+        res.send({ success: false, message: 'You do not have sufficient permission' });
+    }
+});
+
+/**
  * Delete users provided
  *
  * - Attention: Will delete users, one-way operation
@@ -430,6 +450,23 @@ router.post('/createGroup', checkAuthentication, async (req, res) => {
         const groupToCreate: Group = req.body as Group;
         const groupCreated = await dbClient.createGroup(groupToCreate);
         res.send({ success: true, group: groupCreated });
+    } else {
+        res.send({ success: false, message: 'You do not have sufficient permission' });
+    }
+});
+
+/**
+ * Add user to group
+ */
+router.post('/addUserToGroup', checkAuthentication, async (req, res) => {
+    const { user } = req;
+    if (roleCheck.checkRole([UserRoles.ADMIN, UserRoles.MANAGE_USERS], user)) {
+        const { singleUser } = req.body; // User to add
+        const { group } = req.body; // to this group
+
+        const updatedUser = await dbClient.addUserToGroup(singleUser, group); // Updated user
+        updatedUser.password = '';
+        res.send({ success: true, user: updatedUser });
     } else {
         res.send({ success: false, message: 'You do not have sufficient permission' });
     }

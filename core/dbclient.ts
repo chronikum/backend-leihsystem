@@ -79,6 +79,26 @@ export default class DBClient {
     }
 
     /**
+     *  Updates a user
+     *
+     * @param user to be updated
+     *
+     * @returns true, if successful
+     */
+    async updateUser(user: User): Promise<User> {
+        console.log('Updating...');
+        const before = await UserModel.findOne({ userId: user.userId }) as unknown as User;
+        const x1 = await UserModel.updateOne({ userId: user.userId }, { $set: user }, { new: true }).exec().then((x) => x.ok === 1);
+        console.log('START');
+        const after = await UserModel.findOne({ userId: user.userId }) as unknown as User;
+        console.log(before);
+        console.log(after);
+        console.log('END');
+
+        return UserModel.findOne({ userId: user.userId }) as unknown as User;
+    }
+
+    /**
      * Change a users password
      *
      * @param user which passwords should be changed
@@ -599,6 +619,19 @@ export default class DBClient {
      */
     async getGroupMembers(groupId: number) {
         return [];
+    }
+
+    /**
+     * Adds a group to a user
+     * @param Group to be added
+     * @param User to be added
+     *
+     * @returns Group[]
+     */
+    async addUserToGroup(user: User, group: Group): Promise<User> {
+        // Add group id to user
+        UserModel.updateOne({ userId: user.userId }, { $push: { groupId: group.groupId } }).exec();
+        return UserModel.findOne({ userId: user.userId }) as unknown as User;
     }
 
     /**
