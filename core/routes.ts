@@ -13,6 +13,10 @@ import RoleCheck from './RoleCheck';
 import { Request } from '../models/Request';
 import { Group } from '../models/Group';
 
+/**
+ * TODO: Remove password hash from User[]
+ */
+
 const express = require('express');
 // The database manager
 const dbManager = DatabaseManager.instance;
@@ -334,6 +338,22 @@ router.post('/getAllGroups', checkAuthentication, async (req, res) => {
 });
 
 /**
+ * Get all members for group
+ */
+router.post('/getGroupMembers', checkAuthentication, async (req, res) => {
+    const { user } = req; // The real user
+    if (roleCheck.checkRole([UserRoles.ADMIN, UserRoles.MANAGE_USERS], user)) {
+        const group = req.body.group as Group;
+        console.log('GET GROUP');
+        console.log(group);
+        const users = await dbClient.getGroupMembers(group);
+        res.send({ success: true, users });
+    } else {
+        res.send({ success: false });
+    }
+});
+
+/**
  * Create user
  */
 // Create a device item in inventory
@@ -423,7 +443,25 @@ router.post('/changePasswordForUser', checkAuthentication, async (req, res) => {
  */
 router.post('/getUserProfile', checkAuthentication, async (req, res) => {
     const { user } = req; // The real user
-    res.send(user);
+    if (roleCheck.checkRole([UserRoles.ADMIN, UserRoles.MANAGE_USERS], user)) {
+        const users = [];
+        res.send({ success: true, users });
+    }
+});
+
+/**
+ * Get user name suggestions (User[])
+ *
+ * @TODO SENSITIVE DATA - MASK!
+ */
+router.post('/suggestUserNames', checkAuthentication, async (req, res) => {
+    const { user } = req; // The real user
+    if (roleCheck.checkRole([UserRoles.ADMIN, UserRoles.MANAGE_USERS], user)) {
+        const { query } = req.body;
+        const users = await dbClient.getSuggestedUsers(query);
+        console.log(users);
+        res.send({ success: true, users });
+    }
 });
 
 /**

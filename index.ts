@@ -202,7 +202,7 @@ export default class Server {
             email: 'fritz@nosc.io',
             role: UserRoles.ADMIN,
             username: 'systemadmin',
-            groupId: [0],
+            groupId: [1],
         };
         console.log(`The initial admin password will be: ${adminUser.password}`);
         return this.dbClient.createUser(adminUser);

@@ -545,7 +545,7 @@ export default class DBClient {
             .limit(1)) as unknown as Group[])[0].groupId || 0) as number);
 
         const groupToCreate = new GroupModel({
-            groupId: highestId,
+            groupId: (highestId + 1),
             displayName: group.displayName,
             description: group.description,
             role: group.role,
@@ -615,10 +615,34 @@ export default class DBClient {
      * Get all group members
      *
      * @param groupId for group
-     * @returns all users for group
+     * @returns all users for the group
      */
-    async getGroupMembers(groupId: number) {
-        return [];
+    async getGroupMembers(group: Group): Promise<User[]> {
+        return UserModel.find({ groupId: { $in: [group.groupId] } }) as unknown as User[];
+    }
+
+    /**
+     * Get suggested users
+     *
+     * @param string to look for
+     * @returns all users for the group
+     */
+    async getSuggestedUsers(query: string): Promise<User[]> {
+        const querySplitted = query.split(' ');
+        const users = await UserModel.find({
+            $or: [
+                {
+                    firstname: { $in: querySplitted },
+                },
+                {
+                    surname: { $in: querySplitted },
+                },
+                {
+                    username: { $in: querySplitted },
+                },
+            ],
+        }) as unknown as User[];
+        return users;
     }
 
     /**
