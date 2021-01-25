@@ -497,14 +497,17 @@ router.post('/createGroup', checkAuthentication, async (req, res) => {
  * Add user to group
  */
 router.post('/addUserToGroup', checkAuthentication, async (req, res) => {
-    const { user } = req;
-    if (roleCheck.checkRole([UserRoles.ADMIN, UserRoles.MANAGE_USERS], user)) {
-        const { singleUser } = req.body; // User to add
+    const realUser = req.user;
+    if (roleCheck.checkRole([UserRoles.ADMIN, UserRoles.MANAGE_USERS], realUser)) {
+        const { user } = req.body; // User to add
         const { group } = req.body; // to this group
-
-        const updatedUser = await dbClient.addUserToGroup(singleUser, group); // Updated user
-        updatedUser.password = '';
-        res.send({ success: true, user: updatedUser });
+        if (user && group) {
+            const updatedUser = await dbClient.addUserToGroup(user, group); // Updated user
+            updatedUser.password = '';
+            res.send({ success: true, user: updatedUser });
+        } else {
+            res.send({ success: false });
+        }
     } else {
         res.send({ success: false, message: 'You do not have sufficient permission' });
     }

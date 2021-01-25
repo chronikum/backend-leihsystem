@@ -540,8 +540,9 @@ export default class DBClient {
      */
     async createGroup(group: Group): Promise<Item> {
         const groupCount = await GroupModel.countDocuments({});
+        console.log(groupCount);
         const highestId: number = groupCount === 0 ? 0 : ((((await GroupModel.find()
-            .sort({ itemId: -1 })
+            .sort({ groupId: -1 })
             .limit(1)) as unknown as Group[])[0].groupId || 0) as number);
 
         const groupToCreate = new GroupModel({
