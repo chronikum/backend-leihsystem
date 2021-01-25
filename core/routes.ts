@@ -48,9 +48,12 @@ function checkAuthentication(req: any, res: any, next: any) {
  * Checks if database is connected
  */
 router.use((req, res, next) => {
-    if (dbManager.ready) {
+    if (dbManager.ready && !dbManager.error) {
         next();
     } else {
+        if (dbManager.error) {
+            res.send({ success: false, message: 'Failed to connect to database.', errorCode: -1 });
+        }
         // eslint-disable-next-line max-len
         const response = `Could not connect to mongodb database. Please check if it is running. <br> <b>Error Message from DatabaseManager<b>:<br> <p style="color:red">${DatabaseManager.instance?.errorMessage || 'none'}</p>`;
         res.send(response);
@@ -73,6 +76,11 @@ router.get('/', (req, res) => {
 // serves statistics
 router.post('/stats', checkAuthentication, (req, res) => {
     res.send({});
+});
+
+// Checks if backend is currently available
+router.post('/available', checkAuthentication, (req, res) => {
+    res.send({ success: true });
 });
 
 // serves statistics
