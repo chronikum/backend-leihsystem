@@ -537,6 +537,10 @@ router.post('/rolesAvailable', checkAuthentication, async (req, res) => {
                 UserRoles.USER,
                 UserRoles.MANAGE_DEVICE,
                 UserRoles.MANAGE_USERS,
+                UserRoles.MANAGE_REQUESTS,
+                UserRoles.RESET_ANY_PASSWORD,
+                UserRoles.MANAGE_GROUPS,
+                UserRoles.SUPERADMIN,
             ],
         });
     } else {
