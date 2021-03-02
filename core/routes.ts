@@ -126,7 +126,7 @@ router.post('/login', passport.authenticate('local'), async (req, res) => {
 router.post('/checkAuth', checkAuthentication, (req, res) => {
     const { user } = req;
     user.groupRoles = [];
-
+    user.password = '';
     user.groupRoles = res.send({ success: true, user });
 });
 
