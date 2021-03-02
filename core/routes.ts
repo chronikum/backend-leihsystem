@@ -45,6 +45,20 @@ function checkAuthentication(req: any, res: any, next: any) {
 }
 
 /**
+ * Will check if user is explicit declared as admin user
+ */
+function checkAdminPrivilege(req: any, res: any, next: any) {
+    if (req.isAuthenticated()) {
+        const { user } = req;
+        if (roleCheck.checkRole([UserRoles.ADMIN], user)) {
+            next();
+        }
+    } else {
+        res.send({ success: false, message: 'You are not allowed to see this resource.' });
+    }
+}
+
+/**
  * Checks if database is connected
  */
 router.use((req, res, next) => {
@@ -74,7 +88,7 @@ router.get('/', (req, res) => {
  */
 
 // serves statistics
-router.post('/stats', checkAuthentication, (req, res) => {
+router.post('/stats', checkAuthentication, checkAdminPrivilege, (req, res) => {
     res.send({});
 });
 
@@ -84,7 +98,7 @@ router.post('/available', checkAuthentication, (req, res) => {
 });
 
 // serves statistics
-router.get('/systemlogs', checkAuthentication, (req, res) => {
+router.get('/systemlogs', checkAuthentication, checkAdminPrivilege, (req, res) => {
     res.send({});
 });
 
@@ -120,7 +134,7 @@ router.post('/checkAuth', checkAuthentication, (req, res) => {
  * Gets all users
  *
  */
-router.post('/getAllUsers', checkAuthentication, async (req, res) => {
+router.post('/getAllUsers', checkAuthentication, checkAdminPrivilege, async (req, res) => {
     const users = await dbClient.getAllUsers() as User[];
     // REMOVE SENSITIVE INFORMATION
     const unsensitiveUser = users.map((user) => {
@@ -307,7 +321,24 @@ router.post('/createRequest', checkAuthentication, async (req, res) => {
 router.post('/updateRequest', checkAuthentication, async (req, res) => {
     const { user } = req; // The real user
     const request: Request = (req.body.request as Request); // User request
-    if (request) {
+    if (roleCheck.checkRole([UserRoles.ADMIN, UserRoles.MANAGE_REQUESTS], user)) {
+        const requestUpdated: Request = await dbClient.updateRequest(request);
+        res.send({ success: true, request: requestUpdated });
+    } else {
+        res.send({ success: false });
+    }
+    res.send(user);
+});
+
+/**
+  * Accept request
+  *
+  * This will turn a request in a valid reservation
+  */
+router.post('/acceptRequest', checkAuthentication, async (req, res) => {
+    const { user } = req; // The real user
+    const request: Request = (req.body.request as Request); // User request
+    if (roleCheck.checkRole([UserRoles.ADMIN, UserRoles.MANAGE_REQUESTS], user)) {
         const requestUpdated: Request = await dbClient.updateRequest(request);
         res.send({ success: true, request: requestUpdated });
     } else {
@@ -328,7 +359,6 @@ router.post('/getAllRequests', checkAuthentication, async (req, res) => {
     } else {
         res.send({ success: false, message: 'No permission' });
     }
-    res.send(user);
 });
 
 /**
@@ -441,6 +471,7 @@ router.post('/deleteUsers', checkAuthentication, async (req, res) => {
  * Changes password for a user
  *
  * - needs admin privilege
+ * TODO: Users should be able to change their own password
  */
 router.post('/changePasswordForUser', checkAuthentication, async (req, res) => {
     const { user } = req; // The real user
