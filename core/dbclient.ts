@@ -1,6 +1,7 @@
 import { concat, Observable } from 'rxjs';
 import { PrimaryExpression } from 'typescript';
 import * as dayjs from 'dayjs';
+import { request } from 'express';
 import { UserRoles } from '../enums/UserRoles';
 import { Item } from '../models/Item';
 import ItemModel from '../models/mongodb-models/ItemModel';
@@ -521,6 +522,14 @@ export default class DBClient {
         const requestUpdated = await RequestModel.findOne({ requestId: request.requestId }) as unknown as Request;
         // Return the updated Request
         return Promise.resolve(requestUpdated);
+    }
+
+    /**
+     * Gets all pending requests
+     */
+    async getAllRequests(): Promise<Request[]> {
+        const requests = await RequestModel.find() as unknown as Request[];
+        return Promise.resolve(requests);
     }
 
     /**

@@ -317,6 +317,21 @@ router.post('/updateRequest', checkAuthentication, async (req, res) => {
 });
 
 /**
+  * Get all requests existing
+  * TODO: Implement in database client
+  */
+router.post('/getAllRequests', checkAuthentication, async (req, res) => {
+    const { user } = req; // The real user
+    if (roleCheck.checkRole([UserRoles.ADMIN, UserRoles.MANAGE_REQUESTS], user)) {
+        const requests: Request[] = await dbClient.getAllRequests();
+        res.send({ success: true, requests });
+    } else {
+        res.send({ success: false, message: 'No permission' });
+    }
+    res.send(user);
+});
+
+/**
  * Group Management
  */
 /**
