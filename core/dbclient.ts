@@ -683,7 +683,7 @@ export default class DBClient {
      * Create new device model
      * @param Model device model
      */
-    async createNewModel(model: DeviceModel) {
+    async createNewModel(model: DeviceModel): Promise<DeviceModel> {
         const modelCount = await DeviceModelModel.count() || 0;
         const highestId: number = modelCount === 0 ? 0 : ((((await DeviceModelModel.find()
             .sort({ deviceModelId: -1 })
@@ -693,10 +693,10 @@ export default class DBClient {
             model.deviceModelId = (highestId + 1);
             const deviceModel = new DeviceModelModel(model);
             deviceModel.save();
-            console.log(model.deviceModelId);
-        } else {
-            console.log('Device model already exists.');
+            return Promise.resolve(model);
         }
+        console.log('Device model already exists.');
+        return Promise.resolve(null);
     }
 
     /**

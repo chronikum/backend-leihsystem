@@ -578,11 +578,13 @@ router.post('/addUserToGroup', checkAuthentication, async (req, res) => {
  */
 router.post('/createModel', checkAuthentication, async (req, res) => {
     const { user } = req;
+    console.log('Requesting creation');
     if (roleCheck.checkRole([UserRoles.ADMIN, UserRoles.MANAGE_MODELS], user)) {
-        const { deviceModel } = req.body; // User to add
+        const { deviceModel } = req.body; // Model to add
+        console.log('MODEL');
         if (deviceModel) {
             dbClient.createNewModel(deviceModel);
-            res.send({ success: true });
+            res.send(deviceModel);
         } else {
             res.send({ success: false });
         }
