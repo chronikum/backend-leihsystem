@@ -200,6 +200,7 @@ export default class DBClient {
             itemId: highestId + 1,
             requiredRolesToReserve: item.requiredRolesToReserve || [],
             generatedUniqueIdentifier,
+            modelIdentifier: item.modelIdentifier,
         });
 
         await itemtoCreate.save({});
