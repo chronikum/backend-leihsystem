@@ -453,7 +453,7 @@ router.post('/updateUser', checkAuthentication, async (req, res) => {
  */
 router.post('/deleteUsers', checkAuthentication, async (req, res) => {
     const { user } = req; // The real user
-    if (roleCheck.checkRole([UserRoles.ADMIN, UserRoles.MANAGE_USERS], user)) {
+    if (roleCheck.checkRole([UserRoles.ADMIN, UserRoles.CAN_DELETE_USERS], user)) {
         const usersToDelete: User[] = req.body as User[];
         const deletionSuccess = await dbClient.deleteUsers(usersToDelete);
 
@@ -576,7 +576,7 @@ router.post('/addUserToGroup', checkAuthentication, async (req, res) => {
  */
 router.post('/createModel', checkAuthentication, async (req, res) => {
     const { user } = req;
-    if (roleCheck.checkRole([UserRoles.ADMIN, UserRoles.MANAGE_USERS], user)) {
+    if (roleCheck.checkRole([UserRoles.ADMIN, UserRoles.MANAGE_MODELS], user)) {
         const { deviceModel } = req.body; // User to add
         if (deviceModel) {
             dbClient.createNewModel(deviceModel);
@@ -594,7 +594,7 @@ router.post('/createModel', checkAuthentication, async (req, res) => {
  */
 router.post('/editModel', checkAuthentication, async (req, res) => {
     const { user } = req;
-    if (roleCheck.checkRole([UserRoles.ADMIN, UserRoles.MANAGE_USERS], user)) {
+    if (roleCheck.checkRole([UserRoles.ADMIN, UserRoles.MANAGE_MODELS], user)) {
         const { deviceModel } = req.body; // User to add
         if (deviceModel) {
             dbClient.updateModel(deviceModel);
@@ -627,6 +627,8 @@ router.post('/rolesAvailable', checkAuthentication, async (req, res) => {
                 UserRoles.RESET_ANY_PASSWORD,
                 UserRoles.MANAGE_GROUPS,
                 UserRoles.SUPERADMIN,
+                UserRoles.MANAGE_MODELS,
+                UserRoles.CAN_DELETE_USERS,
             ],
         });
     } else {
