@@ -1,5 +1,6 @@
 // eslint-disable-next-line import/extensions
 import passport from 'passport';
+import { setOriginalNode } from 'typescript';
 import { UserRoles } from '../enums/UserRoles';
 import { Item } from '../models/Item';
 import ReservationModel from '../models/mongodb-models/ReservationModel';
@@ -12,6 +13,7 @@ import DBClient from './dbclient';
 import RoleCheck from './RoleCheck';
 import { Request } from '../models/Request';
 import { Group } from '../models/Group';
+import { DeviceModel } from '../models/DeviceModel';
 
 /**
  * TODO: Remove password hash from User[]
@@ -602,6 +604,16 @@ router.post('/editModel', checkAuthentication, async (req, res) => {
         } else {
             res.send({ success: false });
         }
+    } else {
+        res.send({ success: false });
+    }
+});
+
+router.post('/getAllModels', checkAuthentication, async (req, res) => {
+    const { user } = req;
+    if (roleCheck.checkRole([UserRoles.ADMIN, UserRoles.MANAGE_MODELS], user)) {
+        const models: DeviceModel[] = await dbClient.getAllDeviceModels() || [];
+        res.send({ success: true, deviceModels: models });
     } else {
         res.send({ success: false });
     }

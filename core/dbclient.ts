@@ -718,6 +718,14 @@ export default class DBClient {
     }
 
     /**
+     * Get all available device models
+     */
+    async getAllDeviceModels(): Promise<DeviceModel[]> {
+        const deviceModels = await DeviceModelModel.find({}) as unknown as DeviceModel[] || [];
+        return Promise.resolve(deviceModels);
+    }
+
+    /**
      * Gets device model by deviceModelId
      * @param model model to get
      */
