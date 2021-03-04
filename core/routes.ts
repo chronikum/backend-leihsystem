@@ -595,7 +595,15 @@ router.post('/createModel', checkAuthentication, async (req, res) => {
 router.post('/editModel', checkAuthentication, async (req, res) => {
     const { user } = req;
     if (roleCheck.checkRole([UserRoles.ADMIN, UserRoles.MANAGE_USERS], user)) {
-
+        const { deviceModel } = req.body; // User to add
+        if (deviceModel) {
+            dbClient.updateModel(deviceModel);
+            res.send({ success: true });
+        } else {
+            res.send({ success: false });
+        }
+    } else {
+        res.send({ success: false });
     }
 });
 

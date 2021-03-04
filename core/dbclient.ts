@@ -703,9 +703,17 @@ export default class DBClient {
      * Update existing model with new values
      * @param Model device model
      */
-    updateModel(model: DeviceModel) {
-        if (model.deviceModelId) {
-            DeviceModelModel.updateOne({ deviceModelId: model.deviceModelId }, { model }).exec();
+    async updateModel(model: DeviceModel) {
+        const checkIfModelExists = await this.getDeviceModelByDeviceId(model);
+        if (checkIfModelExists) {
+            if (model.deviceModelId) {
+                await DeviceModelModel.updateOne({ deviceModelId: model.deviceModelId }, model).exec();
+                console.log('Model updated.');
+                const check2 = await this.getDeviceModelByDeviceId(model);
+                console.log(check2.displayName);
+            }
+        } else {
+            console.log('Could not update model - model does not exist.');
         }
     }
 
