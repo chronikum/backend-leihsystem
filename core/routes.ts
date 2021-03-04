@@ -568,6 +568,29 @@ router.post('/addUserToGroup', checkAuthentication, async (req, res) => {
 });
 
 /**
+ * Models (eg. device models)
+ */
+
+/**
+ * Create a new device model
+ */
+router.post('/createModel', checkAuthentication, async (req, res) => {
+    const { user } = req;
+    if (roleCheck.checkRole([UserRoles.ADMIN, UserRoles.MANAGE_USERS], user)) {
+    }
+});
+
+/**
+ * Edit existing device model
+ */
+router.post('/editModel', checkAuthentication, async (req, res) => {
+    const { user } = req;
+    if (roleCheck.checkRole([UserRoles.ADMIN, UserRoles.MANAGE_USERS], user)) {
+
+    }
+});
+
+/**
  * Roles
  */
 /**

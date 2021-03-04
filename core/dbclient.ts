@@ -15,6 +15,8 @@ import RequestModel from '../models/mongodb-models/RequestModel';
 import { Request } from '../models/Request';
 import GroupModel from '../models/mongodb-models/GroupModel';
 import { Group } from '../models/Group';
+import { DeviceModel } from '../models/DeviceModel';
+import DeviceModelModel from '../models/mongodb-models/DeviceModelModel';
 
 const crypto = require('crypto');
 
@@ -675,6 +677,40 @@ export default class DBClient {
         const dateNow = Date.now();
         console.log(user);
         UserModel.updateOne({ userId: user.userId }, { lastLogin: dateNow }).exec();
+    }
+
+    /**
+     * Create new device model
+     */
+    async createNewModel(model: DeviceModel) {
+        const modelCount = DeviceModelModel.count();
+        const highestId: number = modelCount === 0 ? 0 : ((((await DeviceModelModel.find()
+            .sort({ deviceModelId: -1 })
+            .limit(1)) as unknown as DeviceModel[])[0].deviceModelId || 0) as number);
+        model.deviceModelId = (highestId + 1);
+        const deviceModel = new DeviceModelModel(model);
+        console.log(deviceModel);
+    }
+
+    /**
+     * Update existing model with new values
+     */
+    updateModel(model: DeviceModel) {
+        if (model.deviceModelId) {
+            DeviceModelModel.updateOne({ deviceModelId: model.deviceModelId }, { model }).exec();
+        }
+    }
+
+    /**
+     * Gets device model by deviceModelId
+     * @param model model to get
+     */
+    async getDeviceModelByDeviceId(model: DeviceModel): Promise<DeviceModel> {
+        const detailedModel: DeviceModel = await DeviceModelModel.findOne({ deviceModelId: model.deviceModelId }) as unknown as DeviceModel;
+        if (detailedModel) {
+            return Promise.resolve(detailedModel);
+        }
+        return Promise.resolve(null);
     }
 
     /**
