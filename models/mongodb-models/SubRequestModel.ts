@@ -1,9 +1,10 @@
 import mongoose, { Schema } from 'mongoose';
 
 /**
- * System Log Schema
+ * Subrequest model schema
  */
 const subRequestModelSchema = new Schema({
+    _id: String,
     count: Number, // This is the amount of devices requested
     deviceModelIdentifier: Number, // This is the device model which references the DeviceModel
 });

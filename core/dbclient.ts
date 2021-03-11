@@ -506,7 +506,9 @@ export default class DBClient {
             priority: 0,
         });
         // Save model
-        await newRequest.save();
+        await newRequest.save().catch((err) => {
+            console.log(`Catched error: ${err}`);
+        });
         // Verify model was saved
         const requestCreated = await RequestModel.findOne({ requestId: request.requestId }) as unknown as Request;
         // Return the Request

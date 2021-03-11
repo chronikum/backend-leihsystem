@@ -307,9 +307,11 @@ router.post('/getUserCount', checkAuthentication, async (req, res) => {
   * Create a new request
   */
 router.post('/createRequest', checkAuthentication, async (req, res) => {
+    const { user } = req; // The real user
     const request: Request = (req.body.request as Request); // User request
     // Create a new request
     if (request) {
+        request.userCreated = user.userId;
         const requestCreated: Request = await dbClient.createNewRequest(request);
         res.send({ success: true, request: requestCreated });
     } else {

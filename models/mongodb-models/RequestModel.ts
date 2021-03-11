@@ -1,8 +1,13 @@
 import mongoose, { Schema } from 'mongoose';
-import SubRequestModel from './SubRequestModel';
+
+const subRequestModelSchema = new Schema({
+    _id: String,
+    count: Number, // This is the amount of devices requested
+    deviceModelIdentifier: Number, // This is the device model which references the DeviceModel
+});
 
 /**
- * System Log Schema
+ * ReservationRequest Schema
  */
 const requestModelSchema = new Schema({
     requestId: Number, // Unique
@@ -10,7 +15,7 @@ const requestModelSchema = new Schema({
     startDate: Number, // start date of the reservation reqeust
     plannedEndDate: Number, // end date of the reservation request
     note: String, // notes provided by the user making the request
-    subRequests: [SubRequestModel],
+    subRequest: [subRequestModelSchema],
     deviceCount: Number,
     created: Number,
     modified: Number,
