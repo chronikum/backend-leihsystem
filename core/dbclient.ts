@@ -642,20 +642,19 @@ export default class DBClient {
      * @returns all users for the group
      */
     async getSuggestedUsers(query: string): Promise<User[]> {
-        const querySplitted = query.split(' ');
         const users = await UserModel.find({
             $or: [
                 {
-                    firstname: { $in: querySplitted },
+                    firstname: { $regex: query, $options: 'i' },
                 },
                 {
-                    surname: { $in: querySplitted },
+                    surname: { $regex: query, $options: 'i' },
                 },
                 {
-                    username: { $in: querySplitted },
+                    username: { $regex: query, $options: 'i' },
                 },
             ],
-        }) as unknown as User[];
+        }).limit(7) as unknown as User[];
         return users;
     }
 
