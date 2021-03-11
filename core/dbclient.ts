@@ -1,7 +1,6 @@
 import { concat, Observable } from 'rxjs';
 import { PrimaryExpression } from 'typescript';
 import * as dayjs from 'dayjs';
-import { request } from 'express';
 import { UserRoles } from '../enums/UserRoles';
 import { Item } from '../models/Item';
 import ItemModel from '../models/mongodb-models/ItemModel';
@@ -495,16 +494,16 @@ export default class DBClient {
         const creationDate = Date.now();
         // Create new RequestModel from mongoose Schema
         const newRequest = new RequestModel({
-            requestId: (highestId + 1), // Unique identifier - increment highestId by one
-            itemIds: request.itemIds, // items which were requested
-            responsibleUserId: request.responsibleUserId, // the user responsible for the requested reservation
-            assignedUserId: request.assignedUserId, // this user could be assigned to a request operation
+            requestId: (highestId + 1),
+            userCreated: request.userCreated, // this user could be assigned to a request operation
             startDate: request.startDate, // start date of the reservation reqeust
             plannedEndDate: request.plannedEndDate, // end date of the reservation request
             note: request.note, // notes provided by the user making the request
+            subRequest: request.subRequest, // Submitted subrequests - can be undefined
+            deviceCount: request.deviceCount, // Device count if request is simple request
             created: creationDate,
-            modified: creationDate,
-            priority: request.priority,
+            modified: 0, // TODO: Implement in request update
+            priority: 0,
         });
         // Save model
         await newRequest.save();
