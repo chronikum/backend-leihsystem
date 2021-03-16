@@ -216,7 +216,7 @@ export default class DBClient {
     async updateItem(item: Item): Promise<Item> {
         const updatedItem = await ItemModel.updateOne({
             itemId: item.itemId,
-        }, item, { upsert: false });
+        }, item, { upsert: false }) as any;
 
         return updatedItem;
     }
