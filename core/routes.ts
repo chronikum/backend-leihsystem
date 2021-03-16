@@ -16,7 +16,10 @@ import { Group } from '../models/Group';
 import { DeviceModel } from '../models/DeviceModel';
 
 /**
- * TODO: Remove password hash from User[]
+ * GENERAL TODO:
+ * -> Remove password hash from User[]
+ * -> Remove e-mail from user where appropiate
+ * -> Remove user _id where appropiate
  */
 
 const express = require('express');
@@ -105,9 +108,16 @@ router.get('/systemlogs', checkAuthentication, checkAdminPrivilege, (req, res) =
 });
 
 /**
+ * Remove password hash from user model
+ */
+function removePasswordHashFromUser(user: User): User {
+    const { password, ...updatedUser } = user;
+    return updatedUser;
+}
+
+/**
   * User Routes
   */
-
 /**
  * User Login
  *
@@ -514,11 +524,11 @@ router.post('/getUserProfile', checkAuthentication, async (req, res) => {
  */
 router.post('/suggestUserNames', checkAuthentication, async (req, res) => {
     const { user } = req; // The real user
-    if (roleCheck.checkRole([UserRoles.ADMIN, UserRoles.MANAGE_USERS], user)) {
+    if (roleCheck.checkRole([UserRoles.ADMIN, UserRoles.MANAGE_USERS, UserRoles.MANAGE_GROUPS], user)) {
         const { query } = req.body;
         const users = await dbClient.getSuggestedUsers(query);
-        console.log(users);
-        res.send({ success: true, users });
+        const unsensitiveUsers = users.map((singleUser) => removePasswordHashFromUser(singleUser));
+        res.send({ success: true, unsensitiveUsers });
     }
 });
 
