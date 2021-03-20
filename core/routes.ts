@@ -277,10 +277,15 @@ router.post('/suggestReservationForRequest', checkAuthentication, async (req, re
 /**
  *  Get all items which are available in the timespan
  */
-router.post('/availableInTimespan', checkAuthentication, async (req, res) => {
-    // const items: Item[] = req.body?.items as Item[] || [];
-    // const availableItems = await dbClient.autoSuggestionForRequest(items || []);
-    res.send({ success: true });
+router.post('/getItemsForTimespan', checkAuthentication, async (req, res) => {
+    const { request } = req.body;
+    const { user } = req;
+    if (roleCheck.checkRole([UserRoles.ADMIN, UserRoles.MANAGE_DEVICE], user)) {
+        const reservationSuggestion = await dbClient.itemsAvailableInTimespan((request.startDate / 10000), (request.plannedEndDate / 1000));
+        res.send({ success: true, reservation: reservationSuggestion });
+    } else {
+        res.send({ success: false });
+    }
 });
 
 /**
