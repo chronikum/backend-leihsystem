@@ -304,11 +304,10 @@ export default class DBClient {
     }
 
     /**
-     * Checks if a item should be available right now (a reservation is currently active)
+     * Checks if a item should be available right now (a reservation is currently active within the selected item ids)
      *
      * Also sets the current reservationId if necessary
      *
-     * @TODO MAYBE USE MONGOOSE RANGE SELECTOR INSTEAD!
      *
      * @TODO This can be optimized for sure
      * @TODO Ask if items are surely being scanned before they are being lended
@@ -736,6 +735,56 @@ export default class DBClient {
             return Promise.resolve(detailedModel);
         }
         return Promise.resolve(null);
+    }
+
+    /**
+     * Returns all items which are available in the given time frame
+     *
+     * - gets all reservations overlapping with the new one
+     * - gets the items in those reservations
+     * - checks which items won't be available
+     */
+    async itemsAvailableInTimespan(startDate: number, endDate: number): Promise<Item[]> {
+        const allItems = await ItemModel.find() as unknown as Item[];
+        const itemIds = allItems.map((item) => item.itemId);
+
+        const reservationsActiveDuringRequestedTime = await ReservationModel.find({
+            $or: [
+                {
+                    $and: [ // Get every reservation which overlaps with the new requested one
+                        { plannedEndDate: { $gte: endDate } },
+                        { startDate: { $gte: startDate } },
+                    ],
+                },
+                {
+                    $and: [ // Get every reservation which overlaps with the new requested one
+                        { plannedEndDate: { $gte: endDate } },
+                        { startDate: { $lte: startDate } },
+                    ],
+                },
+            ],
+        }) as unknown as Reservation[];
+        let itemsReserved = [];
+        reservationsActiveDuringRequestedTime.forEach((reservation) => { itemsReserved = itemsReserved.concat(reservation.itemIds); });
+        const availableItems = allItems.filter((item) => !itemsReserved.includes(item.itemId));
+        availableItems.map(async (item) => {
+            const loadedItem = await this.getItemById(item.itemId);
+            return loadedItem;
+        });
+        return Promise.resolve(availableItems);
+    }
+
+    /**
+     * Get automatic suggestion for reservation request
+     */
+    async autoSuggestionForRequest(request: Request): Promise<Reservation[]> {
+        // const hasSubRequests = request?.subRequest[0];
+        // The item ids which are available
+        const itemIds: Item[] = await this.itemsAvailableInTimespan((request.startDate / 10000), (request.plannedEndDate / 1000));
+        // console.log('!AVAILABLE');
+        console.log(itemIds);
+        // console.log('AVAILABLE');
+        return null as any;
     }
 
     /**

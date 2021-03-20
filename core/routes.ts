@@ -261,6 +261,29 @@ router.post('/getAvailableItemsForItems', checkAuthentication, async (req, res) 
 });
 
 /**
+ *  Get a reservation which fits the reservation request
+ */
+router.post('/suggestReservationForRequest', checkAuthentication, async (req, res) => {
+    const { request } = req.body;
+    const { user } = req;
+    if (roleCheck.checkRole([UserRoles.ADMIN, UserRoles.MANAGE_DEVICE], user)) {
+        const reservationSuggestion = await dbClient.autoSuggestionForRequest(request);
+        res.send({ success: true, reservation: reservationSuggestion });
+    } else {
+        res.send({ success: false });
+    }
+});
+
+/**
+ *  Get all items which are available in the timespan
+ */
+router.post('/availableInTimespan', checkAuthentication, async (req, res) => {
+    // const items: Item[] = req.body?.items as Item[] || [];
+    // const availableItems = await dbClient.autoSuggestionForRequest(items || []);
+    res.send({ success: true });
+});
+
+/**
  * Reserve several items
  */
 router.post('/reserveItems', checkAuthentication, async (req, res) => {
