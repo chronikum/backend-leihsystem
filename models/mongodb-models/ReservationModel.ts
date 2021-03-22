@@ -9,7 +9,7 @@ const reservationSchema = new Schema({
     description: String,
     approvalRequired: Boolean,
     approved: Boolean,
-    responsible: Boolean,
+    responsible: String,
     itemIds: [String],
     startDate: Number,
     plannedEndDate: Number,

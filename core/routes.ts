@@ -268,6 +268,7 @@ router.post('/suggestReservationForRequest', checkAuthentication, async (req, re
     const { user } = req;
     if (roleCheck.checkRole([UserRoles.ADMIN, UserRoles.MANAGE_DEVICE], user)) {
         const reservationSuggestion = await dbClient.autoSuggestionForRequest(request);
+        // const availableItems = await dbClient.updateAvailabilityOfItems(reservationSuggestion || []);
         res.send({ success: true, reservation: reservationSuggestion });
     } else {
         res.send({ success: false });
@@ -281,8 +282,9 @@ router.post('/getItemsForTimespan', checkAuthentication, async (req, res) => {
     const { request } = req.body;
     const { user } = req;
     if (roleCheck.checkRole([UserRoles.ADMIN, UserRoles.MANAGE_DEVICE], user)) {
-        const reservationSuggestion = await dbClient.itemsAvailableInTimespan((request.startDate / 10000), (request.plannedEndDate / 1000));
-        res.send({ success: true, reservation: reservationSuggestion });
+        const reservationSuggestion = await dbClient.itemsAvailableInTimespan(request.startDate, request.plannedEndDate);
+        const availableItems = await dbClient.updateAvailabilityOfItems(reservationSuggestion || []);
+        res.send({ success: true, items: availableItems });
     } else {
         res.send({ success: false });
     }
@@ -555,8 +557,8 @@ router.post('/suggestUserNames', checkAuthentication, async (req, res) => {
     if (roleCheck.checkRole([UserRoles.ADMIN, UserRoles.MANAGE_USERS, UserRoles.MANAGE_GROUPS], user)) {
         const { query } = req.body;
         const users = await dbClient.getSuggestedUsers(query);
-        const unsensitiveUsers = users.map((singleUser) => removePasswordHashFromUser(singleUser));
-        res.send({ success: true, unsensitiveUsers });
+        // const unsensitiveUsers = users.map((singleUser) => removePasswordHashFromUser(singleUser));
+        res.send({ success: true, users });
     }
 });
 

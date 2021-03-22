@@ -323,6 +323,8 @@ export default class DBClient {
 
         const newReservationStartDate = dayjs.unix(Date.now());
         const newReservationEndDate = dayjs.unix(Date.now());
+        console.log('DAYJS');
+        console.log(newReservationEndDate);
 
         const reservationsAvailable = await ReservationModel.find({
             $or: [
@@ -338,6 +340,72 @@ export default class DBClient {
                         { plannedEndDate: { $gt: newReservationEndDate } },
                         { startDate: { $gt: newReservationStartDate } },
                         { reservationId: { $in: allReservationIds } },
+                    ],
+                },
+            ],
+        });
+        console.log('ITEMS QUERIED:');
+        console.log(reservationsAvailable);
+        console.log('ITEMS QUERIED:');
+        // An array with all currently inactive reservations
+        const inactiveReservation = [];
+
+        // Returns an array with all valid reservations
+        const updatedReservations = allReservations.map((reservation) => {
+            if (reservation.startDate && reservation.plannedEndDate) {
+                const startDatePlanned = dayjs.unix(reservation.startDate);
+                const endDatePlanned = dayjs.unix(reservation.plannedEndDate);
+
+                // Dates are both before the time span or after
+                // eslint-disable-next-line max-len
+                if ((newReservationStartDate.isBefore(startDatePlanned) && newReservationEndDate.isBefore(startDatePlanned)) || ((newReservationStartDate.isAfter(endDatePlanned) && newReservationEndDate.isAfter(endDatePlanned)))) {
+                    reservation.active = false;
+                    inactiveReservation.push(reservation);
+                    return reservation;
+                }
+                reservation.active = true;
+                return reservation;
+            }
+            return reservation;
+        });
+
+        const activeReservations = inactiveReservation.map((reservation) => reservation.reservationId);
+
+        // eslint-disable-next-line no-return-assign
+        existingItems.forEach((item) => item.available = ((item.plannedReservationsIds || []).every((id) => activeReservations.includes(id))));
+        console.log(existingItems);
+        const itemsAvailable = existingItems.filter((item) => item.available);
+
+        const totalActiveReservations = updatedReservations.filter((reservation: Reservation) => reservation.active);
+        console.log(totalActiveReservations.length);
+        console.log(reservationsAvailable.length);
+
+        return existingItems;
+    }
+
+    /**
+     * Returns items which are available during the given timespan
+     */
+    async itemsAvailableinCollectionDuringTimespan(items: Item[], startDate: number, endDate: number): Promise<Item[]> {
+        const newReservationStartDate = dayjs.unix(startDate);
+        const newReservationEndDate = dayjs.unix(endDate);
+        const itemIds = items.map((item) => item.itemId);
+        const existingItems = await ItemModel.find().where('itemId').in(itemIds) as unknown as Item[];
+        const allReservations = ReservationModel.find({}) as unknown as Reservation[];
+
+        // Reservations which are not colliding with our own reservation
+        const reservationsAvailable = await ReservationModel.find({
+            $or: [
+                { // BEFORE RESERVATION
+                    $and: [
+                        {
+                            plannedEndDate: { $lt: newReservationStartDate },
+                        },
+                    ],
+                },
+                { // AFTER RESERVATION
+                    $and: [
+                        { startDate: { $gt: newReservationEndDate } },
                     ],
                 },
             ],
@@ -472,7 +540,6 @@ export default class DBClient {
      * @returns Reservations
      */
     async getReservations(): Promise<Reservation[]> {
-        const date = Date.now();
         const allReservations: Reservation[] = await ReservationModel.find({}) as unknown as Reservation[];
 
         return allReservations;
@@ -747,30 +814,46 @@ export default class DBClient {
     async itemsAvailableInTimespan(startDate: number, endDate: number): Promise<Item[]> {
         const allItems = await ItemModel.find() as unknown as Item[];
         const itemIds = allItems.map((item) => item.itemId);
+        const allReservations = await ReservationModel.find({}) as unknown as Reservation[];
 
+        // 1616421600000
+        // 161642226
         const reservationsActiveDuringRequestedTime = await ReservationModel.find({
-            $or: [
-                {
-                    $and: [ // Get every reservation which overlaps with the new requested one
-                        { plannedEndDate: { $gte: endDate } },
-                        { startDate: { $gte: startDate } },
+            $nor: [
+                { // BEFORE RESERVATION
+                    $and: [
+                        { plannedEndDate: { $lt: startDate } },
+                        { startDate: { $lt: startDate } },
                     ],
                 },
-                {
-                    $and: [ // Get every reservation which overlaps with the new requested one
-                        { plannedEndDate: { $gte: endDate } },
-                        { startDate: { $lte: startDate } },
+                { // AFTER RESERVATION
+                    $and: [
+                        { plannedEndDate: { $gt: endDate } },
+                        { startDate: { $gt: endDate } },
                     ],
                 },
             ],
         }) as unknown as Reservation[];
-        let itemsReserved = [];
-        reservationsActiveDuringRequestedTime.forEach((reservation) => { itemsReserved = itemsReserved.concat(reservation.itemIds); });
-        const availableItems = allItems.filter((item) => !itemsReserved.includes(item.itemId));
+        console.log('Reservations FOUND during requested time:');
+        console.log(reservationsActiveDuringRequestedTime);
+        const itemsReserved: string[] = [];
+        reservationsActiveDuringRequestedTime.forEach((reservation: Reservation) => {
+            reservation.itemIds.forEach((itemId) => {
+                itemsReserved.push(itemId.toString());
+            });
+        });
+        console.log('Items reserved:');
+        console.log(itemsReserved);
+        const availableItems = allItems.filter((item) => !itemsReserved.includes(item.itemId.toString()));
         availableItems.map(async (item) => {
             const loadedItem = await this.getItemById(item.itemId);
             return loadedItem;
         });
+        console.log('Items available: ');
+        console.log(availableItems);
+        // const availableItems = await this.itemsAvailableinCollectionDuringTimespan(allItems, (startDate / 1000), (endDate / 1000));
+        // console.log('Available: ');
+        // console.log(availableItems);
         return Promise.resolve(availableItems);
     }
 
@@ -780,7 +863,7 @@ export default class DBClient {
     async autoSuggestionForRequest(request: Request): Promise<Reservation[]> {
         // const hasSubRequests = request?.subRequest[0];
         // The item ids which are available
-        const itemIds: Item[] = await this.itemsAvailableInTimespan((request.startDate / 10000), (request.plannedEndDate / 1000));
+        const itemIds: Item[] = await this.itemsAvailableInTimespan((request.startDate / 10000), (request.plannedEndDate / 10000));
         // console.log('!AVAILABLE');
         console.log(itemIds);
         // console.log('AVAILABLE');
