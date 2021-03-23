@@ -235,6 +235,20 @@ router.post('/getInventory', checkAuthentication, async (req, res) => {
 });
 
 /**
+ *  Get items for itemIds
+ */
+router.post('/getItemsforIds', checkAuthentication, async (req, res) => {
+    const { user } = req; // The real user
+    const { itemIds } = req.body; // the item ids requested as numbers
+    if (roleCheck.checkRole([UserRoles.ADMIN, UserRoles.MANAGE_DEVICE, UserRoles.MANAGE_MODELS], user)) {
+        const items = await dbClient.getItemsByIds(itemIds);
+        res.send({ success: true, items });
+    } else {
+        res.send({ success: false });
+    }
+});
+
+/**
  * Delete items (admin only currently!)
  *
  * @param items

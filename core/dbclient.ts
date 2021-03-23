@@ -156,6 +156,19 @@ export default class DBClient {
     }
 
     /**
+     * Get items by ids
+     *
+     * @param number[] ids
+     */
+    async getItemsByIds(ids: number[]): Promise<Item[]> {
+        const items = ((await ItemModel.find({ itemId: { $in: ids } }))) as unknown as Item[];
+        if (items) {
+            return Promise.resolve(items);
+        }
+        return [];
+    }
+
+    /**
      * Get item by unique generated string
      *
      * @param number generatedUniqueIdentifier
