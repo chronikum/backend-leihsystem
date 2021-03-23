@@ -592,11 +592,7 @@ export default class DBClient {
      * @param request provided by the user
      */
     async acceptRequest(request: Request) {
-        console.log('ACCEPT REQUEST');
-        console.log(request.requestAccepted);
-        request.requestAccepted = true;
-        console.log(request.requestAccepted);
-        const requestUpdateCompletion = await RequestModel.updateOne({ requestId: request.requestId }, { request }).exec();
+        const requestUpdateCompletion = await RequestModel.updateOne({ requestId: request.requestId }, { requestAccepted: true }).exec();
         console.log(requestUpdateCompletion);
         const requestUpdated = await RequestModel.findOne({ requestId: request.requestId }) as unknown as Request;
         console.log(requestUpdated);
