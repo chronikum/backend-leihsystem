@@ -352,6 +352,7 @@ router.post('/createRequest', checkAuthentication, async (req, res) => {
     // Create a new request
     if (request) {
         request.userCreated = user.userId;
+        request.requestingUser = user.userId;
         const requestCreated: Request = await dbClient.createNewRequest(request);
         res.send({ success: true, request: requestCreated });
     } else {
@@ -535,15 +536,38 @@ router.post('/changePasswordForUser', checkAuthentication, async (req, res) => {
 });
 
 /**
- * Get user information
- *
- * @TODO SENSITIVE DATA - MASK!
+ * Get user profile
  */
 router.post('/getUserProfile', checkAuthentication, async (req, res) => {
     const { user } = req; // The real user
-    if (roleCheck.checkRole([UserRoles.ADMIN, UserRoles.MANAGE_USERS], user)) {
+    if (roleCheck.checkRole([UserRoles.ADMIN, UserRoles.MANAGE_USERS, UserRoles.MANAGE_REQUESTS], user)) {
+        const { userId } = req.body;
         const users = [];
         res.send({ success: true, users });
+    }
+});
+
+/**
+ * Get user information for userId
+ * - userId
+ * - user information
+ *
+ */
+router.post('/getUserInformationForId', checkAuthentication, async (req, res) => {
+    const { user } = req; // The real user
+    if (roleCheck.checkRole([UserRoles.ADMIN, UserRoles.MANAGE_USERS, UserRoles.MANAGE_REQUESTS], user)) {
+        const { userId } = req.body;
+        if (userId) {
+            // eslint-disable-next-line prefer-const
+            let requestingUser = await dbClient.getUserForId(userId);
+            requestingUser.password = '';
+            res.send({ success: true, user: requestingUser });
+        } else {
+            console.log('Could not read body');
+            res.send({ success: false });
+        }
+    } else {
+        res.send({ success: false, message: 'No permission. This incident was logged.' });
     }
 });
 

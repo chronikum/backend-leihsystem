@@ -120,7 +120,9 @@ export default class DBClient {
      * @returns Promise<User> with id
      */
     async getUserForId(userId: string): Promise<User> {
-        return UserModel.findOne({ userId }) as unknown as Promise<User>;
+        const user = UserModel.findOne({ userId }) as unknown as User;
+        user.password = '';
+        return Promise.resolve(user);
     }
 
     /**
