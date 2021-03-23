@@ -288,11 +288,8 @@ export default class DBClient {
      * @returns updated Request
      */
     async updateReservation(reservation: Reservation): Promise<Reservation> {
-        console.log('UPDATED RESERVATION TO FINISHED');
-        console.log(reservation);
-        await ReservationModel.updateOne({ reservationId: reservation.reservationId }, { reservation }).exec();
+        await ReservationModel.updateOne({ reservationId: reservation.reservationId }, { completed: true }).exec();
         const reservationUpdated = await ReservationModel.findOne({ reservationId: reservation.reservationId }) as unknown as Reservation;
-        // Return the updated reservation
         return Promise.resolve(reservationUpdated);
     }
 
