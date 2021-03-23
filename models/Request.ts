@@ -17,4 +17,5 @@ export interface Request {
     created: number,
     modified?: number,
     priority?: number,
+    requestAccepted: boolean, // Request was accepted
 }

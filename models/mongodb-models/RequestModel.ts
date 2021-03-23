@@ -20,6 +20,7 @@ const requestModelSchema = new Schema({
     created: Number,
     modified: Number,
     priority: Number,
+    requestAccepted: Boolean, // Request was accepted
 });
 
 const RequestModel = mongoose.model('requestModel', requestModelSchema);

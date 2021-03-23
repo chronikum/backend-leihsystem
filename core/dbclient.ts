@@ -572,6 +572,7 @@ export default class DBClient {
             created: creationDate,
             modified: 0, // TODO: Implement in request update
             priority: 0,
+            requestAccepted: false,
         });
         // Save model
         await newRequest.save().catch((err) => {
@@ -597,10 +598,23 @@ export default class DBClient {
     }
 
     /**
+     * Will accept a request and set a property which will block it from be displayed under allRequests endpoint
+     *
+     * @param request provided by the user
+     */
+    async acceptRequest(request: Request) {
+        request.requestAccepted = true;
+        RequestModel.updateOne({ requestId: request.requestId }, { request }).exec();
+        const requestUpdated = await RequestModel.findOne({ requestId: request.requestId }) as unknown as Request;
+        // Return the updated Request
+        return Promise.resolve(requestUpdated);
+    }
+
+    /**
      * Gets all pending requests
      */
     async getAllRequests(): Promise<Request[]> {
-        const requests = await RequestModel.find() as unknown as Request[];
+        const requests = await RequestModel.find({ requestAccepted: false }) as unknown as Request[];
         return Promise.resolve(requests);
     }
 
