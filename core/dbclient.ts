@@ -269,7 +269,7 @@ export default class DBClient {
                 itemIds: reservation.itemIds,
                 startDate: reservation.startDate,
                 plannedEndDate: reservation.plannedEndDate,
-                completed: reservation.completed || undefined,
+                completed: false,
             });
 
             console.log(`Created reservation id: ${reservationId}`);
