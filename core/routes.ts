@@ -320,17 +320,37 @@ router.post('/getItemsForTimespan', checkAuthentication, async (req, res) => {
  * Reserve several items
  */
 router.post('/reserveItems', checkAuthentication, async (req, res) => {
-    const reservation: Reservation = (req.body.reservation as Reservation);
-    const items: Item[] = (req.body.items as Item[]);
     const { user } = req;
-    console.log('Reserving items');
-    const success = await dbClient.reserveItemsWithReservation(reservation, items, user);
-    console.log('Reservation status:');
-    console.log(success);
-    if (success) {
-        res.send({ success: true, message: 'Items reserved' });
+    if (roleCheck.checkRole([UserRoles.ADMIN, UserRoles.MANAGE_DEVICE, UserRoles.MANAGE_REQUESTS], user)) {
+        const reservation: Reservation = (req.body.reservation as Reservation);
+        const items: Item[] = (req.body.items as Item[]);
+        console.log('Reserving items');
+        const success = await dbClient.reserveItemsWithReservation(reservation, items, user);
+        console.log('Reservation status:');
+        console.log(success);
+        if (success) {
+            res.send({ success: true, message: 'Items reserved' });
+        } else {
+            res.send({ success: false, message: 'A reservation in the given time range does already eexist.' });
+        }
+    }
+});
+
+/**
+ * Reserve several items
+ */
+router.post('/finishReservation', checkAuthentication, async (req, res) => {
+    const { user } = req;
+    const { reservation } = req.body;
+    if (roleCheck.checkRole([UserRoles.ADMIN, UserRoles.MANAGE_DEVICE, UserRoles.MANAGE_REQUESTS], user)) {
+        if (reservation) {
+            const updatedReservation = await dbClient.updateReservation(reservation);
+            res.send({ success: true, reservation: updatedReservation });
+        } else {
+            res.send({ success: false });
+        }
     } else {
-        res.send({ success: false, message: 'A reservation in the given time range does already eexist.' });
+        res.send({ success: false });
     }
 });
 

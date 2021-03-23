@@ -282,6 +282,19 @@ export default class DBClient {
     }
 
     /**
+     * Update request
+     *
+     * @param request provided by user
+     * @returns updated Request
+     */
+    async updateReservation(reservation: Reservation): Promise<Reservation> {
+        RequestModel.updateOne({ reservationId: reservation.reservationId }, { reservation }).exec();
+        const reservationUpdated = await ReservationModel.findOne({ reservationId: reservation.reservationId }) as unknown as Reservation;
+        // Return the updated reservation
+        return Promise.resolve(reservationUpdated);
+    }
+
+    /**
      * Check if a reservation is appliable
      * - Checks if the items which the users want and the which the can access are the same
      * - Checks if the reservation collides with another reservation which has been applied
