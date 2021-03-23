@@ -280,17 +280,6 @@ export default class DBClient {
         // Load items from database
         const results = await ItemModel.find().where('itemId').in(itemIds) as unknown as Item[];
 
-        // Items which the user can lend
-        // Always allows ADMIN role
-        // TODO: Make roles dynamic
-        const reservationRequestAllowed = results.filter(
-            (item) => {
-                const userRoleCheck = item.requiredRolesToReserve.includes(user.role);
-                const isAdminCheck = user.role === UserRoles.ADMIN;
-                return (userRoleCheck || isAdminCheck);
-            },
-        );
-
         const affectedReservationIds: Set<number> = new Set<number>();
 
         // All affected reservation ids
@@ -301,7 +290,7 @@ export default class DBClient {
         const validReservationRequest = this.reservationHasNoCollisions(affectedReservations, reservation);
 
         return Promise.resolve(
-            ((results.length === reservationRequestAllowed.length) && validReservationRequest),
+            ((results.length) && validReservationRequest),
         );
     }
 
