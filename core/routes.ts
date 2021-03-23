@@ -124,20 +124,19 @@ function removePasswordHashFromUser(user: User): User {
  * Also sets last login time
  */
 router.post('/login', passport.authenticate('local'), async (req, res) => {
-    // user which logged in
-    const { user } = req;
+    // eslint-disable-next-line prefer-const
+    let { user } = req;
     dbClient.newLogin(user);
     user.password = '';
-    user.groupRoles = await dbClient.getGroupRolesForUser(user);
     res.send({ success: true, user });
 });
 
 /**
  * User Authentication Checkout
  */
-router.post('/checkAuth', checkAuthentication, (req, res) => {
-    const { user } = req;
-    user.groupRoles = [];
+router.post('/checkAuth', checkAuthentication, async (req, res) => {
+    // eslint-disable-next-line prefer-const
+    let { user } = req;
     user.password = '';
     user.groupRoles = res.send({ success: true, user });
 });
@@ -154,6 +153,19 @@ router.post('/getAllUsers', checkAuthentication, checkAdminPrivilege, async (req
         return user;
     });
     res.send(unsensitiveUser);
+});
+
+/**
+ * Get group roles of the current user
+ */
+router.post('/currentUserRoles', checkAuthentication, async (req, res) => {
+    const { user } = req;
+    const userRoles = await dbClient.getGroupRolesForUser(user);
+    if (userRoles) {
+        res.send({ userRoles });
+    } else {
+        res.send({ success: false });
+    }
 });
 
 /**
@@ -384,12 +396,11 @@ router.post('/acceptRequest', checkAuthentication, async (req, res) => {
     const { user } = req; // The real user
     const request: Request = (req.body.request as Request); // User request
     if (roleCheck.checkRole([UserRoles.ADMIN, UserRoles.MANAGE_REQUESTS], user)) {
-        const requestUpdated: Request = await dbClient.updateRequest(request);
+        const requestUpdated: Request = await dbClient.acceptRequest(request);
         res.send({ success: true, request: requestUpdated });
     } else {
         res.send({ success: false });
     }
-    res.send(user);
 });
 
 /**

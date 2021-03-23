@@ -556,7 +556,7 @@ export default class DBClient {
     async createNewRequest(request: Request): Promise<Request> {
         const requestCount = await RequestModel.countDocuments({});
         const highestId: number = requestCount === 0 ? 0 : ((((await RequestModel.find()
-            .sort({ itemId: -1 })
+            .sort({ requestId: -1 })
             .limit(1)) as unknown as Request[])[0].requestId || 0) as number);
 
         const creationDate = Date.now();
@@ -603,10 +603,14 @@ export default class DBClient {
      * @param request provided by the user
      */
     async acceptRequest(request: Request) {
+        console.log('ACCEPT REQUEST');
+        console.log(request.requestAccepted);
         request.requestAccepted = true;
-        RequestModel.updateOne({ requestId: request.requestId }, { request }).exec();
+        console.log(request.requestAccepted);
+        const requestUpdateCompletion = await RequestModel.updateOne({ requestId: request.requestId }, { request }).exec();
+        console.log(requestUpdateCompletion);
         const requestUpdated = await RequestModel.findOne({ requestId: request.requestId }) as unknown as Request;
-        // Return the updated Request
+        console.log(requestUpdated);
         return Promise.resolve(requestUpdated);
     }
 
