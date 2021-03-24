@@ -344,7 +344,7 @@ router.post('/finishReservation', checkAuthentication, async (req, res) => {
     const { reservation } = req.body;
     if (roleCheck.checkRole([UserRoles.ADMIN, UserRoles.MANAGE_DEVICE, UserRoles.MANAGE_REQUESTS], user)) {
         if (reservation) {
-            const updatedReservation = await dbClient.updateReservation(reservation);
+            const updatedReservation = await dbClient.finishReservation(reservation);
             res.send({ success: true, reservation: updatedReservation });
         } else {
             res.send({ success: false });
@@ -364,7 +364,7 @@ router.post('/getItemByUnique', checkAuthentication, async (req, res) => {
     if (item) {
         res.send({ success: true, items: [item] });
     } else {
-        res.send({ success: false, message: 'A reservation in the given time range does already eexist.' });
+        res.send({ success: false, message: 'Not found.' });
     }
 });
 

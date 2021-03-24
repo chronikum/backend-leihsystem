@@ -282,13 +282,14 @@ export default class DBClient {
     }
 
     /**
-     * Update request
+     * Finish Reservation
      *
      * @param request provided by user
      * @returns updated Request
      */
-    async updateReservation(reservation: Reservation): Promise<Reservation> {
-        await ReservationModel.updateOne({ reservationId: reservation.reservationId }, { completed: true }).exec();
+    async finishReservation(reservation: Reservation): Promise<Reservation> {
+        const dateNow = Date.now();
+        await ReservationModel.updateOne({ reservationId: reservation.reservationId }, { completed: true, plannedEndDate: dateNow }).exec();
         const reservationUpdated = await ReservationModel.findOne({ reservationId: reservation.reservationId }) as unknown as Reservation;
         return Promise.resolve(reservationUpdated);
     }
