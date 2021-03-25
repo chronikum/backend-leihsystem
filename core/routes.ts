@@ -17,9 +17,6 @@ import { DeviceModel } from '../models/DeviceModel';
 
 /**
  * GENERAL TODO:
- * -> Remove password hash from User[]
- * -> Remove e-mail from user where appropiate
- * -> Remove user _id where appropiate
  */
 
 const express = require('express');
@@ -424,6 +421,23 @@ router.post('/updateRequest', checkAuthentication, async (req, res) => {
 });
 
 /**
+ * Cancels a request
+ *
+ * - destructive action
+ */
+router.post('/cancelRequest', checkAuthentication, async (req, res) => {
+    const { user } = req; // The real user
+    const request: Request = (req.body.request as Request); // User request
+    if (roleCheck.checkRole([UserRoles.ADMIN, UserRoles.MANAGE_REQUESTS], user)) {
+        const requestUpdated: Request = await dbClient.cancelRequest(request);
+        res.send({ success: true });
+    } else {
+        res.send({ success: false });
+    }
+    res.send(user);
+});
+
+/**
   * Accept request
   *
   * This will turn a request in a valid reservation
@@ -628,7 +642,6 @@ router.post('/suggestUserNames', checkAuthentication, async (req, res) => {
     if (roleCheck.checkRole([UserRoles.ADMIN, UserRoles.MANAGE_USERS, UserRoles.MANAGE_GROUPS], user)) {
         const { query } = req.body;
         const users = await dbClient.getSuggestedUsers(query);
-        // const unsensitiveUsers = users.map((singleUser) => removePasswordHashFromUser(singleUser));
         res.send({ success: true, users });
     }
 });

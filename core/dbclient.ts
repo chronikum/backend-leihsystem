@@ -326,9 +326,6 @@ export default class DBClient {
      * Also sets the current reservationId if necessary
      *
      *
-     * @TODO This can be optimized for sure
-     * @TODO Ask if items are surely being scanned before they are being lended
-     * @TODO Maybe deprecated in prod
      */
     async itemsAvailableinCollection(items: Item[]): Promise<Item[]> {
         const itemIds = items.map((item) => item.itemId);
@@ -610,6 +607,16 @@ export default class DBClient {
         const requestUpdated = await RequestModel.findOne({ requestId: request.requestId }) as unknown as Request;
         // Return the updated Request
         return Promise.resolve(requestUpdated);
+    }
+
+    /**
+     * Cancels request
+     *
+     * @param request provided by user
+     * @returns updated Request
+     */
+    async cancelRequest(request: Request) {
+        await RequestModel.findOneAndDelete({ requestId: request.requestId }).exec();
     }
 
     /**
