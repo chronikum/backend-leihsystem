@@ -145,12 +145,12 @@ router.post('/checkAuth', checkAuthentication, async (req, res) => {
 });
 
 /**
- * TODO: Fix
  *
- * Resets user password
+ * Opens a user password request challenge
  */
 router.post('/resetPassword', async (req, res) => {
-    resetPasswordService.testConfiguration();
+    const { email } = req.body;
+    resetPasswordService.createNewPasswordResetChallenge(email);
     res.send({ success: true });
 });
 
@@ -201,6 +201,27 @@ router.post('/validateResetToken', (req, res) => {
         const tokenValid = resetPasswordService.checkToken(token, email);
         console.log(`TOKEN VALID:${tokenValid}`);
         res.send({ success: tokenValid });
+    } else {
+        res.send({ success: false });
+    }
+});
+
+/**
+ * Resets a password via token
+ */
+router.post('/changePasswordViaToken', async (req, res) => {
+    const { password } = req.body;
+    const { email } = req.body;
+    const { token } = req.body;
+    if (token && (password.length > 4) && email) {
+        const tokenValid = resetPasswordService.checkToken(token, email);
+        const userForEmail = await dbClient.getUserForEmail(email);
+        if (userForEmail) {
+            await dbClient.changePasswordForUser(userForEmail, password);
+            res.send({ success: tokenValid });
+        } else {
+            res.send({ success: false });
+        }
     } else {
         res.send({ success: false });
     }

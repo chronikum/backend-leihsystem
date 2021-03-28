@@ -1,4 +1,6 @@
+import crypto from 'crypto';
 import { User } from '../models/User';
+import DBClient from './dbclient';
 
 const nodemailer = require('nodemailer');
 /**
@@ -13,6 +15,11 @@ const nodemailer = require('nodemailer');
  *
  */
 export default class ResetPassword {
+    /**
+     * DB Client instance
+     */
+    dbClient = DBClient.getInstance();
+
     /**
      * The tokens associated with the emails
      */
@@ -29,6 +36,24 @@ export default class ResetPassword {
             ResetPassword.instance = new ResetPassword();
         }
         return ResetPassword.instance;
+    }
+
+    /**
+     * Create a new password reset challenge
+     *
+     * - also checks if e-mail is in system
+     * - processes it afterwards
+     */
+    async createNewPasswordResetChallenge(email: string) {
+        const generatedToken = crypto.randomBytes(12).toString('hex');
+        const resetChallenge = {
+            email,
+            token: generatedToken,
+        };
+        const user = await this.dbClient.getUserForEmail(email);
+        if (user) {
+            this.processResetRequest(user, resetChallenge);
+        }
     }
 
     /**
@@ -49,16 +74,14 @@ export default class ResetPassword {
     }
 
     /**
-     * Will send a test mail
+     * Process the reset request
+     *
+     * - sends mail
+     * - adds the reset token to the list
      */
-    testConfiguration() {
-        this.sendMailToEmail('auzsgdfizagwigsdfiuaguizsf', {
-            firstname: 'Jonathan',
-            surname: 'Fritz',
-            username: 'Jonathan2',
-            email: 'fritz@nosc.io',
-        } as any);
-        this.addResetToken('auzsgdfizagwigsdfiuaguizsf', 'fritz@nosc.io');
+    processResetRequest(user: User, resetChallenge: any) {
+        this.sendMailToEmail(resetChallenge.token, user);
+        this.addResetToken(resetChallenge.token, user.email);
     }
 
     /**
@@ -93,14 +116,16 @@ export default class ResetPassword {
 
         // send mail with defined transport object
         const testMailStatus = await transporter.sendMail({
-            from: `"Leihsystem 👻" <${process.env.SMTP_USERNAME}>`, // sender address
+            from: `"ZfM Leihsystem 👻" <${process.env.SMTP_USERNAME}>`, // sender address
             to: `${user?.firstname} ${user?.surname} <${user?.email}>`, // list of receivers
             subject: 'Password-Reset', // Subject line
             text: 'Diese E-Mail ist nur als HTML verfügbar.', // plain text body
-            html: `<meta charset="utf-8"><br><h2>ZfM Password Reset</h2><br>
+            html: `<h1>ZfM Password Reset</h1><br>
             Sehr geehrte/r ${user?.firstname} ${user?.surname},<br> für Ihren Account wurde ein
-            Passwort-Reset angefordert.\nWenn Sie dies angefordert haben, klicken Sie bitte auf
-            diesen Link: https://irrturm.de/resetPassword/${user?.email}/${token}\n\nMit freundlichen Grüßen\nIhr Ausleihsystem`,
+            Passwort-Reset angefordert.<br>Wenn Sie dies angefordert haben, klicken Sie bitte auf
+            diesen Link: <br>https://irrturm.de/resetPassword/${user?.email}/${token} <br><br>Wenn Sie keinen Password-Request
+            angefordert haben, bitten wir Sie, diese E-Mail zu ignorieren.<br><br>
+            Mit freundlichen Grüßen<br>Ihr Ausleihsystem`,
         });
 
         console.log('Message sent: %s', testMailStatus.messageId);

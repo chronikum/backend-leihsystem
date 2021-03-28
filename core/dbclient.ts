@@ -121,8 +121,27 @@ export default class DBClient {
      */
     async getUserForId(userId: string): Promise<User> {
         const user = UserModel.findOne({ userId }) as unknown as User;
-        user.password = '';
-        return Promise.resolve(user);
+        if (user) {
+            user.password = '';
+            return Promise.resolve(user);
+        }
+        return null;
+    }
+
+    /**
+     * Get user with the email  provided
+     *
+     * @param email for user
+     * @returns Promise<User> with email
+     */
+    async getUserForEmail(email: string): Promise<User> {
+        console.log(`LOOKING FOR USER WITH MAIL: ${email}`);
+        const user = await UserModel.findOne({ email }) as unknown as User;
+        if (user) {
+            user.password = '';
+            return Promise.resolve(user);
+        }
+        return null;
     }
 
     /**
