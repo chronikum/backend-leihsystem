@@ -429,7 +429,7 @@ router.post('/cancelRequest', checkAuthentication, async (req, res) => {
     const { user } = req; // The real user
     const request: Request = (req.body.request as Request); // User request
     if (roleCheck.checkRole([UserRoles.ADMIN, UserRoles.MANAGE_REQUESTS], user)) {
-        const requestUpdated: Request = await dbClient.cancelRequest(request);
+        await dbClient.cancelRequest(request);
         res.send({ success: true });
     } else {
         res.send({ success: false });
