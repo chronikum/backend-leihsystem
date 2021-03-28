@@ -9,8 +9,6 @@ const itemSchema = new Schema({
     name: String,
     internalName: String,
     serialNumber: String,
-    ownership: String,
-    ownershipIdentifier: String,
     creationDate: Number,
     modificationDate: Number,
     description: String,
@@ -21,7 +19,6 @@ const itemSchema = new Schema({
     available: Boolean,
     plannedReservationsIds: [Number],
     itemId: Number,
-    requiredRolesToReserve: [String],
     currentReservationId: String,
     generatedUniqueIdentifier: String,
     modelIdentifier: Number, // the associated device model id

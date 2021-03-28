@@ -200,9 +200,7 @@ export default class DBClient {
             name: item.name || undefined,
             internalName: item.internalName || undefined,
             serialNumber: item.serialNumber || undefined,
-            ownership: item.ownership || undefined,
             caIdentifier: item.caIdentifier || undefined,
-            ownershipIdentifier: item.ownershipIdentifier || undefined,
             creationDate: item.creationDate || undefined,
             modificationDate: item.modificationDate || undefined,
             description: item.description || undefined,
@@ -212,7 +210,6 @@ export default class DBClient {
             available: item.available || undefined,
             plannedReservationsIds: item.plannedReservationsIds || undefined,
             itemId: highestId + 1,
-            requiredRolesToReserve: item.requiredRolesToReserve || [],
             generatedUniqueIdentifier,
             modelIdentifier: item.modelIdentifier || undefined,
         });

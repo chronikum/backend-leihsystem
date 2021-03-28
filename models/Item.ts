@@ -1,4 +1,3 @@
-import { ItemOwnership } from '../enums/ItemOwnership';
 import { UserRoles } from '../enums/UserRoles';
 import { Reservation } from './Reservation';
 
@@ -11,8 +10,6 @@ export interface Item {
     name: string, // Device name
     internalName?: string,
     serialNumber?: string,
-    ownership: ItemOwnership,
-    ownershipIdentifier: string,
     creationDate: number,
     modificationDate?: number,
     description?: string,
@@ -23,7 +20,6 @@ export interface Item {
     available: boolean,
     plannedReservationsIds?: number[],
     itemId: number,
-    requiredRolesToReserve: string[],
     currentReservationId?: string,
     generatedUniqueIdentifier: string, // The string which identifies the device and will be on the qr code
     modelIdentifier?: number, // the associated device model id
