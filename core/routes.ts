@@ -14,6 +14,7 @@ import RoleCheck from './RoleCheck';
 import { Request } from '../models/Request';
 import { Group } from '../models/Group';
 import { DeviceModel } from '../models/DeviceModel';
+import ResetPassword from './ResetPassword';
 
 /**
  * GENERAL TODO:
@@ -22,6 +23,11 @@ import { DeviceModel } from '../models/DeviceModel';
 const express = require('express');
 // The database manager
 const dbManager = DatabaseManager.instance;
+
+/**
+ * Reset Password Service
+ */
+const resetPasswordService = ResetPassword.instance;
 
 /**
  * The database client
@@ -139,6 +145,16 @@ router.post('/checkAuth', checkAuthentication, async (req, res) => {
 });
 
 /**
+ * TODO: Fix
+ *
+ * Resets user password
+ */
+router.post('/resetPassword', async (req, res) => {
+    resetPasswordService.testConfiguration();
+    res.send({ success: true });
+});
+
+/**
  * Gets all users
  *
  */
@@ -171,6 +187,23 @@ router.post('/currentUserRoles', checkAuthentication, async (req, res) => {
 router.post('/logout', checkAuthentication, (req, res) => {
     req.logout();
     res.send({ success: true });
+});
+
+/**
+ * Validates a password request token
+ */
+router.post('/validateResetToken', (req, res) => {
+    const { email } = req.body;
+    const { token } = req.body;
+    console.log(email);
+    console.log(token);
+    if (token && email) {
+        const tokenValid = resetPasswordService.checkToken(token, email);
+        console.log(`TOKEN VALID:${tokenValid}`);
+        res.send({ success: tokenValid });
+    } else {
+        res.send({ success: false });
+    }
 });
 
 /**

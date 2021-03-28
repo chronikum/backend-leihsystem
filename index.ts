@@ -17,6 +17,7 @@ const session = require('express-session');
 const flash = require('connect-flash');
 const LocalStrategy = require('passport-local').Strategy;
 const router = require('./core/routes');
+require('dotenv').config();
 
 /**
  * Determines if the server is running in production
