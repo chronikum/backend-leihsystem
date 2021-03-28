@@ -676,6 +676,21 @@ router.post('/createGroup', checkAuthentication, async (req, res) => {
 });
 
 /**
+ * Delete a group
+ */
+router.post('/deleteGroup', checkAuthentication, async (req, res) => {
+    const { user } = req;
+
+    if (roleCheck.checkRole([UserRoles.ADMIN, UserRoles.MANAGE_GROUPS], user)) {
+        const groupDelete: Group = req.body as Group;
+        await dbClient.deleteGroup(groupDelete);
+        res.send({ success: true });
+    } else {
+        res.send({ success: false, message: 'You do not have sufficient permission' });
+    }
+});
+
+/**
  * Add user to group
  */
 router.post('/addUserToGroup', checkAuthentication, async (req, res) => {

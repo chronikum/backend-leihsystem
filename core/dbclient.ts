@@ -652,7 +652,7 @@ export default class DBClient {
     /**
      * Create group
      */
-    async createGroup(group: Group): Promise<Item> {
+    async createGroup(group: Group): Promise<Group> {
         const groupCount = await GroupModel.countDocuments({});
         console.log(groupCount);
         const highestId: number = groupCount === 0 ? 0 : ((((await GroupModel.find()
@@ -668,7 +668,7 @@ export default class DBClient {
 
         await groupToCreate.save({});
 
-        return GroupModel.findOne({ groupId: (highestId + 1) }) as unknown as Item;
+        return GroupModel.findOne({ groupId: (highestId + 1) }) as unknown as Group;
     }
 
     /**
@@ -720,10 +720,19 @@ export default class DBClient {
      * @param group
      * @returns updated group
      */
-    async updateGroup(group: Group): Promise<Item> {
+    async updateGroup(group: Group): Promise<Group> {
         GroupModel.updateOne({ groupId: group.groupId }, { group }).exec();
 
-        return GroupModel.findOne({ groupId: group.groupId }) as unknown as Item;
+        return GroupModel.findOne({ groupId: group.groupId }) as unknown as Group;
+    }
+
+    /**
+     * Deletes the given group
+     *
+     * @param group Delete the group given
+     */
+    async deleteGroup(group: Group) {
+        GroupModel.deleteOne({ groupId: group.groupId }).exec();
     }
 
     /**
