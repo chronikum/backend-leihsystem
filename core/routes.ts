@@ -15,6 +15,7 @@ import { Request } from '../models/Request';
 import { Group } from '../models/Group';
 import { DeviceModel } from '../models/DeviceModel';
 import ResetPassword from './ResetPassword';
+import MailService from './MailService';
 
 /**
  * GENERAL TODO:
@@ -28,6 +29,11 @@ const dbManager = DatabaseManager.instance;
  * Reset Password Service
  */
 const resetPasswordService = ResetPassword.instance;
+
+/**
+ * Mail Service Instance
+ */
+const mailingService = MailService.instance;
 
 /**
  * The database client
@@ -101,7 +107,7 @@ router.post('/stats', checkAuthentication, checkAdminPrivilege, (req, res) => {
 });
 
 // Checks if backend is currently available
-router.post('/available', checkAuthentication, (req, res) => {
+router.post('/available', (req, res) => {
     res.send({ success: true });
 });
 
@@ -501,7 +507,10 @@ router.post('/acceptRequest', checkAuthentication, async (req, res) => {
     const request: Request = (req.body.request as Request); // User request
     if (roleCheck.checkRole([UserRoles.ADMIN, UserRoles.MANAGE_REQUESTS], user)) {
         const requestUpdated: Request = await dbClient.acceptRequest(request);
-        res.send({ success: true, request: requestUpdated });
+        // After request got accepted, we want to send out an email to the user to notify him about it!
+        const userAffected = await dbClient.getUserForId(request.userCreated.toString());
+        mailingService.sendAcceptedMail(userAffected, request);
+        res.send({ success: true, requestUpdated });
     } else {
         res.send({ success: false });
     }
