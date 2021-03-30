@@ -58,6 +58,36 @@ export default class MailService {
     }
 
     /**
+     * This will send the user an email informing them that a reservation request got rejected
+     *
+     * @param User
+     * @param Reservation
+     */
+    async sendRejectedMail(user: User, reservation: Request) {
+        this.transporter = nodemailer.createTransport({
+            host: process.env.SMTP_HOST,
+            port: process.env.SMTP_PORT,
+            secure: true, // true for 465, false for other ports
+            auth: {
+                user: process.env.SMTP_USERNAME, // generated ethereal user
+                pass: process.env.SMTP_PASSWORD, // generated ethereal password
+            },
+        });
+        const testMailStatus = await this.transporter.sendMail({
+            from: `"ZfM Leihsystem 👻" <${process.env.SMTP_USERNAME}>`, // sender address
+            to: `${user?.firstname} ${user?.surname} <${user?.email}>`, // list of receivers
+            subject: 'Reservierungsanfrage abgelehnt', // Subject line
+            text: 'Diese E-Mail ist nur als HTML verfügbar.', // plain text body
+            html: `<h1>ZfM Reservierungsanfrage <b>abgelehnt</b>!</h1><br>
+            Sehr geehrte/r ${user?.firstname} ${user?.surname},<br>
+            Ihre Reservierungsanfrage für den ${this.parseDate(reservation.startDate)} wurde <b>nicht</b> bestätigt..
+            Mehr Informationen erhalten Sie demnächst von eine/r Mitarbeiter/in des ZfM.<br>
+            Mit freundlichen Grüßen,<br>Ihr ZfM Ausleihsystem`,
+        });
+        console.log(testMailStatus);
+    }
+
+    /**
      * This will send the user an email informing them that a reservation was finished successfully
      */
     sendReservationFinishedSuccessfullyMail() {

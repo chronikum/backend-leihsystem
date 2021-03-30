@@ -490,11 +490,12 @@ router.post('/cancelRequest', checkAuthentication, async (req, res) => {
     const request: Request = (req.body.request as Request); // User request
     if (roleCheck.checkRole([UserRoles.ADMIN, UserRoles.MANAGE_REQUESTS], user)) {
         await dbClient.cancelRequest(request);
+        const userAffected = await dbClient.getUserForId(request.userCreated.toString());
+        mailingService.sendRejectedMail(userAffected, request);
         res.send({ success: true });
     } else {
         res.send({ success: false });
     }
-    res.send(user);
 });
 
 /**
