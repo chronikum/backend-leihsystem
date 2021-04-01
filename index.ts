@@ -94,6 +94,14 @@ export default class Server {
         this.app.use(passport.session());
         this.app.use(flash());
         this.app.use('/', router);
+        // An error handling middleware
+        this.app.use((err, req, res, next) => {
+            res.status(500);
+            console.log('Request failed:');
+            console.log(req);
+            console.log('500 | Internal error');
+            res.send({ success: false, message: 'Sorry, we ran into an critically error.' });
+        });
 
         // Fires when database is available
         this.db.databaseReady.subscribe(async (connectionSuccess) => {
