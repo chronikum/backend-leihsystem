@@ -101,6 +101,31 @@ export default class DBClient {
     }
 
     /**
+     *  Updates a user, but only certain values
+     *
+     * TODO: Check that an email is not used yet
+     * @param user to be updated
+     *
+     * @returns true, if successful
+     */
+    async updateUserInformation(user: User): Promise<User> {
+        console.log('Updating...');
+        const before = await UserModel.findOne({ userId: user.userId }) as unknown as User;
+        const x1 = await UserModel.updateOne({ userId: user.userId }, {
+            email: user.email,
+            matrikelnumber: user.matrikelnumber || '',
+            phone: user.phone || '',
+        }, { new: false }).exec().then((x) => x.ok === 1);
+        console.log('START');
+        const after = await UserModel.findOne({ userId: user.userId }) as unknown as User;
+        console.log(before);
+        console.log(after);
+        console.log('END');
+
+        return UserModel.findOne({ userId: user.userId }) as unknown as User;
+    }
+
+    /**
      * Change a users password
      *
      * @param user which passwords should be changed

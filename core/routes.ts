@@ -617,6 +617,26 @@ router.post('/updateUser', checkAuthentication, async (req, res) => {
 });
 
 /**
+ * Updates user information (only certain values)
+ */
+router.post('/updateUserInformation', checkAuthentication, async (req, res) => {
+    const { user } = req;
+    if (user.userId === req.body.user.userId) {
+        const userToUpdate: User = req.body.user as User;
+        const updatedUser = await dbClient.updateUserInformation(userToUpdate);
+        console.log('D');
+        console.log(updatedUser);
+        if (updatedUser) {
+            res.send({ success: true, user: updatedUser });
+        } else {
+            res.send({ success: false, message: 'User update failed' });
+        }
+    } else {
+        res.send({ success: false, message: 'You do not have sufficient permission' });
+    }
+});
+
+/**
  * Delete users provided
  *
  * - Attention: Will delete users, one-way operation
