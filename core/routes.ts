@@ -618,6 +618,7 @@ router.post('/updateUser', checkAuthentication, async (req, res) => {
 
 /**
  * Updates user information (only certain values)
+ * TODO: Improve security check
  */
 router.post('/updateUserInformation', checkAuthentication, async (req, res) => {
     const { user } = req;
