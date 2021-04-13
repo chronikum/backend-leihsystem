@@ -25,6 +25,7 @@
     "express-fileupload": "^1.2.1",
     "express-session": "^1.17.1",
     "helmet": "^4.2.0",
+    "jimp": "^0.16.1",
     "mongoose": "^5.11.8",
     "nodemailer": "^6.5.0",
     "passport": "^0.4.1",

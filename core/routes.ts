@@ -1,6 +1,7 @@
 // eslint-disable-next-line import/extensions
 import passport from 'passport';
 import { setOriginalNode } from 'typescript';
+import Jimp from 'jimp';
 import { UserRoles } from '../enums/UserRoles';
 import { Item } from '../models/Item';
 import ReservationModel from '../models/mongodb-models/ReservationModel';
@@ -28,7 +29,7 @@ const dbManager = DatabaseManager.instance;
 /**
  * The Upload path for files
  */
-const uploadPath = `${__dirname}/uploads/`;
+const uploadPath = `${__dirname}/public/`;
 
 /**
  * Reset Password Service
@@ -861,28 +862,47 @@ router.post('/getAllModels', checkAuthentication, async (req, res) => {
  */
 router.post('/uploadProfilePicture', checkAuthentication, async (req, res) => {
     const { user } = req;
-    const { specifiedUser } = req.body;
     // if (user.userId === specifiedUser.userId) {
-    if (true) {
+    if (user.userId) {
         if (!req.files || Object.keys(req.files).length === 0) {
             return res.status(404).send('No files were uploaded.');
         }
-        // eslint-disable-next-line prefer-const
-        // eslint-disable-next-line prefer-destructuring
-        const sampleFile = req.files.file;
-        console.log(req.files.file);
-        const uploadPathProfilePicture = `${uploadPath}/profiles/test/${sampleFile.name}`;
-        // // Use the mv() method to place the file somewhere on your server
-        // sampleFile.mv(uploadPath, (err) => {
-        //     if (err) { return res.status(500).send(err); }
 
-        //     res.send('File uploaded!');
-        // });
-        console.log('File would have been uploaded to:');
+        // Build the image path and image name.
+        const image = req.files.file;
+        const fileSuffix = image?.name.split('.').reverse()[0] || '.jpeg';
+        // Check the filesuffix.
+        // Allowed are jpeg, jpg and png.
+        const allowedFileFormats = ['jpeg', 'jpg', 'png'];
+        if (!allowedFileFormats.includes(fileSuffix)) {
+            return res.send({ success: false, message: 'The provided file format is not allowed' });
+        }
+        const uploadPathDestination = `${uploadPath}profiles/${user.userId}/`;
+        const uploadPathProfilePicture = `${uploadPathDestination}original.${fileSuffix}`;
+
+        try {
+            // Write the file
+            // eslint-disable-next-line consistent-return
+            image.mv(uploadPathProfilePicture, (err) => {
+                if (!err) {
+                    // Write a small version of the file next to the image file
+                    Jimp.read(uploadPathProfilePicture, (err, img) => {
+                        if (err) throw err;
+                        img
+                            .resize(256, Jimp.AUTO) // resize
+                            .quality(80) // set JPEG quality
+                            .write(`${uploadPathDestination}lowres.jpeg`); // save
+                        res.send({ success: true, message: 'File uploaded' });
+                    });
+                }
+            });
+        } catch {
+            console.log('Something went wrong');
+        }
+        console.log('File was uploaded to:');
         console.log(uploadPathProfilePicture);
-        res.send({ success: true });
     } else {
-        // res.send({ success: false, message: 'Insufficent permission: You are not allowed to edit other users information' });
+        res.send({ success: false, message: 'Insufficent permission: You are not allowed to edit other users information' });
     }
 });
 

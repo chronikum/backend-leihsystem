@@ -83,12 +83,14 @@ export default class Server {
         // Helmet security
         this.app.use(helmet());
 
-        // this.app.use(express.json({ type: '*/*' })); // TODO: Fix this.
-        this.app.use(express.json()); // TODO: Fix this.
+        this.app.use(express.static('public'));
+        this.app.use(express.json());
         this.app.use(cors({ credentials: true, origin: corsOrigin })); // CORS configuration
-        this.app.use(fileUpload()); // File upload
+        this.app.use(fileUpload({
+            createParentPath: true, // Creates specified directory
+            limits: { fileSize: 10 * 1024 * 1024 },
+        })); // File upload
         this.app.use((req, res, next) => {
-            // res.header('Access-Control-Allow-Credentials', 'true');
             res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Cache-Control, Key, Access-Control-Allow-Origin');
             next();
         });
