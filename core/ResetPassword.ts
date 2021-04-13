@@ -26,6 +26,7 @@ export default class ResetPassword {
     userTokens: {
         email: string, // The user e-mail
         token: string // The token which can be used to reset the password
+        created: number
     }[] = [];
 
     // Shared instance
@@ -59,17 +60,35 @@ export default class ResetPassword {
     /**
      * Returns new instace of ResetPassword
      */
-    constructor() { }
+    constructor() {
+        this.clearExpiredTokens();
+    }
+
+    /**
+     * This function, called once, will periodically check for expired tokens and remove them.
+     * - the function runs every 5 minutes
+     * - tokens are valid for 20 minutes
+     */
+    clearExpiredTokens() {
+        setInterval(() => {
+            // Find all tokens to delete and flag them
+            this.userTokens.forEach((token) => {
+                const timeLeft = token.created - Date.now();
+                if (timeLeft < -1200000) { // 10 minutes passed
+                    token.created = 0;
+                }
+            });
+            // Remove all tokens which were flagged for deletion
+            this.userTokens = this.userTokens.filter((token) => token.created !== 0);
+        }, 300000);
+    }
 
     /**
      * Checks token for email reset validation
      */
     checkToken(token: string, email: string): boolean {
-        console.log(`Checking ${email}`);
-        console.log(`Checking ${token}`);
         const available = this.userTokens.find((pair) => ((pair.email === email) && (pair.token === token)));
-        console.log('Tokens available:');
-        console.log(available);
+
         return !!available;
     }
 
@@ -88,8 +107,9 @@ export default class ResetPassword {
      * Add reset token to the non persistent array
      */
     addResetToken(token: string, email: string) {
+        const created = Date.now();
         this.userTokens.push({
-            token, email,
+            token, email, created,
         });
     }
 
@@ -123,7 +143,8 @@ export default class ResetPassword {
             html: `<h1>ZfM Password Reset</h1><br>
             Sehr geehrte/r ${user?.firstname} ${user?.surname},<br> für Ihren Account wurde ein
             Passwort-Reset angefordert.<br>Wenn Sie dies angefordert haben, klicken Sie bitte auf
-            diesen Link: <br>https://irrturm.de/resetPassword/${user?.email}/${token} <br><br>Wenn Sie keinen Password-Request
+            diesen Link: <br>https://irrturm.de/resetPassword/${user?.email}/${token} <br>
+            Der Reset-Link ist für 20 Minuten gültig.<br><br><br>Wenn Sie keinen Password-Request
             angefordert haben, bitten wir Sie, diese E-Mail zu ignorieren.<br><br>
             Mit freundlichen Grüßen<br>Ihr Ausleihsystem`,
         });
