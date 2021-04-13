@@ -38,7 +38,7 @@ export default class DatabaseManager {
     statusObservable = new Observable((subscriber) => {
         // Try to connect and catch when fail
 
-        mongoose.connect(this.path, { useNewUrlParser: true }).catch(
+        mongoose.connect(this.path, { useNewUrlParser: true, useUnifiedTopology: true }).catch(
             // eslint-disable-next-line no-return-assign
             (error) => DatabaseManager.instance.errorMessage = error,
         );
@@ -73,8 +73,7 @@ export default class DatabaseManager {
     // Event to notify server when ready
     databaseReady = new Observable((subscriber) => {
         // Try to connect and catch when fail
-
-        mongoose.connect(this.path, { useNewUrlParser: true }).catch(
+        mongoose.connect(this.path, { useNewUrlParser: true, useUnifiedTopology: true }).catch(
             // eslint-disable-next-line no-return-assign
             (error) => DatabaseManager.instance.errorMessage = error,
         );

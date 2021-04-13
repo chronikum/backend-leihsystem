@@ -411,6 +411,13 @@ export default class DBClient {
                 const startDatePlanned = dayjs.unix(reservation.startDate);
                 const endDatePlanned = dayjs.unix(reservation.plannedEndDate);
 
+                // The reservation has started but was not completed yet - it is delayed.
+                // The devices are not available!
+                if ((startDatePlanned.isBefore(newReservationStartDate) && (!reservation.completed))) {
+                    reservation.active = true;
+                    return reservation;
+                }
+
                 // Dates are both before the time span or after
                 // eslint-disable-next-line max-len
                 if ((newReservationStartDate.isBefore(startDatePlanned) && newReservationEndDate.isBefore(startDatePlanned)) || ((newReservationStartDate.isAfter(endDatePlanned) && newReservationEndDate.isAfter(endDatePlanned)))) {
@@ -418,6 +425,7 @@ export default class DBClient {
                     inactiveReservation.push(reservation);
                     return reservation;
                 }
+
                 reservation.active = true;
                 return reservation;
             }

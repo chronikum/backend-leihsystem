@@ -74,7 +74,7 @@ export default class ResetPassword {
             // Find all tokens to delete and flag them
             this.userTokens.forEach((token) => {
                 const timeLeft = token.created - Date.now();
-                if (timeLeft < -1200000) { // 10 minutes passed
+                if (timeLeft < -1200000) { // 20 minutes passed
                     token.created = 0;
                 }
             });
