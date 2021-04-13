@@ -16,7 +16,9 @@ const cors = require('cors');
 const session = require('express-session');
 const flash = require('connect-flash');
 const LocalStrategy = require('passport-local').Strategy;
+const fileUpload = require('express-fileupload');
 const router = require('./core/routes');
+
 require('dotenv').config();
 
 /**
@@ -81,8 +83,15 @@ export default class Server {
         // Helmet security
         this.app.use(helmet());
 
-        this.app.use(express.json({ type: '*/*' }));
-        this.app.use(cors({ credentials: true, origin: corsOrigin }));
+        // this.app.use(express.json({ type: '*/*' })); // TODO: Fix this.
+        this.app.use(express.json()); // TODO: Fix this.
+        this.app.use(cors({ credentials: true, origin: corsOrigin })); // CORS configuration
+        this.app.use(fileUpload()); // File upload
+        this.app.use((req, res, next) => {
+            // res.header('Access-Control-Allow-Credentials', 'true');
+            res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Cache-Control, Key, Access-Control-Allow-Origin');
+            next();
+        });
         this.app.use(
             session({
                 secret: 'oaiulhsrkfjbdhsg67iegurkzh78owgaukzrs',
@@ -98,7 +107,7 @@ export default class Server {
         this.app.use((err, req, res, next) => {
             res.status(500);
             console.log('Request failed:');
-            console.log(req);
+            // console.log(req);
             console.log('500 | Internal error');
             res.send({ success: false, message: 'Sorry, we ran into an critically error.' });
         });
@@ -118,7 +127,7 @@ export default class Server {
 
         // When server is starting, setup auth
         this.app.listen(this.port, async () => {
-            console.log(`backend online at http://localhost:${this.port}`);
+            console.log(`backend online at ${productionOrigin}`);
         });
     }
 

@@ -26,6 +26,11 @@ const express = require('express');
 const dbManager = DatabaseManager.instance;
 
 /**
+ * The Upload path for files
+ */
+const uploadPath = `${__dirname}/uploads/`;
+
+/**
  * Reset Password Service
  */
 const resetPasswordService = ResetPassword.instance;
@@ -844,6 +849,40 @@ router.post('/getAllModels', checkAuthentication, async (req, res) => {
         res.send({ success: true, deviceModels: models });
     } else {
         res.send({ success: false });
+    }
+});
+
+/**
+ * Uploads
+ */
+
+/**
+ * Upload an profile picture image
+ */
+router.post('/uploadProfilePicture', checkAuthentication, async (req, res) => {
+    const { user } = req;
+    const { specifiedUser } = req.body;
+    // if (user.userId === specifiedUser.userId) {
+    if (true) {
+        if (!req.files || Object.keys(req.files).length === 0) {
+            return res.status(404).send('No files were uploaded.');
+        }
+        // eslint-disable-next-line prefer-const
+        // eslint-disable-next-line prefer-destructuring
+        const sampleFile = req.files.file;
+        console.log(req.files.file);
+        const uploadPathProfilePicture = `${uploadPath}/profiles/test/${sampleFile.name}`;
+        // // Use the mv() method to place the file somewhere on your server
+        // sampleFile.mv(uploadPath, (err) => {
+        //     if (err) { return res.status(500).send(err); }
+
+        //     res.send('File uploaded!');
+        // });
+        console.log('File would have been uploaded to:');
+        console.log(uploadPathProfilePicture);
+        res.send({ success: true });
+    } else {
+        // res.send({ success: false, message: 'Insufficent permission: You are not allowed to edit other users information' });
     }
 });
 
