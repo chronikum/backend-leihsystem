@@ -867,6 +867,20 @@ router.get('/profilePicture', checkAuthentication, async (req, res) => {
 });
 
 /**
+ * Deletes the profile picture of a given user
+ * TODO: Implement
+ */
+router.post('/deleteProfilePicture', checkAuthentication, async (req, res) => {
+    const { user } = req;
+    if (user) {
+        const uploadPathDestination = `${uploadPath}profiles/${user.userId}/`;
+        res.send({ success: true });
+    } else {
+        res.send({ success: false });
+    }
+});
+
+/**
  * Uploads
  */
 
