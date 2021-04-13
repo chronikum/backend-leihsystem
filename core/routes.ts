@@ -860,7 +860,7 @@ router.post('/getAllModels', checkAuthentication, async (req, res) => {
 router.get('/profilePicture', checkAuthentication, async (req, res) => {
     const { user } = req;
     if (user) {
-        res.redirect(`/static/profiles/${user.userId}/lowres.jpeg`);
+        res.redirect(`${dbClient.endpoint}/static/profiles/${user.userId}/lowres.jpeg`);
     } else {
         res.send({ success: false });
     }

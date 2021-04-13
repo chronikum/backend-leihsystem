@@ -37,6 +37,9 @@ export default class Server {
 
     port = 8080; // default port to listen
 
+    // The endpoint of the api
+    endpoint = '';
+
     /**
      * Database connection manager Instance
      */
@@ -65,6 +68,7 @@ export default class Server {
          * ENV VARIABLES
          */
 
+        // Cors origin
         let corsOrigin = '';
 
         // CORS
@@ -76,9 +80,11 @@ export default class Server {
         const developingUri = 'https://irrturm.de/api';
 
         corsOrigin = developingOrigin;
+        this.endpoint = developingUri;
         if (production[0] === 'prod') {
             console.log('Detected production setting.');
             corsOrigin = productionOrigin;
+            this.endpoint = productionUri;
         }
         // We have to serve the core public folder so we can access user images etc
         this.app.use('/static', express.static(`${__dirname}/core/public`));
@@ -203,6 +209,7 @@ export default class Server {
         } else {
             console.log('System was started before. System is ready');
         }
+        this.dbClient.endpoint = this.endpoint;
         return false;
     }
 

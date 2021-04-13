@@ -35,6 +35,11 @@ export default class DBClient {
     }
 
     /**
+     * The Endpoint the api is running on
+     */
+    endpoint: string = '';
+
+    /**
      * Creates a new user in the database
      * @param User to create
      */
