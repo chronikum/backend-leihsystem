@@ -80,10 +80,11 @@ export default class Server {
             console.log('Detected production setting.');
             corsOrigin = productionOrigin;
         }
+        // We have to serve the core public folder so we can access user images etc
+        this.app.use('/static', express.static(`${__dirname}/core/public`));
         // Helmet security
         this.app.use(helmet());
 
-        this.app.use(express.static('public'));
         this.app.use(express.json());
         this.app.use(cors({ credentials: true, origin: corsOrigin })); // CORS configuration
         this.app.use(fileUpload({

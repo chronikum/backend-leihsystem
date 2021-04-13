@@ -854,6 +854,19 @@ router.post('/getAllModels', checkAuthentication, async (req, res) => {
 });
 
 /**
+ * Gets the profile picture for the authenticated user
+ * - as jpeg
+ */
+router.get('/profilePicture', checkAuthentication, async (req, res) => {
+    const { user } = req;
+    if (user) {
+        res.redirect(`/static/profiles/${user.userId}/lowres.jpeg`);
+    } else {
+        res.send({ success: false });
+    }
+});
+
+/**
  * Uploads
  */
 
