@@ -107,11 +107,6 @@ router.get('/', (req, res) => {
  * System Information
  */
 
-// serves statistics
-router.post('/stats', checkAuthentication, checkAdminPrivilege, (req, res) => {
-    res.send({});
-});
-
 // Checks if backend is currently available
 router.post('/available', (req, res) => {
     res.send({ success: true });
