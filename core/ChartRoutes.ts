@@ -1,4 +1,6 @@
+import dayjs from 'dayjs';
 import { UserRoles } from '../enums/UserRoles';
+import { Reservation } from '../models/Reservation';
 import DatabaseManager from './databaseManager';
 import DBClient from './dbclient';
 import RoleCheck from './RoleCheck';
@@ -121,6 +123,28 @@ chartRouter.post('/userGroup', checkAuthentication, checkAdminPrivilege, async (
 
     res.send({
         userAndGroups,
+    });
+});
+
+/**
+ * Returns the reservations for each user
+ */
+chartRouter.post('/reservationsProUser', checkAuthentication, checkAdminPrivilege, async (req, res) => {
+    const allReservations = await dbClient.getReservations();
+    const allUsers = await dbClient.getAllUsers();
+    const userReservations = [];
+
+    allUsers.forEach((user) => {
+        const amount = allReservations.filter((reservation: Reservation) => reservation.responsible === user.userId) || []; // Get every user which has the group id provided
+        userReservations.push({
+            displayName: user.username,
+            userId: user.userId,
+            amount: amount.length || 0,
+        });
+    });
+
+    res.send({
+        userReservations,
     });
 });
 
