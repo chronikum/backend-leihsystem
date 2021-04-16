@@ -77,8 +77,8 @@ export default class Server {
         const productionOrigin = 'https://irrturm.de';
 
         // Uri of the API
-        const productionUri = 'http://localhost:8080';
-        const developingUri = 'https://irrturm.de/api';
+        const developingUri = 'http://localhost:8080';
+        const productionUri = 'https://irrturm.de/api';
 
         corsOrigin = developingOrigin;
         this.endpoint = developingUri;
@@ -138,7 +138,7 @@ export default class Server {
 
         // When server is starting, setup auth
         this.app.listen(this.port, async () => {
-            console.log(`backend online at ${productionOrigin}`);
+            console.log(`backend online at ${this.endpoint}`);
         });
     }
 

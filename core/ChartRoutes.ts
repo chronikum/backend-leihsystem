@@ -65,19 +65,11 @@ chartRouter.post('/available', checkAuthentication, checkAdminPrivilege, async (
 });
 
 /**
- * Device models
- *
- * Make this more efficient. Currently really slow implementation
+ * Device models splittage charts
  */
 chartRouter.post('/models', checkAuthentication, checkAdminPrivilege, async (req, res) => {
     const items = await dbClient.getInventoryList();
     const models = await dbClient.getAllDeviceModels();
-    // Model and amount array
-    // const modelAndAmount: [{
-    //     modelName: string,
-    //     deviceModelId: number,
-    //     amount: number
-    // }] = [];
     const modelAndAmount = [];
 
     models.forEach((model) => {
@@ -91,6 +83,44 @@ chartRouter.post('/models', checkAuthentication, checkAdminPrivilege, async (req
 
     res.send({
         modelAndAmount,
+    });
+});
+
+/**
+ * Completed/Total reservation charts
+ */
+chartRouter.post('/completedReservation', checkAuthentication, checkAdminPrivilege, async (req, res) => {
+    const reservations = await dbClient.getReservations();
+    const completedReservations = reservations.filter((element) => element.completed === true);
+    const reservationsStats = {
+        total: (reservations.length - completedReservations.length),
+        completed: completedReservations.length,
+    };
+
+    res.send({
+        reservationsStats,
+    });
+});
+
+/**
+ * Shows how many users are in each group
+ */
+chartRouter.post('/userGroup', checkAuthentication, checkAdminPrivilege, async (req, res) => {
+    const allGroups = await dbClient.getAllGroups();
+    const allUsers = await dbClient.getAllUsers();
+    const userAndGroups = [];
+
+    allGroups.forEach((group) => {
+        const amount = allUsers.filter((item) => item.groupId.includes(group.groupId)) || []; // Get every user which has the group id provided
+        userAndGroups.push({
+            displayName: group.displayName,
+            groupId: group.groupId,
+            amount: amount.length || 0,
+        });
+    });
+
+    res.send({
+        userAndGroups,
     });
 });
 
