@@ -2,6 +2,7 @@
 import passport from 'passport';
 import { setOriginalNode } from 'typescript';
 import Jimp from 'jimp';
+import fs from 'fs';
 import { UserRoles } from '../enums/UserRoles';
 import { Item } from '../models/Item';
 import ReservationModel from '../models/mongodb-models/ReservationModel';
@@ -112,6 +113,19 @@ router.get('/', (req, res) => {
 // Checks if backend is currently available
 router.post('/available', (req, res) => {
     res.send({ success: true });
+});
+
+/**
+ * Returns the license file
+ */
+router.get('/licenses', (req, res) => {
+    try {
+        fs.readFile(`${uploadPath}licenses.json`, 'utf8', (err, data) => {
+            res.send(data);
+        });
+    } catch {
+        console.log('Konnte Lizenzdaten nicht lesen');
+    }
 });
 
 /**
