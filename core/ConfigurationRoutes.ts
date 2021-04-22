@@ -73,25 +73,23 @@ configurationRouter.post('/uploadLogo', checkAuthentication, checkAdminPrivilege
     const uploadPathLogo = `${uploadPathDestination}logo_big.${fileSuffix}`;
 
     try {
-        // Write a smaller version of the file
-        // eslint-disable-next-line consistent-return
         image.mv(uploadPathLogo, (err) => {
             if (!err) {
-                // Write a small version of the file next to the image file
+                // Write a logo.png file with smaller solution
                 Jimp.read(uploadPathLogo, (err, img) => {
                     if (err) throw err;
                     img
                         .resize(256, Jimp.AUTO) // resize
-                        .quality(80) // set JPEG quality
-                        .write(`${uploadPathDestination}original.jpeg`); // save
-                    // Write a bigger version, but with a specific file ending
+                        .write(`${uploadPathDestination}logo.png`); // save
+                    // write the favicon logo
                     image.mv(uploadPathLogo, (err) => {
                         if (!err) {
-                            // Write a small version of the file next to the image file
+                            // Write a small version as favicon file
                             Jimp.read(uploadPathLogo, (err, img) => {
                                 if (err) throw err;
                                 img
-                                    .write(`${uploadPathDestination}logo.png`); // save
+                                    .resize(64, Jimp.AUTO) // resize
+                                    .write(`${uploadPathDestination}favicon.ico`); // save
                                 res.send({ success: true, message: 'File uploaded' });
                             });
                         }
@@ -115,6 +113,13 @@ configurationRouter.post('/uploadLogo', checkAuthentication, checkAdminPrivilege
  */
 configurationRouter.get('/logo', async (req, res) => {
     res.redirect(`${dbClient.endpoint}/static/configuration/logo.png`);
+});
+
+/**
+ * Favicon logo
+ */
+configurationRouter.get('/favicon', async (req, res) => {
+    res.redirect(`${dbClient.endpoint}/static/configuration/favicon.ico`);
 });
 
 module.exports = configurationRouter;
