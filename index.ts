@@ -19,6 +19,7 @@ const LocalStrategy = require('passport-local').Strategy;
 const fileUpload = require('express-fileupload');
 const router = require('./core/routes');
 const chartRoutes = require('./core/ChartRoutes');
+const configurationRouter = require('./core/ConfigurationRoutes');
 
 require('dotenv').config();
 
@@ -112,8 +113,9 @@ export default class Server {
         this.app.use(passport.initialize());
         this.app.use(passport.session());
         this.app.use(flash());
-        this.app.use('/', router);
-        this.app.use('/charts', chartRoutes);
+        this.app.use('/', router); // General API Router
+        this.app.use('/charts', chartRoutes); // Chart Router
+        this.app.use('/configuration', configurationRouter); // Configuration Router
         // An error handling middleware
         this.app.use((err, req, res, next) => {
             res.status(500);

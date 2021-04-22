@@ -884,7 +884,6 @@ router.post('/deleteProfilePicture', checkAuthentication, async (req, res) => {
  */
 router.post('/uploadProfilePicture', checkAuthentication, async (req, res) => {
     const { user } = req;
-    // if (user.userId === specifiedUser.userId) {
     if (user.userId) {
         if (!req.files || Object.keys(req.files).length === 0) {
             return res.status(404).send('No files were uploaded.');
