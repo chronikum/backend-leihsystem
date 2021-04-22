@@ -161,6 +161,11 @@ router.post('/resetPassword', async (req, res) => {
     res.send({ success: true });
 });
 
+// router.post('/testMail', async (req, res) => {
+//     mailingService.sendTest();
+//     res.send({ success: true });
+// });
+
 /**
  * Gets all users
  *

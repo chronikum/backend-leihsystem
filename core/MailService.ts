@@ -1,3 +1,5 @@
+import ConfigurationClient from '../models/ConfigurationClient';
+import { EmailConfiguration } from '../models/EmailConfiguration';
 import { Request } from '../models/Request';
 import { Reservation } from '../models/Reservation';
 import { User } from '../models/User';
@@ -9,6 +11,16 @@ export default class MailService {
      * Transporter
      */
     transporter: any;
+
+    /**
+     * Configuration
+     */
+    configuration: EmailConfiguration;
+
+    /**
+     * The configuration client
+     */
+    configurationClient = ConfigurationClient.instance;
 
     // Shared instance
     static instance = MailService.getInstance();
@@ -28,33 +40,78 @@ export default class MailService {
     }
 
     /**
+     * Creates a nodemailer transport
+     * - loads new variables
+     */
+    async createTransport(): Promise<any> {
+        this.configuration = await this.configurationClient.getEmailConfiguration();
+        if (this.configuration?.username) {
+            try {
+                this.transporter = nodemailer.createTransport({
+                    host: this.configuration.host,
+                    port: this.configuration.port,
+                    secure: this.configuration.secure, // true for 465, false for other ports
+                    auth: {
+                        user: this.configuration?.username, // generated ethereal user
+                        pass: this.configuration.password, // generated ethereal password
+                    },
+                });
+                return Promise.resolve(this.transporter);
+            } catch {
+                return null;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * This will send the user an email informing them that a reservation request got accepted
+     *
+     * @param User
+     * @param Reservation
+     */
+    async sendTestMail(user: User) {
+        await this.createTransport();
+        if (this.configuration?.username) {
+            try {
+                const testMailStatus = await this.transporter.sendMail({
+                    from: `"ZfM Leihsystem 👻" <${this.configuration?.username}>`, // sender address
+                    to: `${user.username} <${user.email}>`, // list of receivers
+                    subject: 'Konfigurierung funktioniert!', // Subject line
+                    text: 'Diese E-Mail ist nur als HTML verfügbar.', // plain text body
+                    html: 'Hallo Welt :) Das ist eine Test-Email!',
+                });
+            } catch {
+                console.log('Error: Incorrect credentials');
+            }
+        }
+    }
+
+    /**
      * This will send the user an email informing them that a reservation request got accepted
      *
      * @param User
      * @param Reservation
      */
     async sendAcceptedMail(user: User, reservation: Request) {
-        this.transporter = nodemailer.createTransport({
-            host: process.env.SMTP_HOST,
-            port: process.env.SMTP_PORT,
-            secure: true, // true for 465, false for other ports
-            auth: {
-                user: process.env.SMTP_USERNAME, // generated ethereal user
-                pass: process.env.SMTP_PASSWORD, // generated ethereal password
-            },
-        });
-        const testMailStatus = await this.transporter.sendMail({
-            from: `"ZfM Leihsystem 👻" <${process.env.SMTP_USERNAME}>`, // sender address
-            to: `${user?.firstname} ${user?.surname} <${user?.email}>`, // list of receivers
-            subject: 'Reservierungsanfrage bestätigt', // Subject line
-            text: 'Diese E-Mail ist nur als HTML verfügbar.', // plain text body
-            html: `<h1>ZfM Reservierungsanfrage bestätigt!</h1><br>
-            Sehr geehrte/r ${user?.firstname} ${user?.surname},<br>
-            Ihre Reservierungsanfrage für den ${this.parseDate(reservation.startDate)} wurde angenommen.
-            Mehr Informationen erhalten Sie demnächst von eine/r Mitarbeiter/in des ZfM.<br>
-            Mit freundlichen Grüßen,<br>Ihr ZfM Ausleihsystem`,
-        });
-        console.log(testMailStatus);
+        await this.createTransport();
+        if (this.configuration?.username) {
+            try {
+                const testMailStatus = await this.transporter.sendMail({
+                    from: `"ZfM Leihsystem 👻" <${process.env.SMTP_USERNAME}>`, // sender address
+                    to: `${user?.firstname} ${user?.surname} <${user?.email}>`, // list of receivers
+                    subject: 'Reservierungsanfrage bestätigt', // Subject line
+                    text: 'Diese E-Mail ist nur als HTML verfügbar.', // plain text body
+                    html: `<h1>ZfM Reservierungsanfrage bestätigt!</h1><br>
+                    Sehr geehrte/r ${user?.firstname} ${user?.surname},<br>
+                    Ihre Reservierungsanfrage für den ${this.parseDate(reservation.startDate)} wurde angenommen.
+                    Mehr Informationen erhalten Sie demnächst von eine/r Mitarbeiter/in des ZfM.<br>
+                    Mit freundlichen Grüßen,<br>Ihr ZfM Ausleihsystem`,
+                });
+            } catch {
+                console.log('Incorrect credentials');
+            }
+        }
     }
 
     /**
@@ -64,27 +121,24 @@ export default class MailService {
      * @param Reservation
      */
     async sendRejectedMail(user: User, reservation: Request) {
-        this.transporter = nodemailer.createTransport({
-            host: process.env.SMTP_HOST,
-            port: process.env.SMTP_PORT,
-            secure: true, // true for 465, false for other ports
-            auth: {
-                user: process.env.SMTP_USERNAME, // generated ethereal user
-                pass: process.env.SMTP_PASSWORD, // generated ethereal password
-            },
-        });
-        const testMailStatus = await this.transporter.sendMail({
-            from: `"ZfM Leihsystem 👻" <${process.env.SMTP_USERNAME}>`, // sender address
-            to: `${user?.firstname} ${user?.surname} <${user?.email}>`, // list of receivers
-            subject: 'Reservierungsanfrage abgelehnt', // Subject line
-            text: 'Diese E-Mail ist nur als HTML verfügbar.', // plain text body
-            html: `<h1>ZfM Reservierungsanfrage <b>abgelehnt</b>!</h1><br>
-            Sehr geehrte/r ${user?.firstname} ${user?.surname},<br>
-            Ihre Reservierungsanfrage für den ${this.parseDate(reservation.startDate)} wurde <b>nicht</b> bestätigt..
-            Mehr Informationen erhalten Sie demnächst von eine/r Mitarbeiter/in des ZfM.<br>
-            Mit freundlichen Grüßen,<br>Ihr ZfM Ausleihsystem`,
-        });
-        console.log(testMailStatus);
+        await this.createTransport();
+        if (this.configuration?.username) {
+            try {
+                const testMailStatus = await this.transporter.sendMail({
+                    from: `"ZfM Leihsystem 👻" <${process.env.SMTP_USERNAME}>`, // sender address
+                    to: `${user?.firstname} ${user?.surname} <${user?.email}>`, // list of receivers
+                    subject: 'Reservierungsanfrage abgelehnt', // Subject line
+                    text: 'Diese E-Mail ist nur als HTML verfügbar.', // plain text body
+                    html: `<h1>ZfM Reservierungsanfrage <b>abgelehnt</b>!</h1><br>
+                    Sehr geehrte/r ${user?.firstname} ${user?.surname},<br>
+                    Ihre Reservierungsanfrage für den ${this.parseDate(reservation.startDate)} wurde <b>nicht</b> bestätigt..
+                    Mehr Informationen erhalten Sie demnächst von eine/r Mitarbeiter/in des ZfM.<br>
+                    Mit freundlichen Grüßen,<br>Ihr ZfM Ausleihsystem`,
+                });
+            } catch {
+                console.log('Incorrect credentials');
+            }
+        }
     }
 
     /**

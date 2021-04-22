@@ -1,9 +1,13 @@
 import dayjs from 'dayjs';
 import Jimp from 'jimp';
 import { UserRoles } from '../enums/UserRoles';
+import ConfigurationClient from '../models/ConfigurationClient';
+import { EmailConfiguration } from '../models/EmailConfiguration';
 import { Reservation } from '../models/Reservation';
+import { User } from '../models/User';
 import DatabaseManager from './databaseManager';
 import DBClient from './dbclient';
+import MailService from './MailService';
 import RoleCheck from './RoleCheck';
 
 const express = require('express');
@@ -15,6 +19,15 @@ const uploadPath = `${__dirname}/public/`;
  */
 const dbManager = DatabaseManager.instance;
 
+/**
+ * Database manager
+ */
+const configurationClient = ConfigurationClient.instance;
+
+/**
+ * Mailing Service
+ */
+const mailingService = MailService.instance;
 /**
  * The database client
  */
@@ -61,7 +74,7 @@ configurationRouter.post('/uploadLogo', checkAuthentication, checkAdminPrivilege
     }
 
     // Build the image path and image name.
-    const image = req.files.file;
+    const image = req.files?.file;
     const fileSuffix = image?.name.split('.').reverse()[0] || '.jpeg';
     // Check the filesuffix.
     // Allowed are jpeg, jpg and png.
@@ -102,6 +115,24 @@ configurationRouter.post('/uploadLogo', checkAuthentication, checkAdminPrivilege
     }
     console.log('File was uploaded to:');
     console.log(uploadPathLogo);
+});
+
+/**
+ * Set E-Mail Configuration
+ */
+configurationRouter.post('/mailConfiguration', checkAuthentication, checkAdminPrivilege, async (req, res) => {
+    const user: User = req.user as any;
+    if (user.email) {
+        const configuration: EmailConfiguration = req.body.configuration as any;
+        // Check if all necessary fields are provided
+        if (configuration?.host && configuration?.password && Number.isInteger(configuration?.port) && configuration?.username) {
+            await configurationClient.setEmailConfiguration(configuration); // Write configuration
+            mailingService.sendTestMail(user); // Send test mail
+            res.send({ success: true });
+            return;
+        }
+    }
+    res.send({ success: false });
 });
 
 /**
