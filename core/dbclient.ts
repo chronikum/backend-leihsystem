@@ -16,6 +16,7 @@ import GroupModel from '../models/mongodb-models/GroupModel';
 import { Group } from '../models/Group';
 import { DeviceModel } from '../models/DeviceModel';
 import DeviceModelModel from '../models/mongodb-models/DeviceModelModel';
+import { SystemLog } from '../models/SystemLog';
 
 const crypto = require('crypto');
 
@@ -981,5 +982,13 @@ export default class DBClient {
             timestamp,
         });
         systemlog.save();
+    }
+
+    /**
+     * Get all system logs
+     */
+    async getAllLogs(): Promise<SystemLog[]> {
+        const systemLogs = SystemLogModel.find().sort({ timestamp: -1 }) as unknown as SystemLog[];
+        return Promise.resolve(systemLogs);
     }
 }

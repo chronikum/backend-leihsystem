@@ -3,6 +3,7 @@ import { EmailConfiguration } from '../models/EmailConfiguration';
 import { Request } from '../models/Request';
 import { Reservation } from '../models/Reservation';
 import { User } from '../models/User';
+import DBClient from './dbclient';
 
 const nodemailer = require('nodemailer');
 
@@ -16,6 +17,11 @@ export default class MailService {
      * Configuration
      */
     configuration: EmailConfiguration;
+
+    /**
+     * dbclient
+     */
+    dbClient = DBClient.instance;
 
     /**
      * The configuration client
@@ -45,6 +51,7 @@ export default class MailService {
      */
     async createTransport(): Promise<any> {
         this.configuration = await this.configurationClient.getEmailConfiguration();
+        this.dbClient.systemLog('Ein E-Mail-Transporter wird vorbereitet');
         if (this.configuration?.username) {
             try {
                 this.transporter = nodemailer.createTransport({
@@ -82,7 +89,7 @@ export default class MailService {
                     html: 'Hallo Welt :) Das ist eine Test-Email!',
                 });
             } catch {
-                console.log('Error: Incorrect credentials');
+                this.connectionFailed();
             }
         }
     }
@@ -109,7 +116,7 @@ export default class MailService {
                     Mit freundlichen Grüßen,<br>Ihr ZfM Ausleihsystem`,
                 });
             } catch {
-                console.log('Incorrect credentials');
+                this.connectionFailed();
             }
         }
     }
@@ -136,7 +143,7 @@ export default class MailService {
                     Mit freundlichen Grüßen,<br>Ihr ZfM Ausleihsystem`,
                 });
             } catch {
-                console.log('Incorrect credentials');
+                this.connectionFailed();
             }
         }
     }
@@ -156,5 +163,12 @@ export default class MailService {
             return `${new Date(number).toLocaleDateString()} um ${new Date(number).toLocaleTimeString()}`;
         }
         return '-';
+    }
+
+    /**
+     * Will be called if the email connection fails
+     */
+    connectionFailed() {
+        this.dbClient.systemLog('[ERROR] [MAIL] Eine E-Mail konnte nicht versendet werden. Sind die Zugangsdaten korrekt?');
     }
 }

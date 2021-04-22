@@ -204,14 +204,17 @@ export default class Server {
             console.log('Is first start. Configuring system...');
             const group = await this.createAdministrativeGroup();
             console.log('Created administrative group');
+            this.dbClient.systemLog('Initiale Admingruppe erstellt.');
             console.log(group);
             if (this.createInitialUser()) {
                 console.log('Admin user created.');
+                this.dbClient.systemLog('Adminuser erstellt');
                 console.log('System setup completed');
                 this.dbClient.systemLog('SETUP COMPLETED');
             }
         } else {
             console.log('System was started before. System is ready');
+            this.dbClient.systemLog('System wurde gestartet');
         }
         this.dbClient.endpoint = this.endpoint;
         return false;

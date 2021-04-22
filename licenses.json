@@ -1,0 +1,3200 @@
+{
+  "@babel/code-frame@7.0.0-beta.44": {
+    "licenses": "MIT",
+    "repository": "https://github.com/babel/babel/tree/master/packages/babel-code-frame",
+    "publisher": "Sebastian McKenzie",
+    "email": "sebmck@gmail.com",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/@babel/code-frame",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/@babel/code-frame/README.md"
+  },
+  "@babel/code-frame@7.12.11": {
+    "licenses": "MIT",
+    "repository": "https://github.com/babel/babel",
+    "publisher": "Sebastian McKenzie",
+    "email": "sebmck@gmail.com",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/eslint/node_modules/@babel/code-frame",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/eslint/node_modules/@babel/code-frame/LICENSE"
+  },
+  "@babel/code-frame@7.12.13": {
+    "licenses": "MIT",
+    "repository": "https://github.com/babel/babel",
+    "publisher": "Sebastian McKenzie",
+    "email": "sebmck@gmail.com",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/tslint/node_modules/@babel/code-frame",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/tslint/node_modules/@babel/code-frame/LICENSE"
+  },
+  "@babel/generator@7.0.0-beta.44": {
+    "licenses": "MIT",
+    "repository": "https://github.com/babel/babel/tree/master/packages/babel-generator",
+    "publisher": "Sebastian McKenzie",
+    "email": "sebmck@gmail.com",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/@babel/generator",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/@babel/generator/README.md"
+  },
+  "@babel/helper-function-name@7.0.0-beta.44": {
+    "licenses": "MIT",
+    "repository": "https://github.com/babel/babel/tree/master/packages/babel-helper-function-name",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/@babel/helper-function-name",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/@babel/helper-function-name/README.md"
+  },
+  "@babel/helper-get-function-arity@7.0.0-beta.44": {
+    "licenses": "MIT",
+    "repository": "https://github.com/babel/babel/tree/master/packages/babel-helper-get-function-arity",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/@babel/helper-get-function-arity",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/@babel/helper-get-function-arity/README.md"
+  },
+  "@babel/helper-split-export-declaration@7.0.0-beta.44": {
+    "licenses": "MIT",
+    "repository": "https://github.com/babel/babel/tree/master/packages/babel-helper-split-export-declaration",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/@babel/helper-split-export-declaration",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/@babel/helper-split-export-declaration/README.md"
+  },
+  "@babel/helper-validator-identifier@7.12.11": {
+    "licenses": "MIT",
+    "repository": "https://github.com/babel/babel",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/@babel/helper-validator-identifier",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/@babel/helper-validator-identifier/LICENSE"
+  },
+  "@babel/highlight@7.0.0-beta.44": {
+    "licenses": "MIT",
+    "repository": "https://github.com/babel/babel/tree/master/packages/babel-highlight",
+    "publisher": "suchipi",
+    "email": "me@suchipi.com",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/@babel/highlight",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/@babel/highlight/README.md"
+  },
+  "@babel/highlight@7.13.10": {
+    "licenses": "MIT",
+    "repository": "https://github.com/babel/babel",
+    "publisher": "suchipi",
+    "email": "me@suchipi.com",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/tslint/node_modules/@babel/highlight",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/tslint/node_modules/@babel/highlight/LICENSE"
+  },
+  "@babel/runtime@7.13.10": {
+    "licenses": "MIT",
+    "repository": "https://github.com/babel/babel",
+    "publisher": "Sebastian McKenzie",
+    "email": "sebmck@gmail.com",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/@babel/runtime",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/@babel/runtime/LICENSE"
+  },
+  "@babel/template@7.0.0-beta.44": {
+    "licenses": "MIT",
+    "repository": "https://github.com/babel/babel/tree/master/packages/babel-template",
+    "publisher": "Sebastian McKenzie",
+    "email": "sebmck@gmail.com",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/@babel/template",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/@babel/template/README.md"
+  },
+  "@babel/traverse@7.0.0-beta.44": {
+    "licenses": "MIT",
+    "repository": "https://github.com/babel/babel/tree/master/packages/babel-traverse",
+    "publisher": "Sebastian McKenzie",
+    "email": "sebmck@gmail.com",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/@babel/traverse",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/@babel/traverse/README.md"
+  },
+  "@babel/types@7.0.0-beta.44": {
+    "licenses": "MIT",
+    "repository": "https://github.com/babel/babel/tree/master/packages/babel-types",
+    "publisher": "Sebastian McKenzie",
+    "email": "sebmck@gmail.com",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/@babel/types",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/@babel/types/README.md"
+  },
+  "@eslint/eslintrc@0.4.0": {
+    "licenses": "MIT",
+    "repository": "https://github.com/eslint/eslintrc",
+    "publisher": "Nicholas C. Zakas",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/@eslint/eslintrc",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/@eslint/eslintrc/LICENSE"
+  },
+  "@jimp/bmp@0.16.1": {
+    "licenses": "MIT",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/@jimp/bmp",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/@jimp/bmp/LICENSE"
+  },
+  "@jimp/core@0.16.1": {
+    "licenses": "MIT",
+    "repository": "https://github.com/oliver-moran/jimp",
+    "publisher": "Oliver Moran",
+    "email": "oliver.moran@gmail.com",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/@jimp/core",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/@jimp/core/LICENSE"
+  },
+  "@jimp/custom@0.16.1": {
+    "licenses": "MIT",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/@jimp/custom",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/@jimp/custom/LICENSE"
+  },
+  "@jimp/gif@0.16.1": {
+    "licenses": "MIT",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/@jimp/gif",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/@jimp/gif/LICENSE"
+  },
+  "@jimp/jpeg@0.16.1": {
+    "licenses": "MIT",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/@jimp/jpeg",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/@jimp/jpeg/LICENSE"
+  },
+  "@jimp/plugin-blit@0.16.1": {
+    "licenses": "MIT",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/@jimp/plugin-blit",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/@jimp/plugin-blit/LICENSE"
+  },
+  "@jimp/plugin-blur@0.16.1": {
+    "licenses": "MIT",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/@jimp/plugin-blur",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/@jimp/plugin-blur/LICENSE"
+  },
+  "@jimp/plugin-circle@0.16.1": {
+    "licenses": "MIT",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/@jimp/plugin-circle",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/@jimp/plugin-circle/LICENSE"
+  },
+  "@jimp/plugin-color@0.16.1": {
+    "licenses": "MIT",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/@jimp/plugin-color",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/@jimp/plugin-color/LICENSE"
+  },
+  "@jimp/plugin-contain@0.16.1": {
+    "licenses": "MIT",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/@jimp/plugin-contain",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/@jimp/plugin-contain/LICENSE"
+  },
+  "@jimp/plugin-cover@0.16.1": {
+    "licenses": "MIT",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/@jimp/plugin-cover",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/@jimp/plugin-cover/LICENSE"
+  },
+  "@jimp/plugin-crop@0.16.1": {
+    "licenses": "MIT",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/@jimp/plugin-crop",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/@jimp/plugin-crop/LICENSE"
+  },
+  "@jimp/plugin-displace@0.16.1": {
+    "licenses": "MIT",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/@jimp/plugin-displace",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/@jimp/plugin-displace/LICENSE"
+  },
+  "@jimp/plugin-dither@0.16.1": {
+    "licenses": "MIT",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/@jimp/plugin-dither",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/@jimp/plugin-dither/LICENSE"
+  },
+  "@jimp/plugin-fisheye@0.16.1": {
+    "licenses": "MIT",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/@jimp/plugin-fisheye",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/@jimp/plugin-fisheye/LICENSE"
+  },
+  "@jimp/plugin-flip@0.16.1": {
+    "licenses": "MIT",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/@jimp/plugin-flip",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/@jimp/plugin-flip/LICENSE"
+  },
+  "@jimp/plugin-gaussian@0.16.1": {
+    "licenses": "MIT",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/@jimp/plugin-gaussian",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/@jimp/plugin-gaussian/LICENSE"
+  },
+  "@jimp/plugin-invert@0.16.1": {
+    "licenses": "MIT",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/@jimp/plugin-invert",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/@jimp/plugin-invert/LICENSE"
+  },
+  "@jimp/plugin-mask@0.16.1": {
+    "licenses": "MIT",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/@jimp/plugin-mask",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/@jimp/plugin-mask/LICENSE"
+  },
+  "@jimp/plugin-normalize@0.16.1": {
+    "licenses": "MIT",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/@jimp/plugin-normalize",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/@jimp/plugin-normalize/LICENSE"
+  },
+  "@jimp/plugin-print@0.16.1": {
+    "licenses": "MIT",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/@jimp/plugin-print",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/@jimp/plugin-print/LICENSE"
+  },
+  "@jimp/plugin-resize@0.16.1": {
+    "licenses": "MIT",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/@jimp/plugin-resize",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/@jimp/plugin-resize/LICENSE"
+  },
+  "@jimp/plugin-rotate@0.16.1": {
+    "licenses": "MIT",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/@jimp/plugin-rotate",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/@jimp/plugin-rotate/LICENSE"
+  },
+  "@jimp/plugin-scale@0.16.1": {
+    "licenses": "MIT",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/@jimp/plugin-scale",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/@jimp/plugin-scale/LICENSE"
+  },
+  "@jimp/plugin-shadow@0.16.1": {
+    "licenses": "MIT",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/@jimp/plugin-shadow",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/@jimp/plugin-shadow/LICENSE"
+  },
+  "@jimp/plugin-threshold@0.16.1": {
+    "licenses": "MIT",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/@jimp/plugin-threshold",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/@jimp/plugin-threshold/LICENSE"
+  },
+  "@jimp/plugins@0.16.1": {
+    "licenses": "MIT",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/@jimp/plugins",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/@jimp/plugins/LICENSE"
+  },
+  "@jimp/png@0.16.1": {
+    "licenses": "MIT",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/@jimp/png",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/@jimp/png/LICENSE"
+  },
+  "@jimp/tiff@0.16.1": {
+    "licenses": "MIT",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/@jimp/tiff",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/@jimp/tiff/LICENSE"
+  },
+  "@jimp/types@0.16.1": {
+    "licenses": "MIT",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/@jimp/types",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/@jimp/types/LICENSE"
+  },
+  "@jimp/utils@0.16.1": {
+    "licenses": "MIT",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/@jimp/utils",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/@jimp/utils/LICENSE"
+  },
+  "@nodelib/fs.scandir@2.1.4": {
+    "licenses": "MIT",
+    "repository": "https://github.com/nodelib/nodelib/tree/master/packages/fs/fs.scandir",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/@nodelib/fs.scandir",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/@nodelib/fs.scandir/LICENSE"
+  },
+  "@nodelib/fs.stat@2.0.4": {
+    "licenses": "MIT",
+    "repository": "https://github.com/nodelib/nodelib/tree/master/packages/fs/fs.stat",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/@nodelib/fs.stat",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/@nodelib/fs.stat/LICENSE"
+  },
+  "@nodelib/fs.walk@1.2.6": {
+    "licenses": "MIT",
+    "repository": "https://github.com/nodelib/nodelib/tree/master/packages/fs/fs.walk",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/@nodelib/fs.walk",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/@nodelib/fs.walk/LICENSE"
+  },
+  "@types/body-parser@1.19.0": {
+    "licenses": "MIT",
+    "repository": "https://github.com/DefinitelyTyped/DefinitelyTyped",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/@types/body-parser",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/@types/body-parser/LICENSE"
+  },
+  "@types/bson@4.0.3": {
+    "licenses": "MIT",
+    "repository": "https://github.com/DefinitelyTyped/DefinitelyTyped",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/@types/bson",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/@types/bson/LICENSE"
+  },
+  "@types/connect@3.4.34": {
+    "licenses": "MIT",
+    "repository": "https://github.com/DefinitelyTyped/DefinitelyTyped",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/@types/connect",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/@types/connect/LICENSE"
+  },
+  "@types/express-fileupload@1.1.6": {
+    "licenses": "MIT",
+    "repository": "https://github.com/DefinitelyTyped/DefinitelyTyped",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/@types/express-fileupload",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/@types/express-fileupload/LICENSE"
+  },
+  "@types/express-serve-static-core@4.17.19": {
+    "licenses": "MIT",
+    "repository": "https://github.com/DefinitelyTyped/DefinitelyTyped",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/@types/express-serve-static-core",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/@types/express-serve-static-core/LICENSE"
+  },
+  "@types/express@4.17.11": {
+    "licenses": "MIT",
+    "repository": "https://github.com/DefinitelyTyped/DefinitelyTyped",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/@types/express",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/@types/express/LICENSE"
+  },
+  "@types/json-schema@7.0.7": {
+    "licenses": "MIT",
+    "repository": "https://github.com/DefinitelyTyped/DefinitelyTyped",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/@types/json-schema",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/@types/json-schema/LICENSE"
+  },
+  "@types/json5@0.0.29": {
+    "licenses": "MIT",
+    "repository": "https://github.com/DefinitelyTyped/DefinitelyTyped",
+    "publisher": "Jason Swearingen",
+    "email": "https://jasonswearingen.github.io",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/@types/json5",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/@types/json5/README.md"
+  },
+  "@types/mime@1.3.2": {
+    "licenses": "MIT",
+    "repository": "https://github.com/DefinitelyTyped/DefinitelyTyped",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/@types/mime",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/@types/mime/LICENSE"
+  },
+  "@types/mongodb@3.6.10": {
+    "licenses": "MIT",
+    "repository": "https://github.com/DefinitelyTyped/DefinitelyTyped",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/@types/mongodb",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/@types/mongodb/LICENSE"
+  },
+  "@types/mongoose@5.10.3": {
+    "licenses": "MIT",
+    "repository": "https://github.com/DefinitelyTyped/DefinitelyTyped",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/@types/mongoose",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/@types/mongoose/LICENSE"
+  },
+  "@types/node@14.14.35": {
+    "licenses": "MIT",
+    "repository": "https://github.com/DefinitelyTyped/DefinitelyTyped",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/@types/node",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/@types/node/LICENSE"
+  },
+  "@types/passport@1.0.6": {
+    "licenses": "MIT",
+    "repository": "https://github.com/DefinitelyTyped/DefinitelyTyped",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/@types/passport",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/@types/passport/LICENSE"
+  },
+  "@types/qs@6.9.6": {
+    "licenses": "MIT",
+    "repository": "https://github.com/DefinitelyTyped/DefinitelyTyped",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/@types/qs",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/@types/qs/LICENSE"
+  },
+  "@types/range-parser@1.2.3": {
+    "licenses": "MIT",
+    "repository": "https://github.com/DefinitelyTyped/DefinitelyTyped",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/@types/range-parser",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/@types/range-parser/LICENSE"
+  },
+  "@types/serve-static@1.13.9": {
+    "licenses": "MIT",
+    "repository": "https://github.com/DefinitelyTyped/DefinitelyTyped",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/@types/serve-static",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/@types/serve-static/LICENSE"
+  },
+  "@typescript-eslint/eslint-plugin@4.18.0": {
+    "licenses": "MIT",
+    "repository": "https://github.com/typescript-eslint/typescript-eslint",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/@typescript-eslint/eslint-plugin",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/@typescript-eslint/eslint-plugin/LICENSE"
+  },
+  "@typescript-eslint/experimental-utils@4.18.0": {
+    "licenses": "MIT",
+    "repository": "https://github.com/typescript-eslint/typescript-eslint",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/@typescript-eslint/experimental-utils",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/@typescript-eslint/experimental-utils/LICENSE"
+  },
+  "@typescript-eslint/parser@4.18.0": {
+    "licenses": "BSD-2-Clause",
+    "repository": "https://github.com/typescript-eslint/typescript-eslint",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/@typescript-eslint/parser",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/@typescript-eslint/parser/LICENSE"
+  },
+  "@typescript-eslint/scope-manager@4.18.0": {
+    "licenses": "MIT",
+    "repository": "https://github.com/typescript-eslint/typescript-eslint",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/@typescript-eslint/scope-manager",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/@typescript-eslint/scope-manager/LICENSE"
+  },
+  "@typescript-eslint/types@4.18.0": {
+    "licenses": "MIT",
+    "repository": "https://github.com/typescript-eslint/typescript-eslint",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/@typescript-eslint/types",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/@typescript-eslint/types/LICENSE"
+  },
+  "@typescript-eslint/typescript-estree@4.18.0": {
+    "licenses": "BSD-2-Clause",
+    "repository": "https://github.com/typescript-eslint/typescript-eslint",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/@typescript-eslint/typescript-estree",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/@typescript-eslint/typescript-estree/LICENSE"
+  },
+  "@typescript-eslint/visitor-keys@4.18.0": {
+    "licenses": "MIT",
+    "repository": "https://github.com/typescript-eslint/typescript-eslint",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/@typescript-eslint/visitor-keys",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/@typescript-eslint/visitor-keys/LICENSE"
+  },
+  "accepts@1.3.7": {
+    "licenses": "MIT",
+    "repository": "https://github.com/jshttp/accepts",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/accepts",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/accepts/LICENSE"
+  },
+  "acorn-jsx@5.3.1": {
+    "licenses": "MIT",
+    "repository": "https://github.com/acornjs/acorn-jsx",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/acorn-jsx",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/acorn-jsx/LICENSE"
+  },
+  "acorn@7.4.1": {
+    "licenses": "MIT",
+    "repository": "https://github.com/acornjs/acorn",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/acorn",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/acorn/LICENSE"
+  },
+  "ajv@6.12.6": {
+    "licenses": "MIT",
+    "repository": "https://github.com/ajv-validator/ajv",
+    "publisher": "Evgeny Poberezkin",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/ajv",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/ajv/LICENSE"
+  },
+  "ajv@7.2.1": {
+    "licenses": "MIT",
+    "repository": "https://github.com/ajv-validator/ajv",
+    "publisher": "Evgeny Poberezkin",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/table/node_modules/ajv",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/table/node_modules/ajv/LICENSE"
+  },
+  "ansi-colors@4.1.1": {
+    "licenses": "MIT",
+    "repository": "https://github.com/doowb/ansi-colors",
+    "publisher": "Brian Woodward",
+    "url": "https://github.com/doowb",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/ansi-colors",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/ansi-colors/LICENSE"
+  },
+  "ansi-regex@5.0.0": {
+    "licenses": "MIT",
+    "repository": "https://github.com/chalk/ansi-regex",
+    "publisher": "Sindre Sorhus",
+    "email": "sindresorhus@gmail.com",
+    "url": "sindresorhus.com",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/ansi-regex",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/ansi-regex/license"
+  },
+  "ansi-styles@3.2.1": {
+    "licenses": "MIT",
+    "repository": "https://github.com/chalk/ansi-styles",
+    "publisher": "Sindre Sorhus",
+    "email": "sindresorhus@gmail.com",
+    "url": "sindresorhus.com",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/ansi-styles",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/ansi-styles/license"
+  },
+  "ansi-styles@4.3.0": {
+    "licenses": "MIT",
+    "repository": "https://github.com/chalk/ansi-styles",
+    "publisher": "Sindre Sorhus",
+    "email": "sindresorhus@gmail.com",
+    "url": "sindresorhus.com",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/slice-ansi/node_modules/ansi-styles",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/slice-ansi/node_modules/ansi-styles/license"
+  },
+  "any-base@1.1.0": {
+    "licenses": "MIT",
+    "repository": "https://github.com/HarasimowiczKamil/any-base",
+    "publisher": "Kamil Harasimowicz",
+    "email": "mifczu@gmail.com",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/any-base",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/any-base/LICENSE"
+  },
+  "argparse@1.0.10": {
+    "licenses": "MIT",
+    "repository": "https://github.com/nodeca/argparse",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/argparse",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/argparse/LICENSE"
+  },
+  "array-flatten@1.1.1": {
+    "licenses": "MIT",
+    "repository": "https://github.com/blakeembrey/array-flatten",
+    "publisher": "Blake Embrey",
+    "email": "hello@blakeembrey.com",
+    "url": "http://blakeembrey.me",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/array-flatten",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/array-flatten/LICENSE"
+  },
+  "array-includes@3.1.3": {
+    "licenses": "MIT",
+    "repository": "https://github.com/es-shims/array-includes",
+    "publisher": "Jordan Harband",
+    "email": "ljharb@gmail.com",
+    "url": "http://ljharb.codes",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/array-includes",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/array-includes/LICENSE"
+  },
+  "array-union@2.1.0": {
+    "licenses": "MIT",
+    "repository": "https://github.com/sindresorhus/array-union",
+    "publisher": "Sindre Sorhus",
+    "email": "sindresorhus@gmail.com",
+    "url": "sindresorhus.com",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/array-union",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/array-union/license"
+  },
+  "array.prototype.flat@1.2.4": {
+    "licenses": "MIT",
+    "repository": "https://github.com/es-shims/Array.prototype.flat",
+    "publisher": "Jordan Harband",
+    "email": "ljharb@gmail.com",
+    "url": "http://ljharb.codes",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/array.prototype.flat",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/array.prototype.flat/LICENSE"
+  },
+  "astral-regex@2.0.0": {
+    "licenses": "MIT",
+    "repository": "https://github.com/kevva/astral-regex",
+    "publisher": "Kevin Mårtensson",
+    "email": "kevinmartensson@gmail.com",
+    "url": "github.com/kevva",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/astral-regex",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/astral-regex/license"
+  },
+  "babel-eslint@8.2.6": {
+    "licenses": "MIT",
+    "repository": "https://github.com/babel/babel-eslint",
+    "publisher": "Sebastian McKenzie",
+    "email": "sebmck@gmail.com",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/babel-eslint",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/babel-eslint/LICENSE"
+  },
+  "babylon@7.0.0-beta.44": {
+    "licenses": "MIT",
+    "repository": "https://github.com/babel/babel/tree/master/packages/babylon",
+    "publisher": "Sebastian McKenzie",
+    "email": "sebmck@gmail.com",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/babylon",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/babylon/LICENSE"
+  },
+  "backend@1.0.0": {
+    "licenses": "ISC",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend"
+  },
+  "balanced-match@1.0.0": {
+    "licenses": "MIT",
+    "repository": "https://github.com/juliangruber/balanced-match",
+    "publisher": "Julian Gruber",
+    "email": "mail@juliangruber.com",
+    "url": "http://juliangruber.com",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/balanced-match",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/balanced-match/LICENSE.md"
+  },
+  "base64-js@1.5.1": {
+    "licenses": "MIT",
+    "repository": "https://github.com/beatgammit/base64-js",
+    "publisher": "T. Jameson Little",
+    "email": "t.jameson.little@gmail.com",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/base64-js",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/base64-js/LICENSE"
+  },
+  "bl@2.2.1": {
+    "licenses": "MIT",
+    "repository": "https://github.com/rvagg/bl",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/bl",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/bl/LICENSE.md"
+  },
+  "bluebird@3.5.1": {
+    "licenses": "MIT",
+    "repository": "https://github.com/petkaantonov/bluebird",
+    "publisher": "Petka Antonov",
+    "email": "petka_antonov@hotmail.com",
+    "url": "http://github.com/petkaantonov/",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/bluebird",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/bluebird/LICENSE"
+  },
+  "bmp-js@0.1.0": {
+    "licenses": "MIT",
+    "repository": "https://github.com/shaozilee/bmp-js",
+    "publisher": "shaozilee",
+    "email": "shaozilee@gmail.com",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/bmp-js",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/bmp-js/LICENSE"
+  },
+  "body-parser@1.19.0": {
+    "licenses": "MIT",
+    "repository": "https://github.com/expressjs/body-parser",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/body-parser",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/body-parser/LICENSE"
+  },
+  "brace-expansion@1.1.11": {
+    "licenses": "MIT",
+    "repository": "https://github.com/juliangruber/brace-expansion",
+    "publisher": "Julian Gruber",
+    "email": "mail@juliangruber.com",
+    "url": "http://juliangruber.com",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/brace-expansion",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/brace-expansion/LICENSE"
+  },
+  "braces@3.0.2": {
+    "licenses": "MIT",
+    "repository": "https://github.com/micromatch/braces",
+    "publisher": "Jon Schlinkert",
+    "url": "https://github.com/jonschlinkert",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/braces",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/braces/LICENSE"
+  },
+  "bson@1.1.6": {
+    "licenses": "Apache-2.0",
+    "repository": "https://github.com/mongodb/js-bson",
+    "publisher": "Christian Amor Kvalheim",
+    "email": "christkv@gmail.com",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/bson",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/bson/LICENSE.md"
+  },
+  "buffer-equal@0.0.1": {
+    "licenses": "MIT",
+    "repository": "https://github.com/substack/node-buffer-equal",
+    "publisher": "James Halliday",
+    "email": "mail@substack.net",
+    "url": "http://substack.net",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/buffer-equal",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/buffer-equal/README.markdown"
+  },
+  "buffer@5.7.1": {
+    "licenses": "MIT",
+    "repository": "https://github.com/feross/buffer",
+    "publisher": "Feross Aboukhadijeh",
+    "email": "feross@feross.org",
+    "url": "https://feross.org",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/buffer",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/buffer/LICENSE"
+  },
+  "builtin-modules@1.1.1": {
+    "licenses": "MIT",
+    "repository": "https://github.com/sindresorhus/builtin-modules",
+    "publisher": "Sindre Sorhus",
+    "email": "sindresorhus@gmail.com",
+    "url": "sindresorhus.com",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/builtin-modules",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/builtin-modules/license"
+  },
+  "busboy@0.3.1": {
+    "licenses": "MIT",
+    "repository": "https://github.com/mscdex/busboy",
+    "publisher": "Brian White",
+    "email": "mscdex@mscdex.net",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/busboy",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/busboy/LICENSE"
+  },
+  "bytes@3.1.0": {
+    "licenses": "MIT",
+    "repository": "https://github.com/visionmedia/bytes.js",
+    "publisher": "TJ Holowaychuk",
+    "email": "tj@vision-media.ca",
+    "url": "http://tjholowaychuk.com",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/bytes",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/bytes/LICENSE"
+  },
+  "call-bind@1.0.2": {
+    "licenses": "MIT",
+    "repository": "https://github.com/ljharb/call-bind",
+    "publisher": "Jordan Harband",
+    "email": "ljharb@gmail.com",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/call-bind",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/call-bind/LICENSE"
+  },
+  "callsites@3.1.0": {
+    "licenses": "MIT",
+    "repository": "https://github.com/sindresorhus/callsites",
+    "publisher": "Sindre Sorhus",
+    "email": "sindresorhus@gmail.com",
+    "url": "sindresorhus.com",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/callsites",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/callsites/license"
+  },
+  "chalk@2.4.2": {
+    "licenses": "MIT",
+    "repository": "https://github.com/chalk/chalk",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/chalk",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/chalk/license"
+  },
+  "chalk@4.1.0": {
+    "licenses": "MIT",
+    "repository": "https://github.com/chalk/chalk",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/eslint/node_modules/chalk",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/eslint/node_modules/chalk/license"
+  },
+  "color-convert@1.9.3": {
+    "licenses": "MIT",
+    "repository": "https://github.com/Qix-/color-convert",
+    "publisher": "Heather Arthur",
+    "email": "fayearthur@gmail.com",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/color-convert",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/color-convert/LICENSE"
+  },
+  "color-convert@2.0.1": {
+    "licenses": "MIT",
+    "repository": "https://github.com/Qix-/color-convert",
+    "publisher": "Heather Arthur",
+    "email": "fayearthur@gmail.com",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/slice-ansi/node_modules/color-convert",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/slice-ansi/node_modules/color-convert/LICENSE"
+  },
+  "color-name@1.1.3": {
+    "licenses": "MIT",
+    "repository": "https://github.com/dfcreative/color-name",
+    "publisher": "DY",
+    "email": "dfcreative@gmail.com",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/color-name",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/color-name/LICENSE"
+  },
+  "color-name@1.1.4": {
+    "licenses": "MIT",
+    "repository": "https://github.com/colorjs/color-name",
+    "publisher": "DY",
+    "email": "dfcreative@gmail.com",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/slice-ansi/node_modules/color-name",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/slice-ansi/node_modules/color-name/LICENSE"
+  },
+  "commander@2.20.3": {
+    "licenses": "MIT",
+    "repository": "https://github.com/tj/commander.js",
+    "publisher": "TJ Holowaychuk",
+    "email": "tj@vision-media.ca",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/commander",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/commander/LICENSE"
+  },
+  "concat-map@0.0.1": {
+    "licenses": "MIT",
+    "repository": "https://github.com/substack/node-concat-map",
+    "publisher": "James Halliday",
+    "email": "mail@substack.net",
+    "url": "http://substack.net",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/concat-map",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/concat-map/LICENSE"
+  },
+  "confusing-browser-globals@1.0.10": {
+    "licenses": "MIT",
+    "repository": "https://github.com/facebook/create-react-app",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/confusing-browser-globals",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/confusing-browser-globals/LICENSE"
+  },
+  "connect-flash@0.1.1": {
+    "licenses": "MIT",
+    "repository": "https://github.com/jaredhanson/connect-flash",
+    "publisher": "Jared Hanson",
+    "email": "jaredhanson@gmail.com",
+    "url": "http://www.jaredhanson.net/",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/connect-flash",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/connect-flash/LICENSE"
+  },
+  "contains-path@0.1.0": {
+    "licenses": "MIT",
+    "repository": "https://github.com/jonschlinkert/contains-path",
+    "publisher": "Jon Schlinkert",
+    "url": "https://github.com/jonschlinkert",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/contains-path",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/contains-path/LICENSE"
+  },
+  "content-disposition@0.5.3": {
+    "licenses": "MIT",
+    "repository": "https://github.com/jshttp/content-disposition",
+    "publisher": "Douglas Christopher Wilson",
+    "email": "doug@somethingdoug.com",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/content-disposition",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/content-disposition/LICENSE"
+  },
+  "content-type@1.0.4": {
+    "licenses": "MIT",
+    "repository": "https://github.com/jshttp/content-type",
+    "publisher": "Douglas Christopher Wilson",
+    "email": "doug@somethingdoug.com",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/content-type",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/content-type/LICENSE"
+  },
+  "cookie-signature@1.0.6": {
+    "licenses": "MIT",
+    "repository": "https://github.com/visionmedia/node-cookie-signature",
+    "publisher": "TJ Holowaychuk",
+    "email": "tj@learnboost.com",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/cookie-signature",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/cookie-signature/Readme.md"
+  },
+  "cookie@0.4.0": {
+    "licenses": "MIT",
+    "repository": "https://github.com/jshttp/cookie",
+    "publisher": "Roman Shtylman",
+    "email": "shtylman@gmail.com",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/cookie",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/cookie/LICENSE"
+  },
+  "core-util-is@1.0.2": {
+    "licenses": "MIT",
+    "repository": "https://github.com/isaacs/core-util-is",
+    "publisher": "Isaac Z. Schlueter",
+    "email": "i@izs.me",
+    "url": "http://blog.izs.me/",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/core-util-is",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/core-util-is/LICENSE"
+  },
+  "cors@2.8.5": {
+    "licenses": "MIT",
+    "repository": "https://github.com/expressjs/cors",
+    "publisher": "Troy Goode",
+    "email": "troygoode@gmail.com",
+    "url": "https://github.com/troygoode/",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/cors",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/cors/LICENSE"
+  },
+  "cross-spawn@7.0.3": {
+    "licenses": "MIT",
+    "repository": "https://github.com/moxystudio/node-cross-spawn",
+    "publisher": "André Cruz",
+    "email": "andre@moxy.studio",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/cross-spawn",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/cross-spawn/LICENSE"
+  },
+  "crypto@1.0.1": {
+    "licenses": "ISC",
+    "repository": "https://github.com/npm/deprecate-holder",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/crypto",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/crypto/README.md"
+  },
+  "dayjs@1.10.4": {
+    "licenses": "MIT",
+    "repository": "https://github.com/iamkun/dayjs",
+    "publisher": "iamkun",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/dayjs",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/dayjs/LICENSE"
+  },
+  "debug@2.6.9": {
+    "licenses": "MIT",
+    "repository": "https://github.com/visionmedia/debug",
+    "publisher": "TJ Holowaychuk",
+    "email": "tj@vision-media.ca",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/body-parser/node_modules/debug",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/body-parser/node_modules/debug/LICENSE"
+  },
+  "debug@3.1.0": {
+    "licenses": "MIT",
+    "repository": "https://github.com/visionmedia/debug",
+    "publisher": "TJ Holowaychuk",
+    "email": "tj@vision-media.ca",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/mquery/node_modules/debug",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/mquery/node_modules/debug/LICENSE"
+  },
+  "debug@3.2.7": {
+    "licenses": "MIT",
+    "repository": "https://github.com/visionmedia/debug",
+    "publisher": "TJ Holowaychuk",
+    "email": "tj@vision-media.ca",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/@babel/traverse/node_modules/debug",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/@babel/traverse/node_modules/debug/LICENSE"
+  },
+  "debug@4.3.1": {
+    "licenses": "MIT",
+    "repository": "https://github.com/visionmedia/debug",
+    "publisher": "TJ Holowaychuk",
+    "email": "tj@vision-media.ca",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/debug",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/debug/LICENSE"
+  },
+  "deep-is@0.1.3": {
+    "licenses": "MIT",
+    "repository": "https://github.com/thlorenz/deep-is",
+    "publisher": "Thorsten Lorenz",
+    "email": "thlorenz@gmx.de",
+    "url": "http://thlorenz.com",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/deep-is",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/deep-is/LICENSE"
+  },
+  "define-properties@1.1.3": {
+    "licenses": "MIT",
+    "repository": "https://github.com/ljharb/define-properties",
+    "publisher": "Jordan Harband",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/define-properties",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/define-properties/LICENSE"
+  },
+  "denque@1.5.0": {
+    "licenses": "Apache-2.0",
+    "repository": "https://github.com/invertase/denque",
+    "publisher": "Invertase",
+    "email": "oss@invertase.io",
+    "url": "http://github.com/invertase/",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/denque",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/denque/LICENSE"
+  },
+  "depd@1.1.2": {
+    "licenses": "MIT",
+    "repository": "https://github.com/dougwilson/nodejs-depd",
+    "publisher": "Douglas Christopher Wilson",
+    "email": "doug@somethingdoug.com",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/depd",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/depd/LICENSE"
+  },
+  "depd@2.0.0": {
+    "licenses": "MIT",
+    "repository": "https://github.com/dougwilson/nodejs-depd",
+    "publisher": "Douglas Christopher Wilson",
+    "email": "doug@somethingdoug.com",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/express-session/node_modules/depd",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/express-session/node_modules/depd/LICENSE"
+  },
+  "destroy@1.0.4": {
+    "licenses": "MIT",
+    "repository": "https://github.com/stream-utils/destroy",
+    "publisher": "Jonathan Ong",
+    "email": "me@jongleberry.com",
+    "url": "http://jongleberry.com",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/destroy",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/destroy/LICENSE"
+  },
+  "dicer@0.3.0": {
+    "licenses": "MIT",
+    "repository": "https://github.com/mscdex/dicer",
+    "publisher": "Brian White",
+    "email": "mscdex@mscdex.net",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/dicer",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/dicer/LICENSE"
+  },
+  "diff@4.0.2": {
+    "licenses": "BSD-3-Clause",
+    "repository": "https://github.com/kpdecker/jsdiff",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/diff",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/diff/LICENSE"
+  },
+  "dir-glob@3.0.1": {
+    "licenses": "MIT",
+    "repository": "https://github.com/kevva/dir-glob",
+    "publisher": "Kevin Mårtensson",
+    "email": "kevinmartensson@gmail.com",
+    "url": "github.com/kevva",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/dir-glob",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/dir-glob/license"
+  },
+  "doctrine@1.5.0": {
+    "licenses": "BSD",
+    "repository": "https://github.com/eslint/doctrine",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/eslint-plugin-import/node_modules/doctrine",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/eslint-plugin-import/node_modules/doctrine/LICENSE.BSD"
+  },
+  "doctrine@3.0.0": {
+    "licenses": "Apache-2.0",
+    "repository": "https://github.com/eslint/doctrine",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/doctrine",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/doctrine/LICENSE"
+  },
+  "dom-walk@0.1.2": {
+    "licenses": "MIT",
+    "repository": "https://github.com/Raynos/dom-walk",
+    "publisher": "Raynos",
+    "email": "raynos2@gmail.com",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/dom-walk",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/dom-walk/LICENCE"
+  },
+  "dotenv@8.2.0": {
+    "licenses": "BSD-2-Clause",
+    "repository": "https://github.com/motdotla/dotenv",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/dotenv",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/dotenv/LICENSE"
+  },
+  "ee-first@1.1.1": {
+    "licenses": "MIT",
+    "repository": "https://github.com/jonathanong/ee-first",
+    "publisher": "Jonathan Ong",
+    "email": "me@jongleberry.com",
+    "url": "http://jongleberry.com",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/ee-first",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/ee-first/LICENSE"
+  },
+  "emoji-regex@8.0.0": {
+    "licenses": "MIT",
+    "repository": "https://github.com/mathiasbynens/emoji-regex",
+    "publisher": "Mathias Bynens",
+    "url": "https://mathiasbynens.be/",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/emoji-regex",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/emoji-regex/LICENSE-MIT.txt"
+  },
+  "encodeurl@1.0.2": {
+    "licenses": "MIT",
+    "repository": "https://github.com/pillarjs/encodeurl",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/encodeurl",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/encodeurl/LICENSE"
+  },
+  "enquirer@2.3.6": {
+    "licenses": "MIT",
+    "repository": "https://github.com/enquirer/enquirer",
+    "publisher": "Jon Schlinkert",
+    "url": "https://github.com/jonschlinkert",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/enquirer",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/enquirer/LICENSE"
+  },
+  "error-ex@1.3.2": {
+    "licenses": "MIT",
+    "repository": "https://github.com/qix-/node-error-ex",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/error-ex",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/error-ex/LICENSE"
+  },
+  "es-abstract@1.18.0": {
+    "licenses": "MIT",
+    "repository": "https://github.com/ljharb/es-abstract",
+    "publisher": "Jordan Harband",
+    "email": "ljharb@gmail.com",
+    "url": "http://ljharb.codes",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/es-abstract",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/es-abstract/LICENSE"
+  },
+  "es-to-primitive@1.2.1": {
+    "licenses": "MIT",
+    "repository": "https://github.com/ljharb/es-to-primitive",
+    "publisher": "Jordan Harband",
+    "email": "ljharb@gmail.com",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/es-to-primitive",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/es-to-primitive/LICENSE"
+  },
+  "escape-html@1.0.3": {
+    "licenses": "MIT",
+    "repository": "https://github.com/component/escape-html",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/escape-html",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/escape-html/LICENSE"
+  },
+  "escape-string-regexp@1.0.5": {
+    "licenses": "MIT",
+    "repository": "https://github.com/sindresorhus/escape-string-regexp",
+    "publisher": "Sindre Sorhus",
+    "email": "sindresorhus@gmail.com",
+    "url": "sindresorhus.com",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/escape-string-regexp",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/escape-string-regexp/license"
+  },
+  "eslint-config-airbnb-base@14.2.1": {
+    "licenses": "MIT",
+    "repository": "https://github.com/airbnb/javascript",
+    "publisher": "Jake Teton-Landis",
+    "url": "https://twitter.com/@jitl",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/eslint-config-airbnb-base",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/eslint-config-airbnb-base/LICENSE.md"
+  },
+  "eslint-import-resolver-node@0.3.4": {
+    "licenses": "MIT",
+    "repository": "https://github.com/benmosher/eslint-plugin-import",
+    "publisher": "Ben Mosher",
+    "url": "me@benmosher.com",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/eslint-import-resolver-node",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/eslint-import-resolver-node/LICENSE"
+  },
+  "eslint-module-utils@2.6.0": {
+    "licenses": "MIT",
+    "repository": "https://github.com/benmosher/eslint-plugin-import",
+    "publisher": "Ben Mosher",
+    "email": "me@benmosher.com",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/eslint-module-utils",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/eslint-module-utils/LICENSE"
+  },
+  "eslint-plugin-import@2.22.1": {
+    "licenses": "MIT",
+    "repository": "https://github.com/benmosher/eslint-plugin-import",
+    "publisher": "Ben Mosher",
+    "email": "me@benmosher.com",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/eslint-plugin-import",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/eslint-plugin-import/LICENSE"
+  },
+  "eslint-scope@3.7.1": {
+    "licenses": "BSD-2-Clause",
+    "repository": "https://github.com/eslint/eslint-scope",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/babel-eslint/node_modules/eslint-scope",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/babel-eslint/node_modules/eslint-scope/LICENSE"
+  },
+  "eslint-scope@5.1.1": {
+    "licenses": "BSD-2-Clause",
+    "repository": "https://github.com/eslint/eslint-scope",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/eslint-scope",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/eslint-scope/LICENSE"
+  },
+  "eslint-utils@2.1.0": {
+    "licenses": "MIT",
+    "repository": "https://github.com/mysticatea/eslint-utils",
+    "publisher": "Toru Nagashima",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/eslint-utils",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/eslint-utils/LICENSE"
+  },
+  "eslint-visitor-keys@1.3.0": {
+    "licenses": "Apache-2.0",
+    "repository": "https://github.com/eslint/eslint-visitor-keys",
+    "publisher": "Toru Nagashima",
+    "url": "https://github.com/mysticatea",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/eslint-utils/node_modules/eslint-visitor-keys",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/eslint-utils/node_modules/eslint-visitor-keys/LICENSE"
+  },
+  "eslint-visitor-keys@2.0.0": {
+    "licenses": "Apache-2.0",
+    "repository": "https://github.com/eslint/eslint-visitor-keys",
+    "publisher": "Toru Nagashima",
+    "url": "https://github.com/mysticatea",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/eslint-visitor-keys",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/eslint-visitor-keys/LICENSE"
+  },
+  "eslint@7.22.0": {
+    "licenses": "MIT",
+    "repository": "https://github.com/eslint/eslint",
+    "publisher": "Nicholas C. Zakas",
+    "email": "nicholas+npm@nczconsulting.com",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/eslint",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/eslint/LICENSE"
+  },
+  "espree@7.3.1": {
+    "licenses": "BSD-2-Clause",
+    "repository": "https://github.com/eslint/espree",
+    "publisher": "Nicholas C. Zakas",
+    "email": "nicholas+npm@nczconsulting.com",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/espree",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/espree/LICENSE"
+  },
+  "esprima@4.0.1": {
+    "licenses": "BSD-2-Clause",
+    "repository": "https://github.com/jquery/esprima",
+    "publisher": "Ariya Hidayat",
+    "email": "ariya.hidayat@gmail.com",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/esprima",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/esprima/LICENSE.BSD"
+  },
+  "esquery@1.4.0": {
+    "licenses": "BSD-3-Clause",
+    "repository": "https://github.com/estools/esquery",
+    "publisher": "Joel Feenstra",
+    "email": "jrfeenst+esquery@gmail.com",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/esquery",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/esquery/license.txt"
+  },
+  "esrecurse@4.3.0": {
+    "licenses": "BSD-2-Clause",
+    "repository": "https://github.com/estools/esrecurse",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/esrecurse",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/esrecurse/README.md"
+  },
+  "estraverse@4.3.0": {
+    "licenses": "BSD-2-Clause",
+    "repository": "https://github.com/estools/estraverse",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/estraverse",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/estraverse/LICENSE.BSD"
+  },
+  "estraverse@5.2.0": {
+    "licenses": "BSD-2-Clause",
+    "repository": "https://github.com/estools/estraverse",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/esrecurse/node_modules/estraverse",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/esrecurse/node_modules/estraverse/LICENSE.BSD"
+  },
+  "esutils@2.0.3": {
+    "licenses": "BSD-2-Clause",
+    "repository": "https://github.com/estools/esutils",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/esutils",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/esutils/LICENSE.BSD"
+  },
+  "etag@1.8.1": {
+    "licenses": "MIT",
+    "repository": "https://github.com/jshttp/etag",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/etag",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/etag/LICENSE"
+  },
+  "exif-parser@0.1.12": {
+    "licenses": "MIT*",
+    "repository": "https://github.com/bwindels/exif-parser",
+    "publisher": "Bruno Windels",
+    "email": "bruno.windels@gmail.com",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/exif-parser",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/exif-parser/LICENSE.md"
+  },
+  "express-fileupload@1.2.1": {
+    "licenses": "MIT",
+    "repository": "https://github.com/richardgirges/express-fileupload",
+    "publisher": "Richard Girges",
+    "email": "richardgirges@gmail.com",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/express-fileupload",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/express-fileupload/LICENSE"
+  },
+  "express-session@1.17.1": {
+    "licenses": "MIT",
+    "repository": "https://github.com/expressjs/session",
+    "publisher": "TJ Holowaychuk",
+    "email": "tj@vision-media.ca",
+    "url": "http://tjholowaychuk.com",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/express-session",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/express-session/LICENSE"
+  },
+  "express@4.17.1": {
+    "licenses": "MIT",
+    "repository": "https://github.com/expressjs/express",
+    "publisher": "TJ Holowaychuk",
+    "email": "tj@vision-media.ca",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/express",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/express/LICENSE"
+  },
+  "fast-deep-equal@3.1.3": {
+    "licenses": "MIT",
+    "repository": "https://github.com/epoberezkin/fast-deep-equal",
+    "publisher": "Evgeny Poberezkin",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/fast-deep-equal",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/fast-deep-equal/LICENSE"
+  },
+  "fast-glob@3.2.5": {
+    "licenses": "MIT",
+    "repository": "https://github.com/mrmlnc/fast-glob",
+    "publisher": "Denis Malinochkin",
+    "url": "https://mrmlnc.com",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/fast-glob",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/fast-glob/LICENSE"
+  },
+  "fast-json-stable-stringify@2.1.0": {
+    "licenses": "MIT",
+    "repository": "https://github.com/epoberezkin/fast-json-stable-stringify",
+    "publisher": "James Halliday",
+    "email": "mail@substack.net",
+    "url": "http://substack.net",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/fast-json-stable-stringify",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/fast-json-stable-stringify/LICENSE"
+  },
+  "fast-levenshtein@2.0.6": {
+    "licenses": "MIT",
+    "repository": "https://github.com/hiddentao/fast-levenshtein",
+    "publisher": "Ramesh Nair",
+    "email": "ram@hiddentao.com",
+    "url": "http://www.hiddentao.com/",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/fast-levenshtein",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/fast-levenshtein/LICENSE.md"
+  },
+  "fastq@1.11.0": {
+    "licenses": "ISC",
+    "repository": "https://github.com/mcollina/fastq",
+    "publisher": "Matteo Collina",
+    "email": "hello@matteocollina.com",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/fastq",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/fastq/LICENSE"
+  },
+  "file-entry-cache@6.0.1": {
+    "licenses": "MIT",
+    "repository": "https://github.com/royriojas/file-entry-cache",
+    "publisher": "Roy Riojas",
+    "url": "http://royriojas.com",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/file-entry-cache",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/file-entry-cache/LICENSE"
+  },
+  "file-type@9.0.0": {
+    "licenses": "MIT",
+    "repository": "https://github.com/sindresorhus/file-type",
+    "publisher": "Sindre Sorhus",
+    "email": "sindresorhus@gmail.com",
+    "url": "sindresorhus.com",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/file-type",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/file-type/license"
+  },
+  "fill-range@7.0.1": {
+    "licenses": "MIT",
+    "repository": "https://github.com/jonschlinkert/fill-range",
+    "publisher": "Jon Schlinkert",
+    "url": "https://github.com/jonschlinkert",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/fill-range",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/fill-range/LICENSE"
+  },
+  "finalhandler@1.1.2": {
+    "licenses": "MIT",
+    "repository": "https://github.com/pillarjs/finalhandler",
+    "publisher": "Douglas Christopher Wilson",
+    "email": "doug@somethingdoug.com",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/finalhandler",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/finalhandler/LICENSE"
+  },
+  "find-up@2.1.0": {
+    "licenses": "MIT",
+    "repository": "https://github.com/sindresorhus/find-up",
+    "publisher": "Sindre Sorhus",
+    "email": "sindresorhus@gmail.com",
+    "url": "sindresorhus.com",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/find-up",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/find-up/license"
+  },
+  "flat-cache@3.0.4": {
+    "licenses": "MIT",
+    "repository": "https://github.com/royriojas/flat-cache",
+    "publisher": "Roy Riojas",
+    "url": "http://royriojas.com",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/flat-cache",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/flat-cache/LICENSE"
+  },
+  "flatted@3.1.1": {
+    "licenses": "ISC",
+    "repository": "https://github.com/WebReflection/flatted",
+    "publisher": "Andrea Giammarchi",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/flatted",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/flatted/LICENSE"
+  },
+  "forwarded@0.1.2": {
+    "licenses": "MIT",
+    "repository": "https://github.com/jshttp/forwarded",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/forwarded",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/forwarded/LICENSE"
+  },
+  "fresh@0.5.2": {
+    "licenses": "MIT",
+    "repository": "https://github.com/jshttp/fresh",
+    "publisher": "TJ Holowaychuk",
+    "email": "tj@vision-media.ca",
+    "url": "http://tjholowaychuk.com",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/fresh",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/fresh/LICENSE"
+  },
+  "fs.realpath@1.0.0": {
+    "licenses": "ISC",
+    "repository": "https://github.com/isaacs/fs.realpath",
+    "publisher": "Isaac Z. Schlueter",
+    "email": "i@izs.me",
+    "url": "http://blog.izs.me/",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/fs.realpath",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/fs.realpath/LICENSE"
+  },
+  "function-bind@1.1.1": {
+    "licenses": "MIT",
+    "repository": "https://github.com/Raynos/function-bind",
+    "publisher": "Raynos",
+    "email": "raynos2@gmail.com",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/function-bind",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/function-bind/LICENSE"
+  },
+  "functional-red-black-tree@1.0.1": {
+    "licenses": "MIT",
+    "repository": "https://github.com/mikolalysenko/functional-red-black-tree",
+    "publisher": "Mikola Lysenko",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/functional-red-black-tree",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/functional-red-black-tree/LICENSE"
+  },
+  "get-intrinsic@1.1.1": {
+    "licenses": "MIT",
+    "repository": "https://github.com/ljharb/get-intrinsic",
+    "publisher": "Jordan Harband",
+    "email": "ljharb@gmail.com",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/get-intrinsic",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/get-intrinsic/LICENSE"
+  },
+  "gifwrap@0.9.2": {
+    "licenses": "MIT",
+    "repository": "https://github.com/jtlapp/gifwrap",
+    "publisher": "Joseph T. Lapp",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/gifwrap",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/gifwrap/LICENSE"
+  },
+  "glob-parent@5.1.2": {
+    "licenses": "ISC",
+    "repository": "https://github.com/gulpjs/glob-parent",
+    "publisher": "Gulp Team",
+    "email": "team@gulpjs.com",
+    "url": "https://gulpjs.com/",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/glob-parent",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/glob-parent/LICENSE"
+  },
+  "glob@7.1.6": {
+    "licenses": "ISC",
+    "repository": "https://github.com/isaacs/node-glob",
+    "publisher": "Isaac Z. Schlueter",
+    "email": "i@izs.me",
+    "url": "http://blog.izs.me/",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/glob",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/glob/LICENSE"
+  },
+  "global@4.4.0": {
+    "licenses": "MIT",
+    "repository": "https://github.com/Raynos/global",
+    "publisher": "Raynos",
+    "email": "raynos2@gmail.com",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/global",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/global/LICENSE"
+  },
+  "globals@11.12.0": {
+    "licenses": "MIT",
+    "repository": "https://github.com/sindresorhus/globals",
+    "publisher": "Sindre Sorhus",
+    "email": "sindresorhus@gmail.com",
+    "url": "sindresorhus.com",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/globals",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/globals/license"
+  },
+  "globals@12.4.0": {
+    "licenses": "MIT",
+    "repository": "https://github.com/sindresorhus/globals",
+    "publisher": "Sindre Sorhus",
+    "email": "sindresorhus@gmail.com",
+    "url": "https://sindresorhus.com",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/@eslint/eslintrc/node_modules/globals",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/@eslint/eslintrc/node_modules/globals/license"
+  },
+  "globals@13.6.0": {
+    "licenses": "MIT",
+    "repository": "https://github.com/sindresorhus/globals",
+    "publisher": "Sindre Sorhus",
+    "email": "sindresorhus@gmail.com",
+    "url": "https://sindresorhus.com",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/eslint/node_modules/globals",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/eslint/node_modules/globals/license"
+  },
+  "globby@11.0.2": {
+    "licenses": "MIT",
+    "repository": "https://github.com/sindresorhus/globby",
+    "publisher": "Sindre Sorhus",
+    "email": "sindresorhus@gmail.com",
+    "url": "https://sindresorhus.com",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/globby",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/globby/license"
+  },
+  "graceful-fs@4.2.6": {
+    "licenses": "ISC",
+    "repository": "https://github.com/isaacs/node-graceful-fs",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/graceful-fs",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/graceful-fs/LICENSE"
+  },
+  "has-bigints@1.0.1": {
+    "licenses": "MIT",
+    "repository": "https://github.com/ljharb/has-bigints",
+    "publisher": "Jordan Harband",
+    "email": "ljharb@gmail.com",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/has-bigints",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/has-bigints/LICENSE"
+  },
+  "has-flag@3.0.0": {
+    "licenses": "MIT",
+    "repository": "https://github.com/sindresorhus/has-flag",
+    "publisher": "Sindre Sorhus",
+    "email": "sindresorhus@gmail.com",
+    "url": "sindresorhus.com",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/has-flag",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/has-flag/license"
+  },
+  "has-flag@4.0.0": {
+    "licenses": "MIT",
+    "repository": "https://github.com/sindresorhus/has-flag",
+    "publisher": "Sindre Sorhus",
+    "email": "sindresorhus@gmail.com",
+    "url": "sindresorhus.com",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/eslint/node_modules/has-flag",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/eslint/node_modules/has-flag/license"
+  },
+  "has-symbols@1.0.2": {
+    "licenses": "MIT",
+    "repository": "https://github.com/inspect-js/has-symbols",
+    "publisher": "Jordan Harband",
+    "email": "ljharb@gmail.com",
+    "url": "http://ljharb.codes",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/has-symbols",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/has-symbols/LICENSE"
+  },
+  "has@1.0.3": {
+    "licenses": "MIT",
+    "repository": "https://github.com/tarruda/has",
+    "publisher": "Thiago de Arruda",
+    "email": "tpadilha84@gmail.com",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/has",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/has/LICENSE-MIT"
+  },
+  "helmet@4.4.1": {
+    "licenses": "MIT",
+    "repository": "https://github.com/helmetjs/helmet",
+    "publisher": "Adam Baldwin",
+    "email": "adam@npmjs.com",
+    "url": "https://evilpacket.net",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/helmet",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/helmet/LICENSE"
+  },
+  "hosted-git-info@2.8.8": {
+    "licenses": "ISC",
+    "repository": "https://github.com/npm/hosted-git-info",
+    "publisher": "Rebecca Turner",
+    "email": "me@re-becca.org",
+    "url": "http://re-becca.org",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/hosted-git-info",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/hosted-git-info/LICENSE"
+  },
+  "http-errors@1.7.2": {
+    "licenses": "MIT",
+    "repository": "https://github.com/jshttp/http-errors",
+    "publisher": "Jonathan Ong",
+    "email": "me@jongleberry.com",
+    "url": "http://jongleberry.com",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/http-errors",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/http-errors/LICENSE"
+  },
+  "iconv-lite@0.4.24": {
+    "licenses": "MIT",
+    "repository": "https://github.com/ashtuchkin/iconv-lite",
+    "publisher": "Alexander Shtuchkin",
+    "email": "ashtuchkin@gmail.com",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/iconv-lite",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/iconv-lite/LICENSE"
+  },
+  "ieee754@1.2.1": {
+    "licenses": "BSD-3-Clause",
+    "repository": "https://github.com/feross/ieee754",
+    "publisher": "Feross Aboukhadijeh",
+    "email": "feross@feross.org",
+    "url": "https://feross.org",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/ieee754",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/ieee754/LICENSE"
+  },
+  "ignore@4.0.6": {
+    "licenses": "MIT",
+    "repository": "https://github.com/kaelzhang/node-ignore",
+    "publisher": "kael",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/ignore",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/ignore/LICENSE-MIT"
+  },
+  "ignore@5.1.8": {
+    "licenses": "MIT",
+    "repository": "https://github.com/kaelzhang/node-ignore",
+    "publisher": "kael",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/globby/node_modules/ignore",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/globby/node_modules/ignore/LICENSE-MIT"
+  },
+  "image-q@1.1.1": {
+    "licenses": "MIT",
+    "repository": "https://github.com/igor-bezkrovny/image-quantization",
+    "publisher": "Igor Bezkrovny",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/image-q",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/image-q/LICENSE"
+  },
+  "import-fresh@3.3.0": {
+    "licenses": "MIT",
+    "repository": "https://github.com/sindresorhus/import-fresh",
+    "publisher": "Sindre Sorhus",
+    "email": "sindresorhus@gmail.com",
+    "url": "https://sindresorhus.com",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/import-fresh",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/import-fresh/license"
+  },
+  "imurmurhash@0.1.4": {
+    "licenses": "MIT",
+    "repository": "https://github.com/jensyt/imurmurhash-js",
+    "publisher": "Jens Taylor",
+    "email": "jensyt@gmail.com",
+    "url": "https://github.com/homebrewing",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/imurmurhash",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/imurmurhash/README.md"
+  },
+  "inflight@1.0.6": {
+    "licenses": "ISC",
+    "repository": "https://github.com/npm/inflight",
+    "publisher": "Isaac Z. Schlueter",
+    "email": "i@izs.me",
+    "url": "http://blog.izs.me/",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/inflight",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/inflight/LICENSE"
+  },
+  "inherits@2.0.3": {
+    "licenses": "ISC",
+    "repository": "https://github.com/isaacs/inherits",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/inherits",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/inherits/LICENSE"
+  },
+  "invariant@2.2.4": {
+    "licenses": "MIT",
+    "repository": "https://github.com/zertosh/invariant",
+    "publisher": "Andres Suarez",
+    "email": "zertosh@gmail.com",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/invariant",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/invariant/LICENSE"
+  },
+  "ipaddr.js@1.9.1": {
+    "licenses": "MIT",
+    "repository": "https://github.com/whitequark/ipaddr.js",
+    "publisher": "whitequark",
+    "email": "whitequark@whitequark.org",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/ipaddr.js",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/ipaddr.js/LICENSE"
+  },
+  "is-arrayish@0.2.1": {
+    "licenses": "MIT",
+    "repository": "https://github.com/qix-/node-is-arrayish",
+    "publisher": "Qix",
+    "url": "http://github.com/qix-",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/is-arrayish",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/is-arrayish/LICENSE"
+  },
+  "is-bigint@1.0.1": {
+    "licenses": "MIT",
+    "repository": "https://github.com/ljharb/is-bigint",
+    "publisher": "Jordan Harband",
+    "email": "ljharb@gmail.com",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/is-bigint",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/is-bigint/LICENSE"
+  },
+  "is-boolean-object@1.1.0": {
+    "licenses": "MIT",
+    "repository": "https://github.com/ljharb/is-boolean-object",
+    "publisher": "Jordan Harband",
+    "email": "ljharb@gmail.com",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/is-boolean-object",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/is-boolean-object/LICENSE"
+  },
+  "is-callable@1.2.3": {
+    "licenses": "MIT",
+    "repository": "https://github.com/ljharb/is-callable",
+    "publisher": "Jordan Harband",
+    "email": "ljharb@gmail.com",
+    "url": "http://ljharb.codes",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/is-callable",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/is-callable/LICENSE"
+  },
+  "is-core-module@2.2.0": {
+    "licenses": "MIT",
+    "repository": "https://github.com/inspect-js/is-core-module",
+    "publisher": "Jordan Harband",
+    "email": "ljharb@gmail.com",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/is-core-module",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/is-core-module/LICENSE"
+  },
+  "is-date-object@1.0.2": {
+    "licenses": "MIT",
+    "repository": "https://github.com/ljharb/is-date-object",
+    "publisher": "Jordan Harband",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/is-date-object",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/is-date-object/LICENSE"
+  },
+  "is-extglob@2.1.1": {
+    "licenses": "MIT",
+    "repository": "https://github.com/jonschlinkert/is-extglob",
+    "publisher": "Jon Schlinkert",
+    "url": "https://github.com/jonschlinkert",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/is-extglob",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/is-extglob/LICENSE"
+  },
+  "is-fullwidth-code-point@3.0.0": {
+    "licenses": "MIT",
+    "repository": "https://github.com/sindresorhus/is-fullwidth-code-point",
+    "publisher": "Sindre Sorhus",
+    "email": "sindresorhus@gmail.com",
+    "url": "sindresorhus.com",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/is-fullwidth-code-point",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/is-fullwidth-code-point/license"
+  },
+  "is-function@1.0.2": {
+    "licenses": "MIT",
+    "repository": "https://github.com/grncdr/js-is-function",
+    "publisher": "Stephen Sugden",
+    "email": "me@stephensugden.com",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/is-function",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/is-function/LICENSE"
+  },
+  "is-glob@4.0.1": {
+    "licenses": "MIT",
+    "repository": "https://github.com/micromatch/is-glob",
+    "publisher": "Jon Schlinkert",
+    "url": "https://github.com/jonschlinkert",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/is-glob",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/is-glob/LICENSE"
+  },
+  "is-negative-zero@2.0.1": {
+    "licenses": "MIT",
+    "repository": "https://github.com/inspect-js/is-negative-zero",
+    "publisher": "Jordan Harband",
+    "email": "ljharb@gmail.com",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/is-negative-zero",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/is-negative-zero/LICENSE"
+  },
+  "is-number-object@1.0.4": {
+    "licenses": "MIT",
+    "repository": "https://github.com/inspect-js/is-number-object",
+    "publisher": "Jordan Harband",
+    "email": "ljharb@gmail.com",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/is-number-object",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/is-number-object/LICENSE"
+  },
+  "is-number@7.0.0": {
+    "licenses": "MIT",
+    "repository": "https://github.com/jonschlinkert/is-number",
+    "publisher": "Jon Schlinkert",
+    "url": "https://github.com/jonschlinkert",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/is-number",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/is-number/LICENSE"
+  },
+  "is-regex@1.1.2": {
+    "licenses": "MIT",
+    "repository": "https://github.com/inspect-js/is-regex",
+    "publisher": "Jordan Harband",
+    "email": "ljharb@gmail.com",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/is-regex",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/is-regex/LICENSE"
+  },
+  "is-string@1.0.5": {
+    "licenses": "MIT",
+    "repository": "https://github.com/ljharb/is-string",
+    "publisher": "Jordan Harband",
+    "email": "ljharb@gmail.com",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/is-string",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/is-string/LICENSE"
+  },
+  "is-symbol@1.0.3": {
+    "licenses": "MIT",
+    "repository": "https://github.com/inspect-js/is-symbol",
+    "publisher": "Jordan Harband",
+    "email": "ljharb@gmail.com",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/is-symbol",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/is-symbol/LICENSE"
+  },
+  "isarray@1.0.0": {
+    "licenses": "MIT",
+    "repository": "https://github.com/juliangruber/isarray",
+    "publisher": "Julian Gruber",
+    "email": "mail@juliangruber.com",
+    "url": "http://juliangruber.com",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/isarray",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/isarray/README.md"
+  },
+  "isexe@2.0.0": {
+    "licenses": "ISC",
+    "repository": "https://github.com/isaacs/isexe",
+    "publisher": "Isaac Z. Schlueter",
+    "email": "i@izs.me",
+    "url": "http://blog.izs.me/",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/isexe",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/isexe/LICENSE"
+  },
+  "jimp@0.16.1": {
+    "licenses": "MIT",
+    "repository": "https://github.com/oliver-moran/jimp",
+    "publisher": "Oliver Moran",
+    "email": "oliver.moran@gmail.com",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/jimp",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/jimp/LICENSE"
+  },
+  "jpeg-js@0.4.2": {
+    "licenses": "BSD-3-Clause",
+    "repository": "https://github.com/eugeneware/jpeg-js",
+    "publisher": "Eugene Ware",
+    "email": "eugene@noblesamurai.com",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/jpeg-js",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/jpeg-js/LICENSE"
+  },
+  "js-tokens@3.0.2": {
+    "licenses": "MIT",
+    "repository": "https://github.com/lydell/js-tokens",
+    "publisher": "Simon Lydell",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/js-tokens",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/js-tokens/LICENSE"
+  },
+  "js-tokens@4.0.0": {
+    "licenses": "MIT",
+    "repository": "https://github.com/lydell/js-tokens",
+    "publisher": "Simon Lydell",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/tslint/node_modules/js-tokens",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/tslint/node_modules/js-tokens/LICENSE"
+  },
+  "js-yaml@3.14.1": {
+    "licenses": "MIT",
+    "repository": "https://github.com/nodeca/js-yaml",
+    "publisher": "Vladimir Zapparov",
+    "email": "dervus.grim@gmail.com",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/js-yaml",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/js-yaml/LICENSE"
+  },
+  "jsesc@2.5.2": {
+    "licenses": "MIT",
+    "repository": "https://github.com/mathiasbynens/jsesc",
+    "publisher": "Mathias Bynens",
+    "url": "https://mathiasbynens.be/",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/jsesc",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/jsesc/LICENSE-MIT.txt"
+  },
+  "json-schema-traverse@0.4.1": {
+    "licenses": "MIT",
+    "repository": "https://github.com/epoberezkin/json-schema-traverse",
+    "publisher": "Evgeny Poberezkin",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/json-schema-traverse",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/json-schema-traverse/LICENSE"
+  },
+  "json-schema-traverse@1.0.0": {
+    "licenses": "MIT",
+    "repository": "https://github.com/epoberezkin/json-schema-traverse",
+    "publisher": "Evgeny Poberezkin",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/table/node_modules/json-schema-traverse",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/table/node_modules/json-schema-traverse/LICENSE"
+  },
+  "json-stable-stringify-without-jsonify@1.0.1": {
+    "licenses": "MIT",
+    "repository": "https://github.com/samn/json-stable-stringify",
+    "publisher": "James Halliday",
+    "email": "mail@substack.net",
+    "url": "http://substack.net",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/json-stable-stringify-without-jsonify",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/json-stable-stringify-without-jsonify/LICENSE"
+  },
+  "json5@1.0.1": {
+    "licenses": "MIT",
+    "repository": "https://github.com/json5/json5",
+    "publisher": "Aseem Kishore",
+    "email": "aseem.kishore@gmail.com",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/json5",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/json5/LICENSE.md"
+  },
+  "kareem@2.3.2": {
+    "licenses": "Apache-2.0",
+    "repository": "https://github.com/vkarpov15/kareem",
+    "publisher": "Valeri Karpov",
+    "email": "val@karpov.io",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/kareem",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/kareem/LICENSE"
+  },
+  "levn@0.4.1": {
+    "licenses": "MIT",
+    "repository": "https://github.com/gkz/levn",
+    "publisher": "George Zahariev",
+    "email": "z@georgezahariev.com",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/levn",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/levn/LICENSE"
+  },
+  "load-bmfont@1.4.1": {
+    "licenses": "MIT",
+    "repository": "https://github.com/Jam3/load-bmfont",
+    "publisher": "Matt DesLauriers",
+    "email": "dave.des@gmail.com",
+    "url": "https://github.com/mattdesl",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/load-bmfont",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/load-bmfont/LICENSE.md"
+  },
+  "load-json-file@2.0.0": {
+    "licenses": "MIT",
+    "repository": "https://github.com/sindresorhus/load-json-file",
+    "publisher": "Sindre Sorhus",
+    "email": "sindresorhus@gmail.com",
+    "url": "sindresorhus.com",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/load-json-file",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/load-json-file/license"
+  },
+  "locate-path@2.0.0": {
+    "licenses": "MIT",
+    "repository": "https://github.com/sindresorhus/locate-path",
+    "publisher": "Sindre Sorhus",
+    "email": "sindresorhus@gmail.com",
+    "url": "sindresorhus.com",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/locate-path",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/locate-path/license"
+  },
+  "lodash@4.17.21": {
+    "licenses": "MIT",
+    "repository": "https://github.com/lodash/lodash",
+    "publisher": "John-David Dalton",
+    "email": "john.david.dalton@gmail.com",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/lodash",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/lodash/LICENSE"
+  },
+  "loose-envify@1.4.0": {
+    "licenses": "MIT",
+    "repository": "https://github.com/zertosh/loose-envify",
+    "publisher": "Andres Suarez",
+    "email": "zertosh@gmail.com",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/loose-envify",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/loose-envify/LICENSE"
+  },
+  "lru-cache@6.0.0": {
+    "licenses": "ISC",
+    "repository": "https://github.com/isaacs/node-lru-cache",
+    "publisher": "Isaac Z. Schlueter",
+    "email": "i@izs.me",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/lru-cache",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/lru-cache/LICENSE"
+  },
+  "media-typer@0.3.0": {
+    "licenses": "MIT",
+    "repository": "https://github.com/jshttp/media-typer",
+    "publisher": "Douglas Christopher Wilson",
+    "email": "doug@somethingdoug.com",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/media-typer",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/media-typer/LICENSE"
+  },
+  "memory-pager@1.5.0": {
+    "licenses": "MIT",
+    "repository": "https://github.com/mafintosh/memory-pager",
+    "publisher": "Mathias Buus",
+    "url": "@mafintosh",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/memory-pager",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/memory-pager/LICENSE"
+  },
+  "merge-descriptors@1.0.1": {
+    "licenses": "MIT",
+    "repository": "https://github.com/component/merge-descriptors",
+    "publisher": "Jonathan Ong",
+    "email": "me@jongleberry.com",
+    "url": "http://jongleberry.com",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/merge-descriptors",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/merge-descriptors/LICENSE"
+  },
+  "merge2@1.4.1": {
+    "licenses": "MIT",
+    "repository": "https://github.com/teambition/merge2",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/merge2",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/merge2/LICENSE"
+  },
+  "methods@1.1.2": {
+    "licenses": "MIT",
+    "repository": "https://github.com/jshttp/methods",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/methods",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/methods/LICENSE"
+  },
+  "micromatch@4.0.2": {
+    "licenses": "MIT",
+    "repository": "https://github.com/micromatch/micromatch",
+    "publisher": "Jon Schlinkert",
+    "url": "https://github.com/jonschlinkert",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/micromatch",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/micromatch/LICENSE"
+  },
+  "mime-db@1.46.0": {
+    "licenses": "MIT",
+    "repository": "https://github.com/jshttp/mime-db",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/mime-db",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/mime-db/LICENSE"
+  },
+  "mime-types@2.1.29": {
+    "licenses": "MIT",
+    "repository": "https://github.com/jshttp/mime-types",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/mime-types",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/mime-types/LICENSE"
+  },
+  "mime@1.6.0": {
+    "licenses": "MIT",
+    "repository": "https://github.com/broofa/node-mime",
+    "publisher": "Robert Kieffer",
+    "email": "robert@broofa.com",
+    "url": "http://github.com/broofa",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/mime",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/mime/LICENSE"
+  },
+  "min-document@2.19.0": {
+    "licenses": "MIT",
+    "repository": "https://github.com/Raynos/min-document",
+    "publisher": "Raynos",
+    "email": "raynos2@gmail.com",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/min-document",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/min-document/LICENCE"
+  },
+  "minimatch@3.0.4": {
+    "licenses": "ISC",
+    "repository": "https://github.com/isaacs/minimatch",
+    "publisher": "Isaac Z. Schlueter",
+    "email": "i@izs.me",
+    "url": "http://blog.izs.me",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/minimatch",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/minimatch/LICENSE"
+  },
+  "minimist@1.2.5": {
+    "licenses": "MIT",
+    "repository": "https://github.com/substack/minimist",
+    "publisher": "James Halliday",
+    "email": "mail@substack.net",
+    "url": "http://substack.net",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/minimist",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/minimist/LICENSE"
+  },
+  "mkdirp@0.5.5": {
+    "licenses": "MIT",
+    "repository": "https://github.com/substack/node-mkdirp",
+    "publisher": "James Halliday",
+    "email": "mail@substack.net",
+    "url": "http://substack.net",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/mkdirp",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/mkdirp/LICENSE"
+  },
+  "mongodb@3.6.4": {
+    "licenses": "Apache-2.0",
+    "repository": "https://github.com/mongodb/node-mongodb-native",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/mongodb",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/mongodb/LICENSE.md"
+  },
+  "mongoose-legacy-pluralize@1.0.2": {
+    "licenses": "Apache-2.0",
+    "repository": "https://github.com/vkarpov15/mongoose-legacy-pluralize",
+    "publisher": "Valeri Karpov",
+    "email": "val@karpov.io",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/mongoose-legacy-pluralize",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/mongoose-legacy-pluralize/LICENSE"
+  },
+  "mongoose@5.12.0": {
+    "licenses": "MIT",
+    "repository": "https://github.com/Automattic/mongoose",
+    "publisher": "Guillermo Rauch",
+    "email": "guillermo@learnboost.com",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/mongoose",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/mongoose/LICENSE.md"
+  },
+  "mpath@0.8.3": {
+    "licenses": "MIT",
+    "repository": "https://github.com/aheckmann/mpath",
+    "publisher": "Aaron Heckmann",
+    "email": "aaron.heckmann+github@gmail.com",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/mpath",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/mpath/LICENSE"
+  },
+  "mquery@3.2.4": {
+    "licenses": "MIT",
+    "repository": "https://github.com/aheckmann/mquery",
+    "publisher": "Aaron Heckmann",
+    "email": "aaron.heckmann+github@gmail.com",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/mquery",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/mquery/LICENSE"
+  },
+  "ms@2.0.0": {
+    "licenses": "MIT",
+    "repository": "https://github.com/zeit/ms",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/body-parser/node_modules/ms",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/body-parser/node_modules/ms/license.md"
+  },
+  "ms@2.1.1": {
+    "licenses": "MIT",
+    "repository": "https://github.com/zeit/ms",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/send/node_modules/ms",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/send/node_modules/ms/license.md"
+  },
+  "ms@2.1.2": {
+    "licenses": "MIT",
+    "repository": "https://github.com/zeit/ms",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/ms",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/ms/license.md"
+  },
+  "natural-compare@1.4.0": {
+    "licenses": "MIT",
+    "repository": "https://github.com/litejs/natural-compare-lite",
+    "publisher": "Lauri Rooden",
+    "url": "https://github.com/litejs/natural-compare-lite",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/natural-compare",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/natural-compare/README.md"
+  },
+  "negotiator@0.6.2": {
+    "licenses": "MIT",
+    "repository": "https://github.com/jshttp/negotiator",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/negotiator",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/negotiator/LICENSE"
+  },
+  "nodemailer@6.5.0": {
+    "licenses": "MIT",
+    "repository": "https://github.com/nodemailer/nodemailer",
+    "publisher": "Andris Reinman",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/nodemailer",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/nodemailer/LICENSE"
+  },
+  "normalize-package-data@2.5.0": {
+    "licenses": "BSD-2-Clause",
+    "repository": "https://github.com/npm/normalize-package-data",
+    "publisher": "Meryn Stol",
+    "email": "merynstol@gmail.com",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/normalize-package-data",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/normalize-package-data/LICENSE"
+  },
+  "object-assign@4.1.1": {
+    "licenses": "MIT",
+    "repository": "https://github.com/sindresorhus/object-assign",
+    "publisher": "Sindre Sorhus",
+    "email": "sindresorhus@gmail.com",
+    "url": "sindresorhus.com",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/object-assign",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/object-assign/license"
+  },
+  "object-inspect@1.9.0": {
+    "licenses": "MIT",
+    "repository": "https://github.com/inspect-js/object-inspect",
+    "publisher": "James Halliday",
+    "email": "mail@substack.net",
+    "url": "http://substack.net",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/object-inspect",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/object-inspect/LICENSE"
+  },
+  "object-keys@1.1.1": {
+    "licenses": "MIT",
+    "repository": "https://github.com/ljharb/object-keys",
+    "publisher": "Jordan Harband",
+    "email": "ljharb@gmail.com",
+    "url": "http://ljharb.codes",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/object-keys",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/object-keys/LICENSE"
+  },
+  "object.assign@4.1.2": {
+    "licenses": "MIT",
+    "repository": "https://github.com/ljharb/object.assign",
+    "publisher": "Jordan Harband",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/object.assign",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/object.assign/LICENSE"
+  },
+  "object.entries@1.1.3": {
+    "licenses": "MIT",
+    "repository": "https://github.com/es-shims/Object.entries",
+    "publisher": "Jordan Harband",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/object.entries",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/object.entries/LICENSE"
+  },
+  "object.values@1.1.3": {
+    "licenses": "MIT",
+    "repository": "https://github.com/es-shims/Object.values",
+    "publisher": "Jordan Harband",
+    "email": "ljharb@gmail.com",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/object.values",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/object.values/LICENSE"
+  },
+  "omggif@1.0.10": {
+    "licenses": "MIT",
+    "repository": "https://github.com/deanm/omggif",
+    "publisher": "Dean McNamee",
+    "email": "dean@gmail.com",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/omggif",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/omggif/README"
+  },
+  "on-finished@2.3.0": {
+    "licenses": "MIT",
+    "repository": "https://github.com/jshttp/on-finished",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/on-finished",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/on-finished/LICENSE"
+  },
+  "on-headers@1.0.2": {
+    "licenses": "MIT",
+    "repository": "https://github.com/jshttp/on-headers",
+    "publisher": "Douglas Christopher Wilson",
+    "email": "doug@somethingdoug.com",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/on-headers",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/on-headers/LICENSE"
+  },
+  "once@1.4.0": {
+    "licenses": "ISC",
+    "repository": "https://github.com/isaacs/once",
+    "publisher": "Isaac Z. Schlueter",
+    "email": "i@izs.me",
+    "url": "http://blog.izs.me/",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/once",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/once/LICENSE"
+  },
+  "optionator@0.9.1": {
+    "licenses": "MIT",
+    "repository": "https://github.com/gkz/optionator",
+    "publisher": "George Zahariev",
+    "email": "z@georgezahariev.com",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/optionator",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/optionator/LICENSE"
+  },
+  "p-limit@1.3.0": {
+    "licenses": "MIT",
+    "repository": "https://github.com/sindresorhus/p-limit",
+    "publisher": "Sindre Sorhus",
+    "email": "sindresorhus@gmail.com",
+    "url": "sindresorhus.com",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/p-limit",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/p-limit/license"
+  },
+  "p-locate@2.0.0": {
+    "licenses": "MIT",
+    "repository": "https://github.com/sindresorhus/p-locate",
+    "publisher": "Sindre Sorhus",
+    "email": "sindresorhus@gmail.com",
+    "url": "sindresorhus.com",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/p-locate",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/p-locate/license"
+  },
+  "p-try@1.0.0": {
+    "licenses": "MIT",
+    "repository": "https://github.com/sindresorhus/p-try",
+    "publisher": "Sindre Sorhus",
+    "email": "sindresorhus@gmail.com",
+    "url": "sindresorhus.com",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/p-try",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/p-try/license"
+  },
+  "pako@1.0.11": {
+    "licenses": "(MIT AND Zlib)",
+    "repository": "https://github.com/nodeca/pako",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/pako",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/pako/LICENSE"
+  },
+  "parent-module@1.0.1": {
+    "licenses": "MIT",
+    "repository": "https://github.com/sindresorhus/parent-module",
+    "publisher": "Sindre Sorhus",
+    "email": "sindresorhus@gmail.com",
+    "url": "sindresorhus.com",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/parent-module",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/parent-module/license"
+  },
+  "parse-bmfont-ascii@1.0.6": {
+    "licenses": "MIT",
+    "repository": "https://github.com/mattdesl/parse-bmfont-ascii",
+    "publisher": "Matt DesLauriers",
+    "email": "dave.des@gmail.com",
+    "url": "https://github.com/mattdesl",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/parse-bmfont-ascii",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/parse-bmfont-ascii/README.md"
+  },
+  "parse-bmfont-binary@1.0.6": {
+    "licenses": "MIT",
+    "repository": "https://github.com/Jam3/parse-bmfont-binary",
+    "publisher": "Matt DesLauriers",
+    "email": "dave.des@gmail.com",
+    "url": "https://github.com/mattdesl",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/parse-bmfont-binary",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/parse-bmfont-binary/LICENSE.md"
+  },
+  "parse-bmfont-xml@1.1.4": {
+    "licenses": "MIT",
+    "repository": "https://github.com/mattdesl/parse-bmfont-xml",
+    "publisher": "Matt DesLauriers",
+    "email": "dave.des@gmail.com",
+    "url": "https://github.com/mattdesl",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/parse-bmfont-xml",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/parse-bmfont-xml/LICENSE.md"
+  },
+  "parse-headers@2.0.3": {
+    "licenses": "MIT",
+    "repository": "https://github.com/kesla/parse-headers",
+    "publisher": "David Björklund",
+    "email": "david.bjorklund@gmail.com",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/parse-headers",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/parse-headers/LICENCE"
+  },
+  "parse-json@2.2.0": {
+    "licenses": "MIT",
+    "repository": "https://github.com/sindresorhus/parse-json",
+    "publisher": "Sindre Sorhus",
+    "email": "sindresorhus@gmail.com",
+    "url": "sindresorhus.com",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/parse-json",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/parse-json/license"
+  },
+  "parseurl@1.3.3": {
+    "licenses": "MIT",
+    "repository": "https://github.com/pillarjs/parseurl",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/parseurl",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/parseurl/LICENSE"
+  },
+  "passport-local@1.0.0": {
+    "licenses": "MIT",
+    "repository": "https://github.com/jaredhanson/passport-local",
+    "publisher": "Jared Hanson",
+    "email": "jaredhanson@gmail.com",
+    "url": "http://www.jaredhanson.net/",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/passport-local",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/passport-local/LICENSE"
+  },
+  "passport-strategy@1.0.0": {
+    "licenses": "MIT",
+    "repository": "https://github.com/jaredhanson/passport-strategy",
+    "publisher": "Jared Hanson",
+    "email": "jaredhanson@gmail.com",
+    "url": "http://www.jaredhanson.net/",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/passport-strategy",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/passport-strategy/LICENSE"
+  },
+  "passport@0.4.1": {
+    "licenses": "MIT",
+    "repository": "https://github.com/jaredhanson/passport",
+    "publisher": "Jared Hanson",
+    "email": "jaredhanson@gmail.com",
+    "url": "http://www.jaredhanson.net/",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/passport",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/passport/LICENSE"
+  },
+  "path-exists@3.0.0": {
+    "licenses": "MIT",
+    "repository": "https://github.com/sindresorhus/path-exists",
+    "publisher": "Sindre Sorhus",
+    "email": "sindresorhus@gmail.com",
+    "url": "sindresorhus.com",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/path-exists",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/path-exists/license"
+  },
+  "path-is-absolute@1.0.1": {
+    "licenses": "MIT",
+    "repository": "https://github.com/sindresorhus/path-is-absolute",
+    "publisher": "Sindre Sorhus",
+    "email": "sindresorhus@gmail.com",
+    "url": "sindresorhus.com",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/path-is-absolute",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/path-is-absolute/license"
+  },
+  "path-key@3.1.1": {
+    "licenses": "MIT",
+    "repository": "https://github.com/sindresorhus/path-key",
+    "publisher": "Sindre Sorhus",
+    "email": "sindresorhus@gmail.com",
+    "url": "sindresorhus.com",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/path-key",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/path-key/license"
+  },
+  "path-parse@1.0.6": {
+    "licenses": "MIT",
+    "repository": "https://github.com/jbgutierrez/path-parse",
+    "publisher": "Javier Blanco",
+    "email": "http://jbgutierrez.info",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/path-parse",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/path-parse/LICENSE"
+  },
+  "path-to-regexp@0.1.7": {
+    "licenses": "MIT",
+    "repository": "https://github.com/component/path-to-regexp",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/path-to-regexp",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/path-to-regexp/LICENSE"
+  },
+  "path-type@2.0.0": {
+    "licenses": "MIT",
+    "repository": "https://github.com/sindresorhus/path-type",
+    "publisher": "Sindre Sorhus",
+    "email": "sindresorhus@gmail.com",
+    "url": "sindresorhus.com",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/read-pkg/node_modules/path-type",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/read-pkg/node_modules/path-type/license"
+  },
+  "path-type@4.0.0": {
+    "licenses": "MIT",
+    "repository": "https://github.com/sindresorhus/path-type",
+    "publisher": "Sindre Sorhus",
+    "email": "sindresorhus@gmail.com",
+    "url": "sindresorhus.com",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/path-type",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/path-type/license"
+  },
+  "pause@0.0.1": {
+    "licenses": "MIT*",
+    "publisher": "TJ Holowaychuk",
+    "email": "tj@vision-media.ca",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/pause",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/pause/Readme.md"
+  },
+  "phin@2.9.3": {
+    "licenses": "MIT",
+    "repository": "https://github.com/ethanent/phin",
+    "publisher": "Ethan Davis",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/phin",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/phin/LICENSE"
+  },
+  "picomatch@2.2.2": {
+    "licenses": "MIT",
+    "repository": "https://github.com/micromatch/picomatch",
+    "publisher": "Jon Schlinkert",
+    "url": "https://github.com/jonschlinkert",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/picomatch",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/picomatch/LICENSE"
+  },
+  "pify@2.3.0": {
+    "licenses": "MIT",
+    "repository": "https://github.com/sindresorhus/pify",
+    "publisher": "Sindre Sorhus",
+    "email": "sindresorhus@gmail.com",
+    "url": "sindresorhus.com",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/pify",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/pify/license"
+  },
+  "pixelmatch@4.0.2": {
+    "licenses": "ISC",
+    "repository": "https://github.com/mapbox/pixelmatch",
+    "publisher": "Vladimir Agafonkin",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/pixelmatch",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/pixelmatch/LICENSE"
+  },
+  "pkg-dir@2.0.0": {
+    "licenses": "MIT",
+    "repository": "https://github.com/sindresorhus/pkg-dir",
+    "publisher": "Sindre Sorhus",
+    "email": "sindresorhus@gmail.com",
+    "url": "sindresorhus.com",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/pkg-dir",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/pkg-dir/license"
+  },
+  "pngjs@3.4.0": {
+    "licenses": "MIT",
+    "repository": "https://github.com/lukeapage/pngjs2",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/pngjs",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/pngjs/LICENSE"
+  },
+  "prelude-ls@1.2.1": {
+    "licenses": "MIT",
+    "repository": "https://github.com/gkz/prelude-ls",
+    "publisher": "George Zahariev",
+    "email": "z@georgezahariev.com",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/prelude-ls",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/prelude-ls/LICENSE"
+  },
+  "process-nextick-args@2.0.1": {
+    "licenses": "MIT",
+    "repository": "https://github.com/calvinmetcalf/process-nextick-args",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/process-nextick-args",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/process-nextick-args/license.md"
+  },
+  "process@0.11.10": {
+    "licenses": "MIT",
+    "repository": "https://github.com/shtylman/node-process",
+    "publisher": "Roman Shtylman",
+    "email": "shtylman@gmail.com",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/process",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/process/LICENSE"
+  },
+  "progress@2.0.3": {
+    "licenses": "MIT",
+    "repository": "https://github.com/visionmedia/node-progress",
+    "publisher": "TJ Holowaychuk",
+    "email": "tj@vision-media.ca",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/progress",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/progress/LICENSE"
+  },
+  "proxy-addr@2.0.6": {
+    "licenses": "MIT",
+    "repository": "https://github.com/jshttp/proxy-addr",
+    "publisher": "Douglas Christopher Wilson",
+    "email": "doug@somethingdoug.com",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/proxy-addr",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/proxy-addr/LICENSE"
+  },
+  "punycode@2.1.1": {
+    "licenses": "MIT",
+    "repository": "https://github.com/bestiejs/punycode.js",
+    "publisher": "Mathias Bynens",
+    "url": "https://mathiasbynens.be/",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/punycode",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/punycode/LICENSE-MIT.txt"
+  },
+  "qs@6.7.0": {
+    "licenses": "BSD-3-Clause",
+    "repository": "https://github.com/ljharb/qs",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/qs",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/qs/LICENSE"
+  },
+  "queue-microtask@1.2.2": {
+    "licenses": "MIT",
+    "repository": "https://github.com/feross/queue-microtask",
+    "publisher": "Feross Aboukhadijeh",
+    "email": "feross@feross.org",
+    "url": "https://feross.org",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/queue-microtask",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/queue-microtask/LICENSE"
+  },
+  "random-bytes@1.0.0": {
+    "licenses": "MIT",
+    "repository": "https://github.com/crypto-utils/random-bytes",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/random-bytes",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/random-bytes/LICENSE"
+  },
+  "range-parser@1.2.1": {
+    "licenses": "MIT",
+    "repository": "https://github.com/jshttp/range-parser",
+    "publisher": "TJ Holowaychuk",
+    "email": "tj@vision-media.ca",
+    "url": "http://tjholowaychuk.com",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/range-parser",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/range-parser/LICENSE"
+  },
+  "raw-body@2.4.0": {
+    "licenses": "MIT",
+    "repository": "https://github.com/stream-utils/raw-body",
+    "publisher": "Jonathan Ong",
+    "email": "me@jongleberry.com",
+    "url": "http://jongleberry.com",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/raw-body",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/raw-body/LICENSE"
+  },
+  "read-pkg-up@2.0.0": {
+    "licenses": "MIT",
+    "repository": "https://github.com/sindresorhus/read-pkg-up",
+    "publisher": "Sindre Sorhus",
+    "email": "sindresorhus@gmail.com",
+    "url": "sindresorhus.com",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/read-pkg-up",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/read-pkg-up/license"
+  },
+  "read-pkg@2.0.0": {
+    "licenses": "MIT",
+    "repository": "https://github.com/sindresorhus/read-pkg",
+    "publisher": "Sindre Sorhus",
+    "email": "sindresorhus@gmail.com",
+    "url": "sindresorhus.com",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/read-pkg",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/read-pkg/license"
+  },
+  "readable-stream@2.3.7": {
+    "licenses": "MIT",
+    "repository": "https://github.com/nodejs/readable-stream",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/readable-stream",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/readable-stream/LICENSE"
+  },
+  "regenerator-runtime@0.13.7": {
+    "licenses": "MIT",
+    "repository": "https://github.com/facebook/regenerator/tree/master/packages/regenerator-runtime",
+    "publisher": "Ben Newman",
+    "email": "bn@cs.stanford.edu",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/regenerator-runtime",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/regenerator-runtime/LICENSE"
+  },
+  "regexp-clone@1.0.0": {
+    "licenses": "MIT",
+    "repository": "https://github.com/aheckmann/regexp-clone",
+    "publisher": "Aaron Heckmann",
+    "email": "aaron.heckmann+github@gmail.com",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/regexp-clone",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/regexp-clone/LICENSE"
+  },
+  "regexpp@3.1.0": {
+    "licenses": "MIT",
+    "repository": "https://github.com/mysticatea/regexpp",
+    "publisher": "Toru Nagashima",
+    "url": "https://github.com/mysticatea",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/regexpp",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/regexpp/LICENSE"
+  },
+  "require-from-string@2.0.2": {
+    "licenses": "MIT",
+    "repository": "https://github.com/floatdrop/require-from-string",
+    "publisher": "Vsevolod Strukchinsky",
+    "email": "floatdrop@gmail.com",
+    "url": "github.com/floatdrop",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/require-from-string",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/require-from-string/license"
+  },
+  "require_optional@1.0.1": {
+    "licenses": "Apache-2.0",
+    "repository": "https://github.com/christkv/require_optional",
+    "publisher": "Christian Kvalheim Amor",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/require_optional",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/require_optional/LICENSE"
+  },
+  "resolve-from@2.0.0": {
+    "licenses": "MIT",
+    "repository": "https://github.com/sindresorhus/resolve-from",
+    "publisher": "Sindre Sorhus",
+    "email": "sindresorhus@gmail.com",
+    "url": "sindresorhus.com",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/require_optional/node_modules/resolve-from",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/require_optional/node_modules/resolve-from/license"
+  },
+  "resolve-from@4.0.0": {
+    "licenses": "MIT",
+    "repository": "https://github.com/sindresorhus/resolve-from",
+    "publisher": "Sindre Sorhus",
+    "email": "sindresorhus@gmail.com",
+    "url": "sindresorhus.com",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/resolve-from",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/resolve-from/license"
+  },
+  "resolve@1.20.0": {
+    "licenses": "MIT",
+    "repository": "https://github.com/browserify/resolve",
+    "publisher": "James Halliday",
+    "email": "mail@substack.net",
+    "url": "http://substack.net",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/resolve",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/resolve/LICENSE"
+  },
+  "reusify@1.0.4": {
+    "licenses": "MIT",
+    "repository": "https://github.com/mcollina/reusify",
+    "publisher": "Matteo Collina",
+    "email": "hello@matteocollina.com",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/reusify",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/reusify/LICENSE"
+  },
+  "rimraf@3.0.2": {
+    "licenses": "ISC",
+    "repository": "https://github.com/isaacs/rimraf",
+    "publisher": "Isaac Z. Schlueter",
+    "email": "i@izs.me",
+    "url": "http://blog.izs.me/",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/rimraf",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/rimraf/LICENSE"
+  },
+  "run-parallel@1.2.0": {
+    "licenses": "MIT",
+    "repository": "https://github.com/feross/run-parallel",
+    "publisher": "Feross Aboukhadijeh",
+    "email": "feross@feross.org",
+    "url": "https://feross.org",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/run-parallel",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/run-parallel/LICENSE"
+  },
+  "rxjs@6.6.6": {
+    "licenses": "Apache-2.0",
+    "repository": "https://github.com/reactivex/rxjs",
+    "publisher": "Ben Lesh",
+    "email": "ben@benlesh.com",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/rxjs",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/rxjs/LICENSE.txt"
+  },
+  "safe-buffer@5.1.2": {
+    "licenses": "MIT",
+    "repository": "https://github.com/feross/safe-buffer",
+    "publisher": "Feross Aboukhadijeh",
+    "email": "feross@feross.org",
+    "url": "http://feross.org",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/safe-buffer",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/safe-buffer/LICENSE"
+  },
+  "safe-buffer@5.2.0": {
+    "licenses": "MIT",
+    "repository": "https://github.com/feross/safe-buffer",
+    "publisher": "Feross Aboukhadijeh",
+    "email": "feross@feross.org",
+    "url": "http://feross.org",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/express-session/node_modules/safe-buffer",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/express-session/node_modules/safe-buffer/LICENSE"
+  },
+  "safe-buffer@5.2.1": {
+    "licenses": "MIT",
+    "repository": "https://github.com/feross/safe-buffer",
+    "publisher": "Feross Aboukhadijeh",
+    "email": "feross@feross.org",
+    "url": "https://feross.org",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/mongoose/node_modules/safe-buffer",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/mongoose/node_modules/safe-buffer/LICENSE"
+  },
+  "safer-buffer@2.1.2": {
+    "licenses": "MIT",
+    "repository": "https://github.com/ChALkeR/safer-buffer",
+    "publisher": "Nikita Skovoroda",
+    "email": "chalkerx@gmail.com",
+    "url": "https://github.com/ChALkeR",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/safer-buffer",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/safer-buffer/LICENSE"
+  },
+  "saslprep@1.0.3": {
+    "licenses": "MIT",
+    "repository": "https://github.com/reklatsmasters/saslprep",
+    "publisher": "Dmitry Tsvettsikh",
+    "email": "me@reklatsmasters.com",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/saslprep",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/saslprep/LICENSE"
+  },
+  "sax@1.2.4": {
+    "licenses": "ISC",
+    "repository": "https://github.com/isaacs/sax-js",
+    "publisher": "Isaac Z. Schlueter",
+    "email": "i@izs.me",
+    "url": "http://blog.izs.me/",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/sax",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/sax/LICENSE"
+  },
+  "semver@5.7.1": {
+    "licenses": "ISC",
+    "repository": "https://github.com/npm/node-semver",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/require_optional/node_modules/semver",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/require_optional/node_modules/semver/LICENSE"
+  },
+  "semver@7.3.4": {
+    "licenses": "ISC",
+    "repository": "https://github.com/npm/node-semver",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/semver",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/semver/LICENSE"
+  },
+  "send@0.17.1": {
+    "licenses": "MIT",
+    "repository": "https://github.com/pillarjs/send",
+    "publisher": "TJ Holowaychuk",
+    "email": "tj@vision-media.ca",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/send",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/send/LICENSE"
+  },
+  "serve-static@1.14.1": {
+    "licenses": "MIT",
+    "repository": "https://github.com/expressjs/serve-static",
+    "publisher": "Douglas Christopher Wilson",
+    "email": "doug@somethingdoug.com",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/serve-static",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/serve-static/LICENSE"
+  },
+  "setprototypeof@1.1.1": {
+    "licenses": "ISC",
+    "repository": "https://github.com/wesleytodd/setprototypeof",
+    "publisher": "Wes Todd",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/setprototypeof",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/setprototypeof/LICENSE"
+  },
+  "shebang-command@2.0.0": {
+    "licenses": "MIT",
+    "repository": "https://github.com/kevva/shebang-command",
+    "publisher": "Kevin Mårtensson",
+    "email": "kevinmartensson@gmail.com",
+    "url": "github.com/kevva",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/shebang-command",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/shebang-command/license"
+  },
+  "shebang-regex@3.0.0": {
+    "licenses": "MIT",
+    "repository": "https://github.com/sindresorhus/shebang-regex",
+    "publisher": "Sindre Sorhus",
+    "email": "sindresorhus@gmail.com",
+    "url": "sindresorhus.com",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/shebang-regex",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/shebang-regex/license"
+  },
+  "sift@7.0.1": {
+    "licenses": "MIT",
+    "repository": "https://github.com/crcn/sift.js",
+    "publisher": "Craig Condon",
+    "email": "craig.j.condon@gmail.com",
+    "url": "http://crcn.io",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/sift",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/sift/README.md"
+  },
+  "slash@3.0.0": {
+    "licenses": "MIT",
+    "repository": "https://github.com/sindresorhus/slash",
+    "publisher": "Sindre Sorhus",
+    "email": "sindresorhus@gmail.com",
+    "url": "sindresorhus.com",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/slash",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/slash/license"
+  },
+  "slice-ansi@4.0.0": {
+    "licenses": "MIT",
+    "repository": "https://github.com/chalk/slice-ansi",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/slice-ansi",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/slice-ansi/license"
+  },
+  "sliced@1.0.1": {
+    "licenses": "MIT",
+    "repository": "https://github.com/aheckmann/sliced",
+    "publisher": "Aaron Heckmann",
+    "email": "aaron.heckmann+github@gmail.com",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/sliced",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/sliced/LICENSE"
+  },
+  "source-map@0.5.7": {
+    "licenses": "BSD-3-Clause",
+    "repository": "https://github.com/mozilla/source-map",
+    "publisher": "Nick Fitzgerald",
+    "email": "nfitzgerald@mozilla.com",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/source-map",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/source-map/LICENSE"
+  },
+  "sparse-bitfield@3.0.3": {
+    "licenses": "MIT",
+    "repository": "https://github.com/mafintosh/sparse-bitfield",
+    "publisher": "Mathias Buus",
+    "url": "@mafintosh",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/sparse-bitfield",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/sparse-bitfield/LICENSE"
+  },
+  "spdx-correct@3.1.1": {
+    "licenses": "Apache-2.0",
+    "repository": "https://github.com/jslicense/spdx-correct.js",
+    "publisher": "Kyle E. Mitchell",
+    "email": "kyle@kemitchell.com",
+    "url": "https://kemitchell.com",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/spdx-correct",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/spdx-correct/LICENSE"
+  },
+  "spdx-exceptions@2.3.0": {
+    "licenses": "CC-BY-3.0",
+    "repository": "https://github.com/kemitchell/spdx-exceptions.json",
+    "publisher": "The Linux Foundation",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/spdx-exceptions",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/spdx-exceptions/README.md"
+  },
+  "spdx-expression-parse@3.0.1": {
+    "licenses": "MIT",
+    "repository": "https://github.com/jslicense/spdx-expression-parse.js",
+    "publisher": "Kyle E. Mitchell",
+    "email": "kyle@kemitchell.com",
+    "url": "https://kemitchell.com",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/spdx-expression-parse",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/spdx-expression-parse/LICENSE"
+  },
+  "spdx-license-ids@3.0.7": {
+    "licenses": "CC0-1.0",
+    "repository": "https://github.com/jslicense/spdx-license-ids",
+    "publisher": "Shinnosuke Watanabe",
+    "url": "https://github.com/shinnn",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/spdx-license-ids",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/spdx-license-ids/README.md"
+  },
+  "sprintf-js@1.0.3": {
+    "licenses": "BSD-3-Clause",
+    "repository": "https://github.com/alexei/sprintf.js",
+    "publisher": "Alexandru Marasteanu",
+    "email": "hello@alexei.ro",
+    "url": "http://alexei.ro/",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/sprintf-js",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/sprintf-js/LICENSE"
+  },
+  "statuses@1.5.0": {
+    "licenses": "MIT",
+    "repository": "https://github.com/jshttp/statuses",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/statuses",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/statuses/LICENSE"
+  },
+  "streamsearch@0.1.2": {
+    "licenses": "MIT",
+    "repository": "https://github.com/mscdex/streamsearch",
+    "publisher": "Brian White",
+    "email": "mscdex@mscdex.net",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/streamsearch",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/streamsearch/LICENSE"
+  },
+  "string-width@4.2.2": {
+    "licenses": "MIT",
+    "repository": "https://github.com/sindresorhus/string-width",
+    "publisher": "Sindre Sorhus",
+    "email": "sindresorhus@gmail.com",
+    "url": "sindresorhus.com",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/string-width",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/string-width/license"
+  },
+  "string.prototype.trimend@1.0.4": {
+    "licenses": "MIT",
+    "repository": "https://github.com/es-shims/String.prototype.trimEnd",
+    "publisher": "Jordan Harband",
+    "email": "ljharb@gmail.com",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/string.prototype.trimend",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/string.prototype.trimend/LICENSE"
+  },
+  "string.prototype.trimstart@1.0.4": {
+    "licenses": "MIT",
+    "repository": "https://github.com/es-shims/String.prototype.trimStart",
+    "publisher": "Jordan Harband",
+    "email": "ljharb@gmail.com",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/string.prototype.trimstart",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/string.prototype.trimstart/LICENSE"
+  },
+  "string_decoder@1.1.1": {
+    "licenses": "MIT",
+    "repository": "https://github.com/nodejs/string_decoder",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/string_decoder",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/string_decoder/LICENSE"
+  },
+  "strip-ansi@6.0.0": {
+    "licenses": "MIT",
+    "repository": "https://github.com/chalk/strip-ansi",
+    "publisher": "Sindre Sorhus",
+    "email": "sindresorhus@gmail.com",
+    "url": "sindresorhus.com",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/strip-ansi",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/strip-ansi/license"
+  },
+  "strip-bom@3.0.0": {
+    "licenses": "MIT",
+    "repository": "https://github.com/sindresorhus/strip-bom",
+    "publisher": "Sindre Sorhus",
+    "email": "sindresorhus@gmail.com",
+    "url": "sindresorhus.com",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/strip-bom",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/strip-bom/license"
+  },
+  "strip-json-comments@3.1.1": {
+    "licenses": "MIT",
+    "repository": "https://github.com/sindresorhus/strip-json-comments",
+    "publisher": "Sindre Sorhus",
+    "email": "sindresorhus@gmail.com",
+    "url": "https://sindresorhus.com",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/strip-json-comments",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/strip-json-comments/license"
+  },
+  "supports-color@5.5.0": {
+    "licenses": "MIT",
+    "repository": "https://github.com/chalk/supports-color",
+    "publisher": "Sindre Sorhus",
+    "email": "sindresorhus@gmail.com",
+    "url": "sindresorhus.com",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/supports-color",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/supports-color/license"
+  },
+  "supports-color@7.2.0": {
+    "licenses": "MIT",
+    "repository": "https://github.com/chalk/supports-color",
+    "publisher": "Sindre Sorhus",
+    "email": "sindresorhus@gmail.com",
+    "url": "sindresorhus.com",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/eslint/node_modules/chalk/node_modules/supports-color",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/eslint/node_modules/chalk/node_modules/supports-color/license"
+  },
+  "table@6.0.7": {
+    "licenses": "BSD-3-Clause",
+    "repository": "https://github.com/gajus/table",
+    "publisher": "Gajus Kuizinas",
+    "email": "gajus@gajus.com",
+    "url": "http://gajus.com",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/table",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/table/LICENSE"
+  },
+  "text-table@0.2.0": {
+    "licenses": "MIT",
+    "repository": "https://github.com/substack/text-table",
+    "publisher": "James Halliday",
+    "email": "mail@substack.net",
+    "url": "http://substack.net",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/text-table",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/text-table/LICENSE"
+  },
+  "timm@1.7.1": {
+    "licenses": "MIT",
+    "repository": "https://github.com/guigrpa/timm",
+    "publisher": "Guillermo Grau Panea",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/timm",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/timm/LICENSE"
+  },
+  "tinycolor2@1.4.2": {
+    "licenses": "MIT",
+    "repository": "https://github.com/bgrins/TinyColor",
+    "publisher": "Brian Grinstead",
+    "email": "briangrinstead@gmail.com",
+    "url": "http://briangrinstead.com",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/tinycolor2",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/tinycolor2/LICENSE"
+  },
+  "to-fast-properties@2.0.0": {
+    "licenses": "MIT",
+    "repository": "https://github.com/sindresorhus/to-fast-properties",
+    "publisher": "Sindre Sorhus",
+    "email": "sindresorhus@gmail.com",
+    "url": "sindresorhus.com",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/to-fast-properties",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/to-fast-properties/license"
+  },
+  "to-regex-range@5.0.1": {
+    "licenses": "MIT",
+    "repository": "https://github.com/micromatch/to-regex-range",
+    "publisher": "Jon Schlinkert",
+    "url": "https://github.com/jonschlinkert",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/to-regex-range",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/to-regex-range/LICENSE"
+  },
+  "toidentifier@1.0.0": {
+    "licenses": "MIT",
+    "repository": "https://github.com/component/toidentifier",
+    "publisher": "Douglas Christopher Wilson",
+    "email": "doug@somethingdoug.com",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/toidentifier",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/toidentifier/LICENSE"
+  },
+  "trim-right@1.0.1": {
+    "licenses": "MIT",
+    "repository": "https://github.com/sindresorhus/trim-right",
+    "publisher": "Sindre Sorhus",
+    "email": "sindresorhus@gmail.com",
+    "url": "sindresorhus.com",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/trim-right",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/trim-right/license"
+  },
+  "tsconfig-paths@3.9.0": {
+    "licenses": "MIT",
+    "repository": "https://github.com/dividab/tsconfig-paths",
+    "publisher": "Jonas Kello",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/tsconfig-paths",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/tsconfig-paths/LICENSE"
+  },
+  "tslib@1.14.1": {
+    "licenses": "0BSD",
+    "repository": "https://github.com/Microsoft/tslib",
+    "publisher": "Microsoft Corp.",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/tslib",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/tslib/LICENSE.txt"
+  },
+  "tslint@6.1.3": {
+    "licenses": "Apache-2.0",
+    "repository": "https://github.com/palantir/tslint",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/tslint",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/tslint/LICENSE"
+  },
+  "tsutils@2.29.0": {
+    "licenses": "MIT",
+    "repository": "https://github.com/ajafff/tsutils",
+    "publisher": "Klaus Meinhardt",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/tslint/node_modules/tsutils",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/tslint/node_modules/tsutils/LICENSE"
+  },
+  "tsutils@3.21.0": {
+    "licenses": "MIT",
+    "repository": "https://github.com/ajafff/tsutils",
+    "publisher": "Klaus Meinhardt",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/tsutils",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/tsutils/LICENSE"
+  },
+  "type-check@0.4.0": {
+    "licenses": "MIT",
+    "repository": "https://github.com/gkz/type-check",
+    "publisher": "George Zahariev",
+    "email": "z@georgezahariev.com",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/type-check",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/type-check/LICENSE"
+  },
+  "type-fest@0.20.2": {
+    "licenses": "(MIT OR CC0-1.0)",
+    "repository": "https://github.com/sindresorhus/type-fest",
+    "publisher": "Sindre Sorhus",
+    "email": "sindresorhus@gmail.com",
+    "url": "https://sindresorhus.com",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/eslint/node_modules/type-fest",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/eslint/node_modules/type-fest/license"
+  },
+  "type-fest@0.8.1": {
+    "licenses": "(MIT OR CC0-1.0)",
+    "repository": "https://github.com/sindresorhus/type-fest",
+    "publisher": "Sindre Sorhus",
+    "email": "sindresorhus@gmail.com",
+    "url": "sindresorhus.com",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/type-fest",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/type-fest/license"
+  },
+  "type-is@1.6.18": {
+    "licenses": "MIT",
+    "repository": "https://github.com/jshttp/type-is",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/type-is",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/type-is/LICENSE"
+  },
+  "typescript@4.2.3": {
+    "licenses": "Apache-2.0",
+    "repository": "https://github.com/Microsoft/TypeScript",
+    "publisher": "Microsoft Corp.",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/typescript",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/typescript/LICENSE.txt"
+  },
+  "uid-safe@2.1.5": {
+    "licenses": "MIT",
+    "repository": "https://github.com/crypto-utils/uid-safe",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/uid-safe",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/uid-safe/LICENSE"
+  },
+  "unbox-primitive@1.0.0": {
+    "licenses": "MIT",
+    "repository": "https://github.com/ljharb/unbox-primitive",
+    "publisher": "Jordan Harband",
+    "email": "ljharb@gmail.com",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/unbox-primitive",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/unbox-primitive/LICENSE"
+  },
+  "unpipe@1.0.0": {
+    "licenses": "MIT",
+    "repository": "https://github.com/stream-utils/unpipe",
+    "publisher": "Douglas Christopher Wilson",
+    "email": "doug@somethingdoug.com",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/unpipe",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/unpipe/LICENSE"
+  },
+  "uri-js@4.4.1": {
+    "licenses": "BSD-2-Clause",
+    "repository": "https://github.com/garycourt/uri-js",
+    "publisher": "Gary Court",
+    "email": "gary.court@gmail.com",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/uri-js",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/uri-js/LICENSE"
+  },
+  "utif@2.0.1": {
+    "licenses": "MIT",
+    "repository": "https://github.com/photopea/UTIF.js",
+    "publisher": "photopea",
+    "url": "https://github.com/photopea",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/utif",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/utif/LICENSE"
+  },
+  "util-deprecate@1.0.2": {
+    "licenses": "MIT",
+    "repository": "https://github.com/TooTallNate/util-deprecate",
+    "publisher": "Nathan Rajlich",
+    "email": "nathan@tootallnate.net",
+    "url": "http://n8.io/",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/util-deprecate",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/util-deprecate/LICENSE"
+  },
+  "utils-merge@1.0.1": {
+    "licenses": "MIT",
+    "repository": "https://github.com/jaredhanson/utils-merge",
+    "publisher": "Jared Hanson",
+    "email": "jaredhanson@gmail.com",
+    "url": "http://www.jaredhanson.net/",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/utils-merge",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/utils-merge/LICENSE"
+  },
+  "v8-compile-cache@2.3.0": {
+    "licenses": "MIT",
+    "repository": "https://github.com/zertosh/v8-compile-cache",
+    "publisher": "Andres Suarez",
+    "email": "zertosh@gmail.com",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/v8-compile-cache",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/v8-compile-cache/LICENSE"
+  },
+  "validate-npm-package-license@3.0.4": {
+    "licenses": "Apache-2.0",
+    "repository": "https://github.com/kemitchell/validate-npm-package-license.js",
+    "publisher": "Kyle E. Mitchell",
+    "email": "kyle@kemitchell.com",
+    "url": "https://kemitchell.com",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/validate-npm-package-license",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/validate-npm-package-license/LICENSE"
+  },
+  "vary@1.1.2": {
+    "licenses": "MIT",
+    "repository": "https://github.com/jshttp/vary",
+    "publisher": "Douglas Christopher Wilson",
+    "email": "doug@somethingdoug.com",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/vary",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/vary/LICENSE"
+  },
+  "which-boxed-primitive@1.0.2": {
+    "licenses": "MIT",
+    "repository": "https://github.com/inspect-js/which-boxed-primitive",
+    "publisher": "Jordan Harband",
+    "email": "ljharb@gmail.com",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/which-boxed-primitive",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/which-boxed-primitive/LICENSE"
+  },
+  "which@2.0.2": {
+    "licenses": "ISC",
+    "repository": "https://github.com/isaacs/node-which",
+    "publisher": "Isaac Z. Schlueter",
+    "email": "i@izs.me",
+    "url": "http://blog.izs.me",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/which",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/which/LICENSE"
+  },
+  "word-wrap@1.2.3": {
+    "licenses": "MIT",
+    "repository": "https://github.com/jonschlinkert/word-wrap",
+    "publisher": "Jon Schlinkert",
+    "url": "https://github.com/jonschlinkert",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/word-wrap",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/word-wrap/LICENSE"
+  },
+  "wrappy@1.0.2": {
+    "licenses": "ISC",
+    "repository": "https://github.com/npm/wrappy",
+    "publisher": "Isaac Z. Schlueter",
+    "email": "i@izs.me",
+    "url": "http://blog.izs.me/",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/wrappy",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/wrappy/LICENSE"
+  },
+  "xhr@2.6.0": {
+    "licenses": "MIT",
+    "repository": "https://github.com/naugtur/xhr",
+    "publisher": "Raynos",
+    "email": "raynos2@gmail.com",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/xhr",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/xhr/LICENCE"
+  },
+  "xml-parse-from-string@1.0.1": {
+    "licenses": "MIT",
+    "repository": "https://github.com/Jam3/xml-parse-from-string",
+    "publisher": "Matt DesLauriers",
+    "email": "dave.des@gmail.com",
+    "url": "https://github.com/mattdesl",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/xml-parse-from-string",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/xml-parse-from-string/LICENSE.md"
+  },
+  "xml2js@0.4.23": {
+    "licenses": "MIT",
+    "repository": "https://github.com/Leonidas-from-XIV/node-xml2js",
+    "publisher": "Marek Kubica",
+    "email": "marek@xivilization.net",
+    "url": "https://xivilization.net",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/xml2js",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/xml2js/LICENSE"
+  },
+  "xmlbuilder@11.0.1": {
+    "licenses": "MIT",
+    "repository": "https://github.com/oozcitak/xmlbuilder-js",
+    "publisher": "Ozgur Ozcitak",
+    "email": "oozcitak@gmail.com",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/xmlbuilder",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/xmlbuilder/LICENSE"
+  },
+  "xtend@4.0.2": {
+    "licenses": "MIT",
+    "repository": "https://github.com/Raynos/xtend",
+    "publisher": "Raynos",
+    "email": "raynos2@gmail.com",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/xtend",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/xtend/LICENSE"
+  },
+  "yallist@4.0.0": {
+    "licenses": "ISC",
+    "repository": "https://github.com/isaacs/yallist",
+    "publisher": "Isaac Z. Schlueter",
+    "email": "i@izs.me",
+    "url": "http://blog.izs.me/",
+    "path": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/yallist",
+    "licenseFile": "/Users/jonathanfritz/Documents/zfm/backend/node_modules/yallist/LICENSE"
+  }
+}

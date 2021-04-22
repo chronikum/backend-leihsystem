@@ -8,7 +8,8 @@
     "prod": "tsc && node ./dist/index.js prod",
     "debug": "tsc && DEBUG=express:* node ./dist/index.js",
     "lint": "eslint . --ext .ts",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "licenseUpdate": "npx license-checker --json --out dist/core/public/licenses.json",
   },
   "author": "",
   "license": "ISC",

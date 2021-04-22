@@ -60,6 +60,7 @@ function checkAuthentication(req: any, res: any, next: any) {
     if (req.isAuthenticated()) {
         next();
     } else {
+        dbClient.systemLog(`[SECURITY] Ein unberechtigter Zugriff wurde festgestellt: ${req.url}`);
         res.send({ success: false, message: 'You are not allowed to see this resource.' });
     }
 }
@@ -74,6 +75,7 @@ function checkAdminPrivilege(req: any, res: any, next: any) {
             next();
         }
     } else {
+        dbClient.systemLog(`[SECURITY] Ein unberechtigter administrativer Zugriff wurde festgestellt: ${req.url}`);
         res.send({ success: false, message: 'You are not allowed to see this resource.' });
     }
 }
@@ -112,9 +114,13 @@ router.post('/available', (req, res) => {
     res.send({ success: true });
 });
 
-// serves statistics
-router.get('/systemlogs', checkAuthentication, checkAdminPrivilege, (req, res) => {
-    res.send({});
+/**
+ * System log (high sensitive information)
+ * @critical
+ */
+router.post('/systemlogs', checkAuthentication, checkAdminPrivilege, async (req, res) => {
+    const logs = await dbClient.getAllLogs();
+    res.send({ systemlogs: logs });
 });
 
 /**
@@ -283,6 +289,7 @@ router.post('/updateItem', checkAuthentication, async (req, res) => {
  * Get available ownerships
  *
  * @TODO make dynamic
+ * @deprecated
  */
 router.post('/availableOwnerships', checkAuthentication, async (req, res) => {
     res.send(['USER', 'ADMIN', 'UNKNOWN']);
@@ -667,8 +674,6 @@ router.post('/deleteUsers', checkAuthentication, async (req, res) => {
 /**
  * Changes password for a user
  *
- * - needs admin privilege
- * TODO: Users should be able to change their own password
  */
 router.post('/changePasswordForUser', checkAuthentication, async (req, res) => {
     const { user } = req; // The real user
@@ -743,9 +748,10 @@ router.post('/suggestUserNames', checkAuthentication, async (req, res) => {
  */
 router.post('/getReservations', checkAuthentication, async (req, res) => {
     const { user } = req; // The real user
-    const reservations = await dbClient.getReservations();
-
-    res.send(reservations);
+    if (roleCheck.checkRole([UserRoles.MANAGE_REQUESTS, UserRoles.MANAGE_GROUPS], user)) {
+        const reservations = await dbClient.getReservations();
+        res.send(reservations);
+    }
 });
 
 /**
