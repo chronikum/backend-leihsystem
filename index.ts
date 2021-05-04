@@ -154,13 +154,13 @@ export default class Server {
     async createLDAPUserIfNotExisting(user: any): Promise<User> {
         const doesUserExist = await UserModel.findOne({ username: user.uid });
         if (doesUserExist) { // User does already exist
-            console.log(`User ${user.displayName} does already exist!`);
+            console.log(`User ${user?.displayName} does already exist!`);
             const userExisting = await this.dbClient.getUserforUsername(user.uid);
             return Promise.resolve(userExisting);
         } // User does not exist. We have to create the user!
 
-        const firstname = user.displayName.split(' ')[0] || 'Platzhalter';
-        const surname = user.displayName.split(' ')[1] || 'Platzhalter';
+        const firstname = user.displayName?.split(' ')[0] || 'Platzhalter';
+        const surname = user.displayName?.split(' ')[1] || 'Platzhalter';
         // eslint-disable-next-line no-nested-ternary
         // const mail = user.mail ? (user.mail[0] ? user.mail[0] : user.mail) : 'platzhalter';
         const mail = user?.mail[0];
