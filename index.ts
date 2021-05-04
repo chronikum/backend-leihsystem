@@ -148,12 +148,95 @@ export default class Server {
     }
 
     /**
+     * Creates LDAP user if not existing
+     * - will return the user when created or when found
+     */
+    async createLDAPUserIfNotExisting(user: any): Promise<User> {
+        const doesUserExist = await UserModel.findOne({ username: user.uid });
+        if (doesUserExist) { // User does already exist
+            console.log(`User ${user.displayName} does already exist!`);
+            const userExisting = await this.dbClient.getUserforUsername(user.uid);
+            return Promise.resolve(userExisting);
+        } // User does not exist. We have to create the user!
+
+        const firstname = user.displayName.split(' ')[0] || 'Platzhalter';
+        const surname = user.displayName.split(' ')[1] || 'Platzhalter';
+        // eslint-disable-next-line no-nested-ternary
+        // const mail = user.mail ? (user.mail[0] ? user.mail[0] : user.mail) : 'platzhalter';
+        const mail = user?.mail[0];
+
+        const newLdapUser: User = {
+            firstname,
+            surname,
+            email: mail,
+            role: UserRoles.ADMIN,
+            username: user.uid,
+            groupId: [1],
+        };
+        console.log('I am going to create the user:');
+        console.log(newLdapUser);
+        await this.dbClient.createUser(newLdapUser, true);
+        const newUser = await this.dbClient.getUserforUsername(newLdapUser.username);
+        console.log('USER CREATED');
+        return Promise.resolve(newUser);
+    }
+
+    /**
+     * Will check if user can login and also handle if a new ldap user is logging in which hasn't been created yet.
+     * @param username
+     * @param password
+     * @param done
+     * @param isLDAP determines if user is a ldap user
+     */
+    // eslint-disable-next-line consistent-return
+    private async checkUser(username?: string, password?: string, done?: any, ldapUser?: any): Promise<any> {
+        // LDAP user
+        if (ldapUser) {
+            console.log('USER WHICH IS LOGGING IN IS A LDAP USER!');
+            console.log('THE LDAP USER IS:');
+            console.log(ldapUser);
+            const user = await this.createLDAPUserIfNotExisting(ldapUser);
+            if (user) {
+                console.log('Created a new user!');
+                console.log(user);
+                done(null, user);
+            } else {
+                console.log('User WAS NOT CREATED!');
+            }
+            return done('ERROR');
+        }
+
+        // Local user
+        UserModel.findOne({ username }, (
+            err: any,
+            user: any,
+        ) => {
+            console.log('Authenticating...');
+            if (err) {
+                console.log(err);
+                return done(err);
+            }
+            if (!user) {
+                console.log('User not found!');
+                return done(null, false, { message: 'Incorrect username.' });
+            }
+            const hashedPW = crypto.createHmac('sha256', password).digest('hex');
+            if (user.password !== hashedPW) {
+                console.log('Password incorrect');
+                return done(null, false, { message: 'Incorrect password.' });
+            }
+            return done(null, user);
+        });
+    }
+
+    /**
      * Setup authentication
      */
     private setupAuth() {
         const getLDAPConfiguration = async function (req, callback) {
             // Fetching things from database or whatever
             const ldapConfigurationModel = await LDAPConfigurationModel.findOne({});
+            console.log(ldapConfigurationModel);
             if (ldapConfigurationModel) {
                 const ldapConfiguration = ldapConfigurationModel as unknown as LDAPConfiguration;
                 const opts = {
@@ -170,38 +253,14 @@ export default class Server {
         };
 
         passport.use(new LdapStrategy(getLDAPConfiguration,
-            ((user, done) => {
-                console.log('OK');
-                return done(null, user);
-            })));
+            ((user, done) => this.checkUser(null, null, done, user))));
 
         passport.use(
             new LocalStrategy((
                 username: string,
                 password: string,
                 done: any,
-            ) => {
-                UserModel.findOne({ username }, (
-                    err: any,
-                    user: any,
-                ) => {
-                    console.log('Authenticating...');
-                    if (err) {
-                        console.log(err);
-                        return done(err);
-                    }
-                    if (!user) {
-                        console.log('User not found!');
-                        return done(null, false, { message: 'Incorrect username.' });
-                    }
-                    const hashedPW = crypto.createHmac('sha256', password).digest('hex');
-                    if (user.password !== hashedPW) {
-                        console.log('Password incorrect');
-                        return done(null, false, { message: 'Incorrect password.' });
-                    }
-                    return done(null, user);
-                });
-            }),
+            ) => this.checkUser(username, password, done)),
         );
 
         passport.serializeUser((user: any, done) => {
@@ -233,6 +292,7 @@ export default class Server {
             console.log('Is first start. Configuring system...');
             const group = await this.createAdministrativeGroup();
             console.log('Created administrative group');
+            // const ldapGroup = await this.createLDAPGroup();
             this.dbClient.systemLog('Initiale Admingruppe erstellt.');
             console.log(group);
             if (this.createInitialUser()) {
@@ -283,6 +343,19 @@ export default class Server {
         };
         this.dbClient.createGroup(adminGroup);
         return GroupModel.findOne({ description: 'Administrative Gruppe' }) as unknown as Group;
+    }
+
+    /**
+     * Creates initial ldap group
+     */
+    private async createLDAPGroup(): Promise<Group> {
+        const ldapGroup: Group = {
+            displayName: 'LDAP Group',
+            description: 'Diese Gruppe wird allen LDAP-Usern zugewiesen',
+            role: [UserRoles.USER],
+        };
+        this.dbClient.createGroup(ldapGroup);
+        return GroupModel.findOne({ description: 'Diese Gruppe wird allen LDAP-Usern zugewiesen' }) as unknown as Group;
     }
 }
 

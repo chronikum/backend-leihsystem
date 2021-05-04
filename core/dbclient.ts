@@ -43,37 +43,69 @@ export default class DBClient {
     /**
      * Creates a new user in the database
      * @param User to create
+     * @param isLDAP if provided, no password is required
+     * @TODO possible attack vector: a ldap user could be used to login to the admin account if username is the same.
+     * This can be resolved by findOne({isLDAP: true}) but has to be handled correctly at failure.
      */
-    async createUser(user: User): Promise<boolean> {
+    async createUser(user: User, isLDAP?: boolean): Promise<boolean> {
         // How many users do already exist?
         const userCount = await UserModel.countDocuments({});
         const highestUser: number = userCount === 0 ? 0 : ((((await UserModel.find()
             .sort({ userId: -1 })
             .limit(1)) as unknown as User[])[0].userId || 0) as number);
 
-        const hashedPW = crypto.createHmac('sha256', user.password).digest('hex');
-        // eslint-disable-next-line no-param-reassign, radix
-        user.userId = (parseInt((highestUser as any)) + 1).toString();
+        if (!isLDAP) { // Create user without ldap
+            const hashedPW = crypto.createHmac('sha256', user.password).digest('hex');
+            // eslint-disable-next-line no-param-reassign, radix
+            user.userId = (parseInt((highestUser as any)) + 1).toString();
 
-        const newUser = new UserModel({
-            username: user.username,
-            userId: user.userId,
-            password: hashedPW,
-            email: user.email,
-            firstname: user.firstname,
-            surname: user.surname,
-            role: user.role,
-            groupId: user.groupId || -1,
-        });
+            const newUser = new UserModel({
+                username: user.username,
+                userId: user.userId,
+                password: hashedPW,
+                email: user.email,
+                firstname: user.firstname,
+                surname: user.surname,
+                role: user.role,
+                groupId: user.groupId || -1,
+                isLDAP: false,
+            });
 
-        const existingUser = await UserModel.findOne({ username: user.username });
-        if (existingUser) {
-            console.log('User does already exist!');
-            return false;
+            const existingUser = await UserModel.findOne({ username: user.username });
+            if (existingUser) {
+                console.log('User does already exist!');
+                return false;
+            }
+            await newUser.save();
+            const createdUser = await UserModel.findOne({ userId: user.userId });
+            return Promise.resolve(!!createdUser);
+        } // Is an ldap user
+        if (isLDAP) {
+            // eslint-disable-next-line no-param-reassign, radix
+            user.userId = (parseInt((highestUser as any)) + 1).toString();
+
+            const newUser = new UserModel({
+                username: user.username,
+                userId: user.userId,
+                email: user.email,
+                firstname: user.firstname,
+                surname: user.surname,
+                role: user.role,
+                groupId: user.groupId || -1,
+                isLDAP: true,
+            });
+
+            const existingUser = await UserModel.findOne({ username: user.username });
+            if (existingUser) {
+                console.log('User does already exist!');
+                return false;
+            }
+            await newUser.save();
+            const createdUser = await UserModel.findOne({ userId: user.userId });
+            return Promise.resolve(!!createdUser);
         }
-        await newUser.save();
-        const createdUser = await UserModel.findOne({ userId: user.userId });
-        return Promise.resolve(!!createdUser);
+
+        return Promise.resolve(false);
     }
 
     /**
@@ -160,6 +192,25 @@ export default class DBClient {
     }
 
     /**
+     * Get user for the username
+     *
+     * @param id user id
+     * @returns Promise<User> with id
+     */
+    async getUserforUsername(username: string): Promise<User> {
+        const user = UserModel.findOne({ username }) as unknown as User;
+        if (user) {
+            if (user.password) {
+                user.password = '';
+            }
+            console.log('USER FOUND:');
+            console.log(user);
+            return Promise.resolve(user);
+        }
+        return null;
+    }
+
+    /**
      * Get user with the email  provided
      *
      * @param email for user
@@ -226,7 +277,6 @@ export default class DBClient {
     async getItemByUnique(unique: string): Promise<Item> {
         const item = ((await ItemModel.findOne({ generatedUniqueIdentifier: unique }))) as unknown as Item;
         const updatedAvailability = await this.updateAvailabilityOfItems([item]);
-        console.log(updatedAvailability);
         return updatedAvailability[0];
     }
 
@@ -384,8 +434,6 @@ export default class DBClient {
 
         const newReservationStartDate = dayjs.unix(Date.now());
         const newReservationEndDate = dayjs.unix(Date.now());
-        console.log('DAYJS');
-        console.log(newReservationEndDate);
 
         const reservationsAvailable = await ReservationModel.find({
             $or: [
@@ -405,9 +453,6 @@ export default class DBClient {
                 },
             ],
         });
-        console.log('ITEMS QUERIED:');
-        console.log(reservationsAvailable);
-        console.log('ITEMS QUERIED:');
         // An array with all currently inactive reservations
         const inactiveReservation = [];
 
@@ -442,12 +487,9 @@ export default class DBClient {
 
         // eslint-disable-next-line no-return-assign
         existingItems.forEach((item) => item.available = ((item.plannedReservationsIds || []).every((id) => activeReservations.includes(id))));
-        console.log(existingItems);
         const itemsAvailable = existingItems.filter((item) => item.available);
 
         const totalActiveReservations = updatedReservations.filter((reservation: Reservation) => reservation.active);
-        console.log(totalActiveReservations.length);
-        console.log(reservationsAvailable.length);
 
         return existingItems;
     }
@@ -479,9 +521,6 @@ export default class DBClient {
                 },
             ],
         });
-        console.log('ITEMS QUERIED:');
-        console.log(reservationsAvailable);
-        console.log('ITEMS QUERIED:');
         // An array with all currently inactive reservations
         const inactiveReservation = [];
 
@@ -944,15 +983,11 @@ export default class DBClient {
                 itemsReserved.push(itemId.toString());
             });
         });
-        console.log('Items reserved:');
-        console.log(itemsReserved);
         const availableItems = allItems.filter((item) => !itemsReserved.includes(item.itemId.toString()));
         availableItems.map(async (item) => {
             const loadedItem = await this.getItemById(item.itemId);
             return loadedItem;
         });
-        console.log('Items available: ');
-        console.log(availableItems);
         // const availableItems = await this.itemsAvailableinCollectionDuringTimespan(allItems, (startDate / 1000), (endDate / 1000));
         // console.log('Available: ');
         // console.log(availableItems);

@@ -16,6 +16,7 @@ const userSchema = new Schema({
     session: String,
     role: String,
     groupId: [Number],
+    isLDAP: Boolean,
 });
 
 const UserModel = mongoose.model('UserModel', userSchema);
