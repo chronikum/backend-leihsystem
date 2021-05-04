@@ -1,5 +1,7 @@
 import EmailConfigurationModel from './configuration-models/EmailConfigurationModel';
+import LDAPConfigurationModel from './configuration-models/LDAPConfigurationModel';
 import { EmailConfiguration } from './EmailConfiguration';
+import { LDAPConfiguration } from './LDAPConfiguration';
 
 /**
  * Describes ConfigurationClient
@@ -18,6 +20,7 @@ export default class ConfigurationClient {
 
     /**
      * Set configurations
+     * @TODO add callback to inform the parent if the operations were successful
      */
 
     /**
@@ -28,6 +31,18 @@ export default class ConfigurationClient {
     async setEmailConfiguration(configuration: EmailConfiguration) {
         const newConfiguration = new EmailConfigurationModel(configuration);
         await EmailConfigurationModel.deleteMany({});
+        await newConfiguration.save();
+    }
+
+    /**
+     * Set the new ldap configuration
+     * - deletes the old one
+     * - saves the new one
+     * @param configuration
+     */
+    async setLdapConfiguration(configuration: LDAPConfiguration) {
+        const newConfiguration = new LDAPConfigurationModel(configuration);
+        await LDAPConfigurationModel.deleteMany({});
         await newConfiguration.save();
     }
 

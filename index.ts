@@ -4,7 +4,9 @@ import passport from 'passport';
 import DatabaseManager from './core/databaseManager';
 import DBClient from './core/dbclient';
 import { UserRoles } from './enums/UserRoles';
+import LDAPConfigurationModel from './models/configuration-models/LDAPConfigurationModel';
 import { Group } from './models/Group';
+import { LDAPConfiguration } from './models/LDAPConfiguration';
 import GroupModel from './models/mongodb-models/GroupModel';
 import UserModel from './models/mongodb-models/UserModel';
 import { User } from './models/User';
@@ -17,6 +19,7 @@ const session = require('express-session');
 const flash = require('connect-flash');
 const LocalStrategy = require('passport-local').Strategy;
 const fileUpload = require('express-fileupload');
+const LdapStrategy = require('passport-ldapauth');
 const router = require('./core/routes');
 const chartRoutes = require('./core/ChartRoutes');
 const configurationRouter = require('./core/ConfigurationRoutes');
@@ -148,6 +151,30 @@ export default class Server {
      * Setup authentication
      */
     private setupAuth() {
+        const getLDAPConfiguration = async function (req, callback) {
+            // Fetching things from database or whatever
+            const ldapConfigurationModel = await LDAPConfigurationModel.findOne({});
+            if (ldapConfigurationModel) {
+                const ldapConfiguration = ldapConfigurationModel as unknown as LDAPConfiguration;
+                const opts = {
+                    server: {
+                        url: ldapConfiguration.host,
+                        bindDN: ldapConfiguration.bindDN,
+                        bindCredentials: ldapConfiguration.bindCredentials,
+                        searchBase: ldapConfiguration.searchBase,
+                        searchFilter: ldapConfiguration.searchFilter,
+                    },
+                };
+                callback(null, opts);
+            }
+        };
+
+        passport.use(new LdapStrategy(getLDAPConfiguration,
+            ((user, done) => {
+                console.log('OK');
+                return done(null, user);
+            })));
+
         passport.use(
             new LocalStrategy((
                 username: string,
@@ -178,10 +205,12 @@ export default class Server {
         );
 
         passport.serializeUser((user: any, done) => {
+            console.log('CHECKING USER');
             done(null, user._id);
         });
 
         passport.deserializeUser((id, done) => {
+            console.log('CHECKING USER');
             UserModel.findOne({ _id: id })
                 .then((user) => {
                     done(null, user);
@@ -193,12 +222,12 @@ export default class Server {
     }
 
     /**
-     * Runs initial cofniguration if required
-     * - Creates administrative users
-     * - Checks enviroment
-     *
-     * @returns boolean if completed
-     */
+ * Runs initial cofniguration if required
+ * - Creates administrative users
+ * - Checks enviroment
+ *
+ * @returns boolean if completed
+ */
     async runInitialConfigurationIfNecessary(): Promise<boolean> {
         if (await this.dbClient.isFirstStart()) {
             console.log('Is first start. Configuring system...');
@@ -221,12 +250,12 @@ export default class Server {
     }
 
     /**
-     * Create initial administrative users
-     * @TODO Remove hardcoded e-mail and hardcoded first and surname
-     * @TODO Implement a frontend installation procedure
-     *
-     * @returns boolean success
-     */
+ * Create initial administrative users
+ * @TODO Remove hardcoded e-mail and hardcoded first and surname
+ * @TODO Implement a frontend installation procedure
+ *
+ * @returns boolean success
+ */
     private async createInitialUser(): Promise<boolean> {
         // TODO: Create Admin group with identifier 0
         const initialAdminPassword = crypto.randomBytes(4).toString('hex');

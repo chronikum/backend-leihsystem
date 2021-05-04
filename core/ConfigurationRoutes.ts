@@ -3,6 +3,7 @@ import Jimp from 'jimp';
 import { UserRoles } from '../enums/UserRoles';
 import ConfigurationClient from '../models/ConfigurationClient';
 import { EmailConfiguration } from '../models/EmailConfiguration';
+import { LDAPConfiguration } from '../models/LDAPConfiguration';
 import { Reservation } from '../models/Reservation';
 import { User } from '../models/User';
 import DatabaseManager from './databaseManager';
@@ -66,6 +67,28 @@ function checkAdminPrivilege(req: any, res: any, next: any) {
 }
 
 /**
+ * LDAP Configuration
+ * - creates and saves a ldap configuration to the server.
+ * - there can be only one ldap configuration at the same time
+ * - if you delete an ldap configuration, users which authenticated with ldap before won't be able to login. Their account will still exists though.
+ */
+configurationRouter.post('/LDAPConfiguration', checkAuthentication, checkAdminPrivilege, async (req, res) => {
+    const user: User = req.user as any;
+    const newLdapConfiguration = req.body?.configuration as LDAPConfiguration;
+    if (newLdapConfiguration?.host
+        && newLdapConfiguration?.bindCredentials
+        && newLdapConfiguration?.searchBase
+        && newLdapConfiguration?.searchFilter) {
+        console.log('Found LDAP configuration');
+        dbClient.systemLog(`${user.username} erneuerte die LDAP-Konfiguration.`);
+        console.log(newLdapConfiguration);
+        await configurationClient.setLdapConfiguration(newLdapConfiguration); // Set the new ldap configuration
+    } else {
+        res.send({ success: false });
+    }
+});
+
+/**
  * Upload logo
  */
 configurationRouter.post('/uploadLogo', checkAuthentication, checkAdminPrivilege, async (req, res) => {
@@ -127,6 +150,7 @@ configurationRouter.post('/mailConfiguration', checkAuthentication, checkAdminPr
         // Check if all necessary fields are provided
         if (configuration?.host && configuration?.password && Number.isInteger(configuration?.port) && configuration?.username) {
             await configurationClient.setEmailConfiguration(configuration); // Write configuration
+            dbClient.systemLog(`${user.username} erneuerte die Mail-Konfiguration.`);
             mailingService.sendTestMail(user); // Send test mail
             res.send({ success: true });
             return;

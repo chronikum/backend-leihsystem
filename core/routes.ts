@@ -149,11 +149,9 @@ function removePasswordHashFromUser(user: User): User {
   * User Routes
   */
 /**
- * User Login
- *
- * Also sets last login time
+ * Login (local or ldap)
  */
-router.post('/login', passport.authenticate('local'), async (req, res) => {
+router.post('/login', passport.authenticate(['local', 'ldapauth']), async (req, res) => {
     // eslint-disable-next-line prefer-const
     let { user } = req;
     dbClient.newLogin(user);
