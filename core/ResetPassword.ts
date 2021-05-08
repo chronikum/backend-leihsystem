@@ -99,8 +99,12 @@ export default class ResetPassword {
      * - adds the reset token to the list
      */
     processResetRequest(user: User, resetChallenge: any) {
-        this.sendMailToEmail(resetChallenge.token, user);
-        this.addResetToken(resetChallenge.token, user.email);
+        if (!user.isLDAP) {
+            this.sendMailToEmail(resetChallenge.token, user);
+            this.addResetToken(resetChallenge.token, user.email);
+        } else {
+            console.log('Cannot reset password of user with LDAP.');
+        }
     }
 
     /**

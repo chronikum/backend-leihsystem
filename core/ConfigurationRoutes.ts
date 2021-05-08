@@ -164,6 +164,22 @@ configurationRouter.post('/mailConfiguration', checkAuthentication, checkAdminPr
  */
 
 /**
+ * IS LDAP active?
+ * @TODO implement ldap active status
+ */
+configurationRouter.get('/ldapStatus', checkAdminPrivilege, async (req, res) => {
+    res.send({ success: true });
+});
+
+/**
+ * IS LDAP active?
+ * @TODO implement ldap active status
+ */
+configurationRouter.get('/mailStatus', checkAdminPrivilege, async (req, res) => {
+    res.send({ success: true });
+});
+
+/**
  * System logo
  */
 configurationRouter.get('/logo', async (req, res) => {

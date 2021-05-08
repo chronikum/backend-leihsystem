@@ -34,6 +34,28 @@ export default class DatabaseManager {
     // Connection to the database
     connection?: mongoose.Connection;
 
+    /**
+     * Initial call, construct new instance of DatabaseManager
+     */
+    constructor() {
+        // eslint-disable-next-line global-require
+        require('dotenv').config();
+        this.loadPathForDatabase();
+    }
+
+    /**
+     * Load database path from env file
+     */
+    loadPathForDatabase() {
+        // The path to fallback if no value is being provided.
+        const fallbackPath = 'mongodb://localhost:27017/database2';
+        this.path = fallbackPath;
+        const readPath = process.env.DATABASE_PATH;
+        if (readPath) {
+            this.path = readPath;
+        }
+    }
+
     // Event to notify server when connection status changes
     statusObservable = new Observable((subscriber) => {
         // Try to connect and catch when fail

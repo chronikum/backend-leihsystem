@@ -691,13 +691,17 @@ router.post('/changePasswordForUser', checkAuthentication, async (req, res) => {
     const { user } = req; // The real user
     if (roleCheck.checkRole([UserRoles.ADMIN, UserRoles.MANAGE_USERS], user)) {
         const userToModify: User = req.body.user as User;
-        const newPassword: string = req.body.newPassword as string;
+        if (!userToModify.isLDAP) { // Check user not to be ldap
+            const newPassword: string = req.body.newPassword as string;
 
-        const passwordChangeSuccess = await dbClient.changePasswordForUser(userToModify, newPassword);
-        if (passwordChangeSuccess) {
-            res.send({ success: true, item: 'Changes password successfully!' });
+            const passwordChangeSuccess = await dbClient.changePasswordForUser(userToModify, newPassword);
+            if (passwordChangeSuccess) {
+                res.send({ success: true, item: 'Changes password successfully!' });
+            } else {
+                res.send({ success: false, message: 'Could not change users password' });
+            }
         } else {
-            res.send({ success: false, message: 'Could not change users password' });
+            res.send({ success: false, message: 'You cannot change passwords of LDAP users' });
         }
     } else {
         res.send({ success: false, message: 'You do not have sufficient permission' });
