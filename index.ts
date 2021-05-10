@@ -23,6 +23,7 @@ const LdapStrategy = require('passport-ldapauth');
 const router = require('./core/routes');
 const chartRoutes = require('./core/ChartRoutes');
 const configurationRouter = require('./core/ConfigurationRoutes');
+const setupRouter = require('./core/SetupRoutes');
 
 require('dotenv').config();
 
@@ -119,6 +120,7 @@ export default class Server {
         this.app.use('/', router); // General API Router
         this.app.use('/charts', chartRoutes); // Chart Router
         this.app.use('/configuration', configurationRouter); // Configuration Router
+        this.app.use('/setup', setupRouter); // Setup routes
         // An error handling middleware
         this.app.use((err, req, res, next) => {
             res.status(500);
