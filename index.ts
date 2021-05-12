@@ -135,11 +135,14 @@ export default class Server {
         this.app.use(passport.initialize());
         this.app.use(passport.session());
         this.app.use(flash());
-        this.app.use('/', router); // General API Router
+        this.app.use('/basic', this.checkSetupStatus, router); // General API Router
         this.app.use('/charts', this.checkSetupStatus, chartRoutes); // Chart Router
         this.app.use('/configuration', this.checkSetupStatus, configurationRouter); // Configuration Router
         this.app.use('/setup', setupRouter); // Setup routes
-        // An error handling middleware
+
+        /**
+         * Error handling when there is an unexpected error.
+         */
         this.app.use((err, req, res, next) => {
             res.status(500);
             console.log('Request failed:');
