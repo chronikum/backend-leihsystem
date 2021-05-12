@@ -37,7 +37,7 @@ async function checkSetupStatus(req: any, res: any, next: any) {
         next();
     } else {
         dbClient.systemLog('[WARNING] Setup route has been called and successfully been blocked.');
-        res.send({ success: false, message: 'The system was already setup.' });
+        res.send({ success: true, setup: setupStatus });
     }
 }
 

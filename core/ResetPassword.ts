@@ -1,4 +1,6 @@
 import crypto from 'crypto';
+import ConfigurationClient from '../models/ConfigurationClient';
+import { EmailConfiguration } from '../models/EmailConfiguration';
 import { User } from '../models/User';
 import DBClient from './dbclient';
 
@@ -19,6 +21,18 @@ export default class ResetPassword {
      * DB Client instance
      */
     dbClient = DBClient.getInstance();
+
+    /**
+     * The configuration client
+     */
+    configurationClient = ConfigurationClient.instance;
+
+    transporter: any;
+
+    /**
+     * Configuration
+     */
+    configuration: EmailConfiguration;
 
     /**
      * The tokens associated with the emails
@@ -65,6 +79,32 @@ export default class ResetPassword {
     }
 
     /**
+     * Creates a nodemailer transport
+     * - loads new variables
+     */
+    async createTransport(): Promise<any> {
+        this.configuration = await this.configurationClient.getEmailConfiguration();
+        this.dbClient.systemLog('Ein E-Mail-Transporter wird vorbereitet');
+        if (this.configuration?.username) {
+            try {
+                this.transporter = nodemailer.createTransport({
+                    host: this.configuration.host,
+                    port: this.configuration.port,
+                    secure: this.configuration.secure, // true for 465, false for other ports
+                    auth: {
+                        user: this.configuration?.username, // generated ethereal user
+                        pass: this.configuration.password, // generated ethereal password
+                    },
+                });
+                return Promise.resolve(this.transporter);
+            } catch {
+                return null;
+            }
+        }
+        return null;
+    }
+
+    /**
      * This function, called once, will periodically check for expired tokens and remove them.
      * - the function runs every 5 minutes
      * - tokens are valid for 20 minutes
@@ -97,9 +137,10 @@ export default class ResetPassword {
      *
      * - sends mail
      * - adds the reset token to the list
+     * - checks if the user is ldap
      */
     processResetRequest(user: User, resetChallenge: any) {
-        if (!user.isLDAP) {
+        if (!user.isLDAP && user?.email) {
             this.sendMailToEmail(resetChallenge.token, user);
             this.addResetToken(resetChallenge.token, user.email);
         } else {
@@ -124,35 +165,27 @@ export default class ResetPassword {
      * @param email provided
      */
     async sendMailToEmail(token: string, user: User) {
-        // process.env.SMTP_USERNAME
-        // process.env.SMTP_PASSWORD
-        // process.env.SMTP_HOST
-
-        const transporter = nodemailer.createTransport({
-            host: process.env.SMTP_HOST,
-            port: process.env.SMTP_PORT,
-            secure: true, // true for 465, false for other ports
-            auth: {
-                user: process.env.SMTP_USERNAME, // generated ethereal user
-                pass: process.env.SMTP_PASSWORD, // generated ethereal password
-            },
-        });
-
-        // send mail with defined transport object
-        const testMailStatus = await transporter.sendMail({
-            from: `"ZfM Leihsystem 👻" <${process.env.SMTP_USERNAME}>`, // sender address
-            to: `${user?.firstname} ${user?.surname} <${user?.email}>`, // list of receivers
-            subject: 'Password-Reset', // Subject line
-            text: 'Diese E-Mail ist nur als HTML verfügbar.', // plain text body
-            html: `<h1>ZfM Password Reset</h1><br>
+        const checkConfiguration = await this.createTransport();
+        if (checkConfiguration) {
+            // send mail with defined transport object
+            const testMailStatus = await this.transporter.sendMail({
+                from: `"ZfM Leihsystem 👻" <${process.env.SMTP_USERNAME}>`, // sender address
+                to: `${user?.firstname} ${user?.surname} <${user?.email}>`, // list of receivers
+                subject: 'Password-Reset', // Subject line
+                text: 'Diese E-Mail ist nur als HTML verfügbar.', // plain text body
+                html: `<h1>ZfM Password Reset</h1><br>
             Sehr geehrte/r ${user?.firstname} ${user?.surname},<br> für Ihren Account wurde ein
             Passwort-Reset angefordert.<br>Wenn Sie dies angefordert haben, klicken Sie bitte auf
             diesen Link: <br>https://irrturm.de/resetPassword/${user?.email}/${token} <br>
             Der Reset-Link ist für 20 Minuten gültig.<br><br><br>Wenn Sie keinen Password-Request
             angefordert haben, bitten wir Sie, diese E-Mail zu ignorieren.<br><br>
             Mit freundlichen Grüßen<br>Ihr Ausleihsystem`,
-        });
+            });
 
-        console.log('Message sent: %s', testMailStatus.messageId);
+            console.log('Message sent: %s', testMailStatus.messageId);
+        } else {
+            console.log('Unable to send E-Mail without configuration, sorry!');
+            this.dbClient.systemLog('[INFO] E-Mail Versand nicht möglich: Keine E-Mail Konfiguration festgelegt.');
+        }
     }
 }
