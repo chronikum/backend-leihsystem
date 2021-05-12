@@ -31,13 +31,16 @@ export default class RoleCheck {
      * @param user given user - do NOT trust
      */
     async checkRole(required: UserRoles[], givenUser: User): Promise<boolean> {
-        const userSearched = await this.dbClient.getUserForId(givenUser.userId);
-        const userGroups: Group[] = await this.dbClient.getGroups(givenUser.groupId);
-        let groupsMapped = [];
-        concat(userGroups.map((group) => group.role)).subscribe((x) => {
-            groupsMapped = x;
-        });
-        console.log(groupsMapped);
-        return ((required.includes(userSearched.role)) || (userSearched.role === UserRoles.ADMIN) || (groupsMapped.includes(userSearched.role))); // User Role
+        if (givenUser) {
+            const userSearched = await this.dbClient.getUserForId(givenUser.userId);
+            const userGroups: Group[] = await this.dbClient.getGroups(givenUser.groupId);
+            let groupsMapped = [];
+            concat(userGroups.map((group) => group.role)).subscribe((x) => {
+                groupsMapped = x;
+            });
+            console.log(groupsMapped);
+            return ((required.includes(userSearched.role)) || (userSearched.role === UserRoles.ADMIN) || (groupsMapped.includes(userSearched.role))); // User Role
+        }
+        return false;
     }
 }
