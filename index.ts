@@ -3,6 +3,7 @@ import passport from 'passport';
 
 import DatabaseManager from './core/databaseManager';
 import DBClient from './core/dbclient';
+import SetupService from './core/SetupService';
 import { UserRoles } from './enums/UserRoles';
 import LDAPConfigurationModel from './models/configuration-models/LDAPConfigurationModel';
 import { Group } from './models/Group';
@@ -52,6 +53,11 @@ export default class Server {
     db = DatabaseManager.instance;
 
     /**
+     * Setup service
+     */
+    setupService = SetupService.instance;
+
+    /**
      * Database Client Instance
      */
     dbClient = DBClient.instance;
@@ -61,6 +67,18 @@ export default class Server {
      */
     constructor() {
         this.configure();
+    }
+
+    /**
+     * Checks the current setup state
+     */
+    async checkSetupStatus(req: any, res: any, next: any) {
+        const setupStatus = await SetupService.instance.checkSetupStatus();
+        if ((setupStatus?.setup)) { // System is setup and ready for use
+            next();
+        } else {
+            res.send({ success: false, message: 'The system was not setten up yet.' });
+        }
     }
 
     /**
@@ -118,8 +136,8 @@ export default class Server {
         this.app.use(passport.session());
         this.app.use(flash());
         this.app.use('/', router); // General API Router
-        this.app.use('/charts', chartRoutes); // Chart Router
-        this.app.use('/configuration', configurationRouter); // Configuration Router
+        this.app.use('/charts', this.checkSetupStatus, chartRoutes); // Chart Router
+        this.app.use('/configuration', this.checkSetupStatus, configurationRouter); // Configuration Router
         this.app.use('/setup', setupRouter); // Setup routes
         // An error handling middleware
         this.app.use((err, req, res, next) => {

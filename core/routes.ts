@@ -18,6 +18,7 @@ import { Group } from '../models/Group';
 import { DeviceModel } from '../models/DeviceModel';
 import ResetPassword from './ResetPassword';
 import MailService from './MailService';
+import SetupService from './SetupService';
 
 /**
  * GENERAL TODO:
@@ -55,6 +56,11 @@ const roleCheck = RoleCheck.instance;
 const router = express.Router();
 
 /**
+ * The setup service
+ */
+const setupService = SetupService.instance;
+
+/**
  * Checks authentication state
  */
 function checkAuthentication(req: any, res: any, next: any) {
@@ -82,10 +88,11 @@ function checkAdminPrivilege(req: any, res: any, next: any) {
 }
 
 /**
- * Checks if database is connected
+ * This will be run with every request
+ * - Checks for: database issues
  */
-router.use((req, res, next) => {
-    if (dbManager.ready && !dbManager.error) {
+router.use(async (req, res, next) => {
+    if (dbManager.ready && !dbManager.error) { // Checks database connection
         next();
     } else {
         if (dbManager.error) {

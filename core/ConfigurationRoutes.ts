@@ -10,6 +10,7 @@ import DatabaseManager from './databaseManager';
 import DBClient from './dbclient';
 import MailService from './MailService';
 import RoleCheck from './RoleCheck';
+import SetupService from './SetupService';
 
 const express = require('express');
 
@@ -38,6 +39,11 @@ const dbClient = DBClient.instance;
  * RoleCheck Client
  */
 const roleCheck = RoleCheck.instance;
+
+/**
+ * The setup service
+ */
+const setupService = SetupService.instance;
 
 const configurationRouter = express.Router();
 
