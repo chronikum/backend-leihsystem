@@ -25,6 +25,7 @@ import AvailabilityManager from './database/AvailabilityManager';
 import SystemLogManager from './database/SystemLogManager';
 import DeviceModelManager from './database/DeviceModelManager';
 import { GroupManager } from './database/GroupManager';
+import ReservationRequestManager from './database/ReservationRequestManager';
 
 const crypto = require('crypto');
 
@@ -48,6 +49,8 @@ export default class DBClient {
     deviceModelManager = DeviceModelManager.instance
 
     groupManager = GroupManager.instance
+
+    reservationRequestManager = ReservationRequestManager.instance
 
     // Shared instance
     static instance = DBClient.getInstance();
@@ -170,6 +173,13 @@ export default class DBClient {
      */
     async getUserForEmail(email: string): Promise<User> {
         return this.userManager.getUserForEmail(email);
+    }
+
+    /**
+     * Gets all users in an array
+     */
+    async getAllUsers(): Promise<User[]> {
+        return this.userManager.getAllUsers();
     }
 
     /**
@@ -350,40 +360,17 @@ export default class DBClient {
     }
 
     /**
+     * Request Handlers
+     */
+
+    /**
      * Create a new request
      * @param request to create
      *
      * @returns created request or failure
      */
     async createNewRequest(request: Request): Promise<Request> {
-        const requestCount = await RequestModel.countDocuments({});
-        const highestId: number = requestCount === 0 ? 0 : ((((await RequestModel.find()
-            .sort({ requestId: -1 })
-            .limit(1)) as unknown as Request[])[0].requestId || 0) as number);
-
-        const creationDate = Date.now();
-        // Create new RequestModel from mongoose Schema
-        const newRequest = new RequestModel({
-            requestId: (highestId + 1),
-            userCreated: request.userCreated, // this user could be assigned to a request operation
-            startDate: request.startDate, // start date of the reservation reqeust
-            plannedEndDate: request.plannedEndDate, // end date of the reservation request
-            note: request.note, // notes provided by the user making the request
-            subRequest: request.subRequest, // Submitted subrequests - can be undefined
-            deviceCount: request.deviceCount, // Device count if request is simple request
-            created: creationDate,
-            modified: 0, // TODO: Implement in request update
-            priority: 0,
-            requestAccepted: false,
-        });
-        // Save model
-        await newRequest.save().catch((err) => {
-            console.log(`Catched error: ${err}`);
-        });
-        // Verify model was saved
-        const requestCreated = await RequestModel.findOne({ requestId: request.requestId }) as unknown as Request;
-        // Return the Request
-        return Promise.resolve(requestCreated);
+        return this.reservationRequestManager.createNewRequest(request);
     }
 
     /**
@@ -393,10 +380,7 @@ export default class DBClient {
      * @returns updated Request
      */
     async updateRequest(request: Request) {
-        RequestModel.updateOne({ requestId: request.requestId }, { request }).exec();
-        const requestUpdated = await RequestModel.findOne({ requestId: request.requestId }) as unknown as Request;
-        // Return the updated Request
-        return Promise.resolve(requestUpdated);
+        return this.reservationRequestManager.updateRequest(request);
     }
 
     /**
@@ -406,7 +390,7 @@ export default class DBClient {
      * @returns updated Request
      */
     async cancelRequest(request: Request) {
-        await RequestModel.findOneAndDelete({ requestId: request.requestId }).exec();
+        return this.reservationRequestManager.cancelRequest(request);
     }
 
     /**
@@ -415,40 +399,21 @@ export default class DBClient {
      * @param request provided by the user
      */
     async acceptRequest(request: Request) {
-        const requestUpdateCompletion = await RequestModel.updateOne({ requestId: request.requestId }, { requestAccepted: true }).exec();
-        console.log(requestUpdateCompletion);
-        const requestUpdated = await RequestModel.findOne({ requestId: request.requestId }) as unknown as Request;
-        console.log(requestUpdated);
-        return Promise.resolve(requestUpdated);
+        return this.reservationRequestManager.acceptRequest(request);
     }
 
     /**
      * Get automatic suggestion for reservation request
      */
     async autoSuggestionForRequest(request: Request): Promise<Reservation[]> {
-        // const hasSubRequests = request?.subRequest[0];
-        // The item ids which are available
-        const itemIds: Item[] = await this.itemsAvailableInTimespan((request.startDate / 10000), (request.plannedEndDate / 10000));
-        // console.log('!AVAILABLE');
-        console.log(itemIds);
-        // console.log('AVAILABLE');
-        return null as any;
+        return this.reservationRequestManager.autoSuggestionForRequest(request);
     }
 
     /**
      * Gets all pending requests
      */
     async getAllRequests(): Promise<Request[]> {
-        const requests = await RequestModel.find({ requestAccepted: false }) as unknown as Request[];
-        return Promise.resolve(requests);
-    }
-
-    /**
-     * Gets all users in an array
-     */
-    async getAllUsers(): Promise<User[]> {
-        const users = await UserModel.find() as unknown as User[];
-        return Promise.resolve(users);
+        return this.reservationRequestManager.getAllRequests();
     }
 
     /**

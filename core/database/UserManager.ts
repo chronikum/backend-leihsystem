@@ -205,4 +205,12 @@ export default class UserManager {
         }
         return null;
     }
+
+    /**
+     * Gets all users in an array
+     */
+    async getAllUsers(): Promise<User[]> {
+        const users = await UserModel.find() as unknown as User[];
+        return Promise.resolve(users);
+    }
 }
