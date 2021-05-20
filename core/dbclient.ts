@@ -31,6 +31,8 @@ const crypto = require('crypto');
 
 /**
  * Describes dbclient
+ *
+ * @deprecated This is going to be removed in a future version
  */
 export default class DBClient {
     /**
