@@ -97,11 +97,11 @@ export default class Server {
 
         // CORS
         const developingOrigin = 'http://localhost:4200';
-        const productionOrigin = 'https://irrturm.de';
+        const productionOrigin = process.env.HOST || 'https://irrturm.de';
 
         // Uri of the API
         const developingUri = 'http://localhost:8080';
-        const productionUri = 'https://irrturm.de/api';
+        const productionUri = process.env.HOST_API || 'https://irrturm.de/api';
 
         corsOrigin = developingOrigin;
         this.endpoint = developingUri;
