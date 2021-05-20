@@ -17,10 +17,14 @@ import { Group } from '../models/Group';
 import { DeviceModel } from '../models/DeviceModel';
 import DeviceModelModel from '../models/mongodb-models/DeviceModelModel';
 import { SystemLog } from '../models/SystemLog';
+// Managers
 import UserManager from './database/UserManager';
 import ItemManager from './database/ItemManager';
 import ReservationManager from './database/ReservationManager';
 import AvailabilityManager from './database/AvailabilityManager';
+import SystemLogManager from './database/SystemLogManager';
+import DeviceModelManager from './database/DeviceModelManager';
+import { GroupManager } from './database/GroupManager';
 
 const crypto = require('crypto');
 
@@ -38,6 +42,12 @@ export default class DBClient {
     reservationManager = ReservationManager.instance;
 
     availabilityManager = AvailabilityManager.instance;
+
+    systemlogManager = SystemLogManager.instance
+
+    deviceModelManager = DeviceModelManager.instance
+
+    groupManager = GroupManager.instance
 
     // Shared instance
     static instance = DBClient.getInstance();
@@ -62,6 +72,15 @@ export default class DBClient {
     async isFirstStart(): Promise<boolean> {
         const setupMessage = await SystemLogModel.findOne({ message: 'SETUP COMPLETED' });
         return Promise.resolve(!setupMessage);
+    }
+
+    /**
+     * A users logs in - sets last login time
+     */
+    newLogin(user: User) {
+        const dateNow = Date.now();
+        console.log(user);
+        UserModel.updateOne({ userId: user.userId }, { lastLogin: dateNow }).exec();
     }
 
     /**
@@ -404,6 +423,19 @@ export default class DBClient {
     }
 
     /**
+     * Get automatic suggestion for reservation request
+     */
+    async autoSuggestionForRequest(request: Request): Promise<Reservation[]> {
+        // const hasSubRequests = request?.subRequest[0];
+        // The item ids which are available
+        const itemIds: Item[] = await this.itemsAvailableInTimespan((request.startDate / 10000), (request.plannedEndDate / 10000));
+        // console.log('!AVAILABLE');
+        console.log(itemIds);
+        // console.log('AVAILABLE');
+        return null as any;
+    }
+
+    /**
      * Gets all pending requests
      */
     async getAllRequests(): Promise<Request[]> {
@@ -427,22 +459,7 @@ export default class DBClient {
      * Create group
      */
     async createGroup(group: Group): Promise<Group> {
-        const groupCount = await GroupModel.countDocuments({});
-        console.log(groupCount);
-        const highestId: number = groupCount === 0 ? 0 : ((((await GroupModel.find()
-            .sort({ groupId: -1 })
-            .limit(1)) as unknown as Group[])[0].groupId || 0) as number);
-
-        const groupToCreate = new GroupModel({
-            groupId: (highestId + 1),
-            displayName: group.displayName,
-            description: group.description,
-            role: group.role,
-        });
-
-        await groupToCreate.save({});
-
-        return GroupModel.findOne({ groupId: (highestId + 1) }) as unknown as Group;
+        return this.groupManager.createGroup(group);
     }
 
     /**
@@ -451,7 +468,7 @@ export default class DBClient {
      * @returns Group[]
      */
     async getAllGroups(): Promise<Group[]> {
-        return GroupModel.find() as unknown as Group[];
+        return this.groupManager.getAllGroups();
     }
 
     /**
@@ -460,7 +477,7 @@ export default class DBClient {
      * @returns Group
      */
     async getGroup(id: number): Promise<Group> {
-        return GroupModel.findOne({ groupId: id }) as unknown as Group;
+        return this.groupManager.getGroup(id);
     }
 
     /**
@@ -470,13 +487,7 @@ export default class DBClient {
      * @returns all the roles the user has
      */
     async getGroupRolesForUser(user: User): Promise<UserRoles[]> {
-        const userSearched = await this.getUserForId(user.userId);
-        const userGroups: Group[] = await this.getGroups(userSearched.groupId);
-        let groupsMapped: UserRoles[] = [];
-        concat(userGroups.map((group) => group.role)).subscribe((x) => {
-            groupsMapped = x;
-        });
-        return groupsMapped;
+        return this.groupManager.getGroupRolesForUser(user);
     }
 
     /**
@@ -485,7 +496,7 @@ export default class DBClient {
      * @returns Group
      */
     async getGroups(ids: number[]): Promise<Group[]> {
-        return GroupModel.find({ groupId: { $in: ids } }) as unknown as Group[];
+        return this.groupManager.getGroups(ids);
     }
 
     /**
@@ -495,9 +506,7 @@ export default class DBClient {
      * @returns updated group
      */
     async updateGroup(group: Group): Promise<Group> {
-        GroupModel.updateOne({ groupId: group.groupId }, { group }).exec();
-
-        return GroupModel.findOne({ groupId: group.groupId }) as unknown as Group;
+        return this.groupManager.updateGroup(group);
     }
 
     /**
@@ -506,7 +515,7 @@ export default class DBClient {
      * @param group Delete the group given
      */
     async deleteGroup(group: Group) {
-        GroupModel.deleteOne({ groupId: group.groupId }).exec();
+        this.groupManager.deleteGroup(group);
     }
 
     /**
@@ -516,7 +525,7 @@ export default class DBClient {
      * @returns all users for the group
      */
     async getGroupMembers(group: Group): Promise<User[]> {
-        return UserModel.find({ groupId: { $in: [group.groupId] } }) as unknown as User[];
+        return this.groupManager.getGroupMembers(group);
     }
 
     /**
@@ -556,32 +565,15 @@ export default class DBClient {
     }
 
     /**
-     * A users logs in - sets last login time
+     * Device Model Handlers
      */
-    newLogin(user: User) {
-        const dateNow = Date.now();
-        console.log(user);
-        UserModel.updateOne({ userId: user.userId }, { lastLogin: dateNow }).exec();
-    }
 
     /**
      * Create new device model
      * @param Model device model
-     */
+     */ // TODO REFACTOR
     async createNewModel(model: DeviceModel): Promise<DeviceModel> {
-        const modelCount = await DeviceModelModel.count() || 0;
-        const highestId: number = modelCount === 0 ? 0 : ((((await DeviceModelModel.find()
-            .sort({ deviceModelId: -1 })
-            .limit(1)) as unknown as DeviceModel[])[0].deviceModelId || 0) as number);
-        const checkIfExisting = await this.getDeviceModelByDeviceId(model);
-        if (!checkIfExisting) {
-            model.deviceModelId = (highestId + 1);
-            const deviceModel = new DeviceModelModel(model);
-            deviceModel.save();
-            return Promise.resolve(model);
-        }
-        console.log('Device model already exists.');
-        return Promise.resolve(null);
+        return this.deviceModelManager.createNewModel(model);
     }
 
     /**
@@ -589,25 +581,14 @@ export default class DBClient {
      * @param Model device model
      */
     async updateModel(model: DeviceModel) {
-        const checkIfModelExists = await this.getDeviceModelByDeviceId(model);
-        if (checkIfModelExists) {
-            if (model.deviceModelId) {
-                await DeviceModelModel.updateOne({ deviceModelId: model.deviceModelId }, model).exec();
-                console.log('Model updated.');
-                const check2 = await this.getDeviceModelByDeviceId(model);
-                console.log(check2.displayName);
-            }
-        } else {
-            console.log('Could not update model - model does not exist.');
-        }
+        return this.deviceModelManager.updateModel(model);
     }
 
     /**
      * Get all available device models
      */
     async getAllDeviceModels(): Promise<DeviceModel[]> {
-        const deviceModels = await DeviceModelModel.find({}) as unknown as DeviceModel[] || [];
-        return Promise.resolve(deviceModels);
+        return this.deviceModelManager.getAllDeviceModels();
     }
 
     /**
@@ -615,43 +596,20 @@ export default class DBClient {
      * @param model model to get
      */
     async getDeviceModelByDeviceId(model: DeviceModel): Promise<DeviceModel> {
-        const detailedModel: DeviceModel = await DeviceModelModel.findOne({ deviceModelId: model.deviceModelId }) as unknown as DeviceModel;
-        if (detailedModel) {
-            return Promise.resolve(detailedModel);
-        }
-        return Promise.resolve(null);
-    }
-
-    /**
-     * Get automatic suggestion for reservation request
-     */
-    async autoSuggestionForRequest(request: Request): Promise<Reservation[]> {
-        // const hasSubRequests = request?.subRequest[0];
-        // The item ids which are available
-        const itemIds: Item[] = await this.itemsAvailableInTimespan((request.startDate / 10000), (request.plannedEndDate / 10000));
-        // console.log('!AVAILABLE');
-        console.log(itemIds);
-        // console.log('AVAILABLE');
-        return null as any;
+        return this.deviceModelManager.getDeviceModelByDeviceId(model);
     }
 
     /**
      * Log system logging message which can be seen in admin interface
      */
     systemLog(message: string) {
-        const timestamp = Date.now();
-        const systemlog = new SystemLogModel({
-            message,
-            timestamp,
-        });
-        systemlog.save();
+        this.systemlogManager.systemLog(message);
     }
 
     /**
      * Get all system logs
      */
     async getAllLogs(): Promise<SystemLog[]> {
-        const systemLogs = SystemLogModel.find().sort({ timestamp: -1 }) as unknown as SystemLog[];
-        return Promise.resolve(systemLogs);
+        return this.systemlogManager.getAllLogs();
     }
 }
