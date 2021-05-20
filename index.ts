@@ -173,6 +173,12 @@ export default class Server {
     /**
      * Creates LDAP user if not existing
      * - will return the user when created or when found
+     * - currently, LDAP users won't have many permissions when they are being created, they have to be promoted manually by hand
+     * - Also we are checking for following fields in the LDAP:
+     *      displayName
+     *      mail
+     *  If those are not provided we will use fallback values. Please make sure that you are configuring your ausleihsystem accordingly
+     *  In a later state it will be possible to define the fields via the .env file
      */
     async createLDAPUserIfNotExisting(user: any): Promise<User> {
         const doesUserExist = await UserModel.findOne({ username: user.uid });
@@ -192,7 +198,7 @@ export default class Server {
             firstname,
             surname,
             email: mail,
-            role: UserRoles.ADMIN,
+            role: UserRoles.USER,
             username: user.uid,
             groupId: [1],
         };
@@ -317,13 +323,13 @@ export default class Server {
             console.log('Created administrative group');
             // const ldapGroup = await this.createLDAPGroup();
             this.dbClient.systemLog('Initiale Admingruppe erstellt.');
-            console.log(group);
-            if (this.createInitialUser()) {
-                console.log('Admin user created.');
-                this.dbClient.systemLog('Adminuser erstellt');
-                console.log('System setup completed');
-                this.dbClient.systemLog('SETUP COMPLETED');
-            }
+            // 20.05: removed creation of initial admin user. not longer required as we have a fancy web interface
+            // if (this.createInitialUser()) {
+            //     console.log('Admin user created.');
+            //     this.dbClient.systemLog('Adminuser erstellt');
+            //     console.log('System setup completed');
+            //     this.dbClient.systemLog('SETUP COMPLETED');
+            // }
         } else {
             console.log('System was started before. System is ready');
             this.dbClient.systemLog('System wurde gestartet');
