@@ -17,6 +17,10 @@ import { Group } from '../models/Group';
 import { DeviceModel } from '../models/DeviceModel';
 import DeviceModelModel from '../models/mongodb-models/DeviceModelModel';
 import { SystemLog } from '../models/SystemLog';
+import UserManager from './database/UserManager';
+import ItemManager from './database/ItemManager';
+import ReservationManager from './database/ReservationManager';
+import AvailabilityManager from './database/AvailabilityManager';
 
 const crypto = require('crypto');
 
@@ -24,6 +28,17 @@ const crypto = require('crypto');
  * Describes dbclient
  */
 export default class DBClient {
+    /**
+     * Managers
+     */
+    userManager = UserManager.instance;
+
+    itemManager = ItemManager.instance;
+
+    reservationManager = ReservationManager.instance;
+
+    availabilityManager = AvailabilityManager.instance;
+
     // Shared instance
     static instance = DBClient.getInstance();
 
@@ -41,6 +56,19 @@ export default class DBClient {
     endpoint: string = '';
 
     /**
+     * Checks if this start is the first system start
+     * @returns Promise<boolean>
+     */
+    async isFirstStart(): Promise<boolean> {
+        const setupMessage = await SystemLogModel.findOne({ message: 'SETUP COMPLETED' });
+        return Promise.resolve(!setupMessage);
+    }
+
+    /**
+     * User Handling
+     */
+
+    /**
      * Creates a new user in the database
      * @param User to create
      * @param isLDAP if provided, no password is required
@@ -48,64 +76,7 @@ export default class DBClient {
      * This can be resolved by findOne({isLDAP: true}) but has to be handled correctly at failure.
      */
     async createUser(user: User, isLDAP?: boolean): Promise<boolean> {
-        // How many users do already exist?
-        const userCount = await UserModel.countDocuments({});
-        const highestUser: number = userCount === 0 ? 0 : ((((await UserModel.find()
-            .sort({ userId: -1 })
-            .limit(1)) as unknown as User[])[0].userId || 0) as number);
-
-        if (!isLDAP) { // Create user without ldap
-            const hashedPW = crypto.createHmac('sha256', user.password).digest('hex');
-            // eslint-disable-next-line no-param-reassign, radix
-            user.userId = (parseInt((highestUser as any)) + 1).toString();
-
-            const newUser = new UserModel({
-                username: user.username,
-                userId: user.userId,
-                password: hashedPW,
-                email: user.email,
-                firstname: user.firstname,
-                surname: user.surname,
-                role: user.role,
-                groupId: user.groupId || -1,
-                isLDAP: false,
-            });
-
-            const existingUser = await UserModel.findOne({ username: user.username });
-            if (existingUser) {
-                console.log('User does already exist!');
-                return false;
-            }
-            await newUser.save();
-            const createdUser = await UserModel.findOne({ userId: user.userId });
-            return Promise.resolve(!!createdUser);
-        } // Is an ldap user
-        if (isLDAP) {
-            // eslint-disable-next-line no-param-reassign, radix
-            user.userId = (parseInt((highestUser as any)) + 1).toString();
-
-            const newUser = new UserModel({
-                username: user.username,
-                userId: user.userId,
-                email: user.email,
-                firstname: user.firstname,
-                surname: user.surname,
-                role: user.role,
-                groupId: user.groupId || -1,
-                isLDAP: true,
-            });
-
-            const existingUser = await UserModel.findOne({ username: user.username });
-            if (existingUser) {
-                console.log('User does already exist!');
-                return false;
-            }
-            await newUser.save();
-            const createdUser = await UserModel.findOne({ userId: user.userId });
-            return Promise.resolve(!!createdUser);
-        }
-
-        return Promise.resolve(false);
+        return this.userManager.createUser(user, isLDAP);
     }
 
     /**
@@ -114,8 +85,7 @@ export default class DBClient {
      * @param User[]
      */
     async deleteUsers(users: User[]): Promise<boolean> {
-        const userIds = users.map((item) => item.userId);
-        return UserModel.deleteMany({ userId: { $in: userIds } }).exec().then((x) => (x.ok === 1));
+        return this.userManager.deleteUsers(users);
     }
 
     /**
@@ -126,16 +96,7 @@ export default class DBClient {
      * @returns true, if successful
      */
     async updateUser(user: User): Promise<User> {
-        console.log('Updating...');
-        const before = await UserModel.findOne({ userId: user.userId }) as unknown as User;
-        const x1 = await UserModel.updateOne({ userId: user.userId }, { $set: user }, { new: true }).exec().then((x) => x.ok === 1);
-        console.log('START');
-        const after = await UserModel.findOne({ userId: user.userId }) as unknown as User;
-        console.log(before);
-        console.log(after);
-        console.log('END');
-
-        return UserModel.findOne({ userId: user.userId }) as unknown as User;
+        return this.userManager.updateUser(user);
     }
 
     /**
@@ -147,20 +108,7 @@ export default class DBClient {
      * @returns true, if successful
      */
     async updateUserInformation(user: User): Promise<User> {
-        console.log('Updating...');
-        const before = await UserModel.findOne({ userId: user.userId }) as unknown as User;
-        const x1 = await UserModel.updateOne({ userId: user.userId }, {
-            email: user.email,
-            matrikelnumber: user.matrikelnumber || '',
-            phone: user.phone || '',
-        }, { new: false }).exec().then((x) => x.ok === 1);
-        console.log('START');
-        const after = await UserModel.findOne({ userId: user.userId }) as unknown as User;
-        console.log(before);
-        console.log(after);
-        console.log('END');
-
-        return UserModel.findOne({ userId: user.userId }) as unknown as User;
+        return this.userManager.updateUserInformation(user);
     }
 
     /**
@@ -172,8 +120,7 @@ export default class DBClient {
      * @returns true, if successful
      */
     changePasswordForUser(user: User, newPassword: string): Promise<boolean> {
-        const hashedPW = crypto.createHmac('sha256', newPassword).digest('hex');
-        return UserModel.updateOne({ userId: user.userId }, { password: hashedPW }).exec().then((x) => x.ok === 1);
+        return this.userManager.changePasswordForUser(user, newPassword);
     }
 
     /**
@@ -183,12 +130,7 @@ export default class DBClient {
      * @returns Promise<User> with id
      */
     async getUserForId(userId: string): Promise<User> {
-        const user = UserModel.findOne({ userId }) as unknown as User;
-        if (user) {
-            user.password = '';
-            return Promise.resolve(user);
-        }
-        return null;
+        return this.userManager.getUserForId(userId);
     }
 
     /**
@@ -198,16 +140,7 @@ export default class DBClient {
      * @returns Promise<User> with id
      */
     async getUserforUsername(username: string): Promise<User> {
-        const user = UserModel.findOne({ username }) as unknown as User;
-        if (user) {
-            if (user.password) {
-                user.password = '';
-            }
-            console.log('USER FOUND:');
-            console.log(user);
-            return Promise.resolve(user);
-        }
-        return null;
+        return this.userManager.getUserforUsername(username);
     }
 
     /**
@@ -217,32 +150,19 @@ export default class DBClient {
      * @returns Promise<User> with email
      */
     async getUserForEmail(email: string): Promise<User> {
-        console.log(`LOOKING FOR USER WITH MAIL: ${email}`);
-        const user = await UserModel.findOne({ email }) as unknown as User;
-        if (user) {
-            user.password = '';
-            return Promise.resolve(user);
-        }
-        return null;
+        return this.userManager.getUserForEmail(email);
     }
 
     /**
-     * Checks if this start is the first system start
-     * @returns Promise<boolean>
+     * Item Handlers
      */
-    async isFirstStart(): Promise<boolean> {
-        const setupMessage = await SystemLogModel.findOne({ message: 'SETUP COMPLETED' });
-        return Promise.resolve(!setupMessage);
-    }
 
     /**
      * Get inventory
      * @returns Item[] Items available
      */
     async getInventoryList(): Promise<Item[]> {
-        const items = ((await ItemModel.find())) as unknown as Item[] || [];
-
-        return Promise.resolve(items);
+        return this.itemManager.getInventoryList();
     }
 
     /**
@@ -251,9 +171,7 @@ export default class DBClient {
      * @param number id
      */
     async getItemById(id: number): Promise<Item> {
-        const item = ((await ItemModel.findOne({ itemId: id }))) as unknown as Item;
-
-        return item;
+        return this.itemManager.getItemById(id);
     }
 
     /**
@@ -262,11 +180,7 @@ export default class DBClient {
      * @param number[] ids
      */
     async getItemsByIds(ids: number[]): Promise<Item[]> {
-        const items = ((await ItemModel.find({ itemId: { $in: ids } }))) as unknown as Item[];
-        if (items) {
-            return Promise.resolve(items);
-        }
-        return [];
+        return this.itemManager.getItemsByIds(ids);
     }
 
     /**
@@ -275,9 +189,7 @@ export default class DBClient {
      * @param number generatedUniqueIdentifier
      */
     async getItemByUnique(unique: string): Promise<Item> {
-        const item = ((await ItemModel.findOne({ generatedUniqueIdentifier: unique }))) as unknown as Item;
-        const updatedAvailability = await this.updateAvailabilityOfItems([item]);
-        return updatedAvailability[0];
+        return this.itemManager.getItemByUnique(unique);
     }
 
     /**
@@ -288,35 +200,7 @@ export default class DBClient {
      * @returns Created Item
      */
     async createItem(item: Item): Promise<Item> {
-        const itemCount = await ItemModel.countDocuments({});
-        const highestId: number = itemCount === 0 ? 0 : ((((await ItemModel.find()
-            .sort({ itemId: -1 })
-            .limit(1)) as unknown as Item[])[0].itemId || 0) as number);
-
-        const initialAdminPassword = crypto.randomBytes(4).toString('hex');
-        const generatedUniqueIdentifier = `${highestId}${initialAdminPassword}`;
-
-        const itemtoCreate = new ItemModel({
-            name: item.name || undefined,
-            internalName: item.internalName || undefined,
-            serialNumber: item.serialNumber || undefined,
-            caIdentifier: item.caIdentifier || undefined,
-            creationDate: item.creationDate || undefined,
-            modificationDate: item.modificationDate || undefined,
-            description: item.description || undefined,
-            model: item.model || undefined,
-            notes: item.notes || undefined,
-            managed: item.managed || undefined,
-            available: item.available || undefined,
-            plannedReservationsIds: item.plannedReservationsIds || undefined,
-            itemId: highestId + 1,
-            generatedUniqueIdentifier,
-            modelIdentifier: item.modelIdentifier || undefined,
-        });
-
-        await itemtoCreate.save({});
-
-        return ItemModel.findOne({ itemId: (highestId + 1) }) as unknown as Item;
+        return this.itemManager.createItem(item);
     }
 
     /**
@@ -326,11 +210,16 @@ export default class DBClient {
      * @returns updatedItem
      */
     async updateItem(item: Item): Promise<Item> {
-        const updatedItem = await ItemModel.updateOne({
-            itemId: item.itemId,
-        }, item, { upsert: false }) as any;
+        return this.itemManager.updateItem(item);
+    }
 
-        return updatedItem;
+    /**
+     * Delete items (if permission exists)
+     *
+     * @TODO Currently only admins can modify items data
+     */
+    async deleteItems(items: Item[]): Promise<boolean> {
+        return this.itemManager.deleteItems(items);
     }
 
     /**
@@ -339,8 +228,7 @@ export default class DBClient {
      * @TODO MAYBE USE MONGOOSE RANGE SELECTOR INSTEAD!
      */
     async updateAvailabilityOfItems(items: Item[]): Promise<Item[]> {
-        const itemsWithAvailability = await this.itemsAvailableinCollection(items);
-        return itemsWithAvailability;
+        return this.itemManager.updateAvailabilityOfItems(items);
     }
 
     /**
@@ -348,47 +236,7 @@ export default class DBClient {
      */
     // eslint-disable-next-line max-len
     async reserveItemsWithReservation(reservation: Reservation, items: Item[], user: User): Promise<any> {
-        const canBeApplied = await this.canReservationBeApplied(reservation, items, user);
-        if (canBeApplied) {
-            const reservationCount = await ReservationModel.countDocuments({});
-            const reservationId = reservationCount + 1;
-
-            reservation.reservationId = reservationId;
-
-            // Create reservation with user ID
-            const reservationtoCreate = new ReservationModel({
-                reservationName: reservation.reservationName,
-                reservationId,
-                description: reservation.description,
-                approvalRequired: reservation.approvalRequired,
-                approved: reservation.approved || undefined,
-                responsible: user.userId,
-                itemIds: reservation.itemIds,
-                startDate: reservation.startDate,
-                plannedEndDate: reservation.plannedEndDate,
-                completed: false,
-            });
-
-            console.log(`Created reservation id: ${reservationId}`);
-            this.applyReservationToItems(items, reservation);
-
-            await reservationtoCreate.save();
-            return Promise.resolve({ sucess: true, message: 'Reservation created' });
-        }
-        return Promise.resolve(null);
-    }
-
-    /**
-     * Finish Reservation
-     *
-     * @param request provided by user
-     * @returns updated Request
-     */
-    async finishReservation(reservation: Reservation): Promise<Reservation> {
-        const dateNow = Date.now();
-        await ReservationModel.updateOne({ reservationId: reservation.reservationId }, { completed: true, plannedEndDate: dateNow }).exec();
-        const reservationUpdated = await ReservationModel.findOne({ reservationId: reservation.reservationId }) as unknown as Reservation;
-        return Promise.resolve(reservationUpdated);
+        return this.availabilityManager.reserveItemsWithReservation(reservation, items, user);
     }
 
     /**
@@ -398,23 +246,7 @@ export default class DBClient {
      */
     // eslint-disable-next-line max-len
     async canReservationBeApplied(reservation: Reservation, items: Item[], user: User): Promise<boolean> {
-        const itemIds = items.map((item) => item.itemId);
-
-        // Load items from database
-        const results = await ItemModel.find().where('itemId').in(itemIds) as unknown as Item[];
-
-        const affectedReservationIds: Set<number> = new Set<number>();
-
-        // All affected reservation ids
-        results.forEach((item) => item.plannedReservationsIds.forEach((id) => affectedReservationIds.add(id)));
-        // Load the affected reservations
-        const affectedReservations = await ReservationModel.find().where('reservationId').in(Array.from(affectedReservationIds)) as unknown as Reservation[];
-        // Check if reservation collides with any collisions
-        const validReservationRequest = this.reservationHasNoCollisions(affectedReservations, reservation);
-
-        return Promise.resolve(
-            ((results.length) && validReservationRequest),
-        );
+        return this.availabilityManager.canReservationBeApplied(reservation, items, user);
     }
 
     /**
@@ -425,203 +257,39 @@ export default class DBClient {
      *
      */
     async itemsAvailableinCollection(items: Item[]): Promise<Item[]> {
-        const itemIds = items.map((item) => item.itemId);
-        const existingItems = await ItemModel.find().where('itemId').in(itemIds) as unknown as Item[];
-
-        // Get all reservations
-        const allReservations = await this.reservationsInItemCollection(existingItems);
-        const allReservationIds = allReservations.map((reservation: Reservation) => reservation.reservationId);
-
-        const newReservationStartDate = dayjs.unix(Date.now());
-        const newReservationEndDate = dayjs.unix(Date.now());
-
-        const reservationsAvailable = await ReservationModel.find({
-            $or: [
-                { // BEFORE RESERVATION
-                    $and: [
-                        { plannedEndDate: { $lt: newReservationEndDate } },
-                        { startDate: { $lt: newReservationStartDate } },
-                        { reservationId: { $in: allReservationIds } },
-                    ],
-                },
-                { // AFTER RESERVATION
-                    $and: [
-                        { plannedEndDate: { $gt: newReservationEndDate } },
-                        { startDate: { $gt: newReservationStartDate } },
-                        { reservationId: { $in: allReservationIds } },
-                    ],
-                },
-            ],
-        });
-        // An array with all currently inactive reservations
-        const inactiveReservation = [];
-
-        // Returns an array with all valid reservations
-        const updatedReservations = allReservations.map((reservation) => {
-            if (reservation.startDate && reservation.plannedEndDate) {
-                const startDatePlanned = dayjs.unix(reservation.startDate);
-                const endDatePlanned = dayjs.unix(reservation.plannedEndDate);
-
-                // The reservation has started but was not completed yet - it is delayed.
-                // The devices are not available!
-                if ((startDatePlanned.isBefore(newReservationStartDate) && (!reservation.completed))) {
-                    reservation.active = true;
-                    return reservation;
-                }
-
-                // Dates are both before the time span or after
-                // eslint-disable-next-line max-len
-                if ((newReservationStartDate.isBefore(startDatePlanned) && newReservationEndDate.isBefore(startDatePlanned)) || ((newReservationStartDate.isAfter(endDatePlanned) && newReservationEndDate.isAfter(endDatePlanned)))) {
-                    reservation.active = false;
-                    inactiveReservation.push(reservation);
-                    return reservation;
-                }
-
-                reservation.active = true;
-                return reservation;
-            }
-            return reservation;
-        });
-
-        const activeReservations = inactiveReservation.map((reservation) => reservation.reservationId);
-
-        // eslint-disable-next-line no-return-assign
-        existingItems.forEach((item) => item.available = ((item.plannedReservationsIds || []).every((id) => activeReservations.includes(id))));
-        const itemsAvailable = existingItems.filter((item) => item.available);
-
-        const totalActiveReservations = updatedReservations.filter((reservation: Reservation) => reservation.active);
-
-        return existingItems;
+        return this.availabilityManager.itemsAvailableinCollection(items);
     }
 
     /**
      * Returns items which are available during the given timespan
      */
     async itemsAvailableinCollectionDuringTimespan(items: Item[], startDate: number, endDate: number): Promise<Item[]> {
-        const newReservationStartDate = dayjs.unix(startDate);
-        const newReservationEndDate = dayjs.unix(endDate);
-        const itemIds = items.map((item) => item.itemId);
-        const existingItems = await ItemModel.find().where('itemId').in(itemIds) as unknown as Item[];
-        const allReservations = ReservationModel.find({}) as unknown as Reservation[];
-
-        // Reservations which are not colliding with our own reservation
-        const reservationsAvailable = await ReservationModel.find({
-            $or: [
-                { // BEFORE RESERVATION
-                    $and: [
-                        {
-                            plannedEndDate: { $lt: newReservationStartDate },
-                        },
-                    ],
-                },
-                { // AFTER RESERVATION
-                    $and: [
-                        { startDate: { $gt: newReservationEndDate } },
-                    ],
-                },
-            ],
-        });
-        // An array with all currently inactive reservations
-        const inactiveReservation = [];
-
-        // Returns an array with all valid reservations
-        const updatedReservations = allReservations.map((reservation) => {
-            if (reservation.startDate && reservation.plannedEndDate) {
-                const startDatePlanned = dayjs.unix(reservation.startDate);
-                const endDatePlanned = dayjs.unix(reservation.plannedEndDate);
-
-                // Dates are both before the time span or after
-                // eslint-disable-next-line max-len
-                if ((newReservationStartDate.isBefore(startDatePlanned) && newReservationEndDate.isBefore(startDatePlanned)) || ((newReservationStartDate.isAfter(endDatePlanned) && newReservationEndDate.isAfter(endDatePlanned)))) {
-                    reservation.active = false;
-                    inactiveReservation.push(reservation);
-                    return reservation;
-                }
-                reservation.active = true;
-                return reservation;
-            }
-            return reservation;
-        });
-
-        const activeReservations = inactiveReservation.map((reservation) => reservation.reservationId);
-
-        // eslint-disable-next-line no-return-assign
-        existingItems.forEach((item) => item.available = ((item.plannedReservationsIds || []).every((id) => activeReservations.includes(id))));
-        console.log(existingItems);
-        const itemsAvailable = existingItems.filter((item) => item.available);
-
-        const totalActiveReservations = updatedReservations.filter((reservation: Reservation) => reservation.active);
-        console.log(totalActiveReservations.length);
-        console.log(reservationsAvailable.length);
-
-        return existingItems;
+        return this.availabilityManager.itemsAvailableinCollectionDuringTimespan(items, startDate, endDate);
     }
 
     /**
-     * Checks if any reservations collisions occure
-     * @param reservationIds
-     * @param newReservation
+     * Returns all items which are available in the given time frame
      *
-     * @returns true if no collision exists
+     * - gets all reservations overlapping with the new one
+     * - gets the items in those reservations
+     * - checks which items won't be available
      */
-    reservationHasNoCollisions(currentReservations: Reservation[], newReservation: Reservation): boolean {
-        const validDates = currentReservations.filter((reservation) => {
-            if (newReservation.startDate && newReservation.plannedEndDate) {
-                const startDatePlanned = dayjs.unix(reservation.startDate);
-                const endDatePlanned = dayjs.unix(reservation.plannedEndDate);
-                const newReservationStartDate = dayjs.unix(newReservation.startDate);
-                const newReservationEndDate = dayjs.unix(newReservation.plannedEndDate);
-
-                // Dates are both before the time span or after
-                // eslint-disable-next-line max-len
-                if ((newReservationStartDate.isBefore(startDatePlanned) && newReservationEndDate.isBefore(startDatePlanned)) || ((newReservationStartDate.isAfter(endDatePlanned) && newReservationEndDate.isAfter(endDatePlanned)))) {
-                    return true;
-                }
-                return false;
-            }
-            return false;
-        });
-        const valid = (validDates.length === currentReservations.length);
-        console.log(`Is valid: ${valid}`);
-        return valid;
+    async itemsAvailableInTimespan(startDate: number, endDate: number): Promise<Item[]> {
+        return this.availabilityManager.itemsAvailableInTimespan(startDate, endDate);
     }
 
     /**
-     * Delete items (if permission exists)
+     * Reservation Handlers
+     */
+
+    /**
+     * Finish Reservation
      *
-     * @TODO Currently only admins can modify items data
+     * @param request provided by user
+     * @returns updated Request
      */
-    async deleteItems(items: Item[]): Promise<boolean> {
-        // All the item ids
-        const itemIds = items.map((item) => item.itemId);
-        const res = await ItemModel.deleteMany({
-            itemId: {
-                $in: itemIds || [],
-            },
-        });
-
-        return Promise.resolve(!!res);
-    }
-
-    /**
-     * Update the items with the applied reservation
-     * - Updates the items in the database
-     */
-    applyReservationToItems(items: Item[], reservation: Reservation) {
-        const itemIds = items.map((item) => item.itemId);
-        ItemModel.updateMany(
-            { itemId: { $in: itemIds } },
-            { $push: { plannedReservationsIds: reservation.reservationId } },
-            { multi: true },
-        ).exec();
-    }
-
-    /**
-     * get details about an existing reservation
-     * @param reservationId id of the reservation
-     */
-    async getReservationById(reservationId: number): Promise<Reservation> {
-        return ReservationModel.find({ reservationId }) as unknown as Promise<Reservation>;
+    async finishReservation(reservation: Reservation): Promise<Reservation> {
+        return this.reservationManager.finishReservation(reservation);
     }
 
     /**
@@ -632,12 +300,15 @@ export default class DBClient {
      * @returns Reservations
      */
     async reservationsInItemCollection(items: Item[]): Promise<Reservation[]> {
-        const affectedReservationIds: Set<number> = new Set<number>();
+        return this.reservationManager.reservationsInItemCollection(items);
+    }
 
-        const itemIds = items.map((item) => item.itemId);
-        const results = await ItemModel.find().where('itemId').in(itemIds) as unknown as Item[];
-        results.forEach((item) => item.plannedReservationsIds.forEach((id) => affectedReservationIds.add(id)));
-        return ReservationModel.find().where('reservationId').in(Array.from(affectedReservationIds)) as unknown as Reservation[];
+    /**
+     * Update the items with the applied reservation
+     * - Updates the items in the database
+     */
+    applyReservationToItems(items: Item[], reservation: Reservation) {
+        return this.reservationManager.applyReservationToItems(items, reservation);
     }
 
     /**
@@ -648,9 +319,15 @@ export default class DBClient {
      * @returns Reservations
      */
     async getReservations(): Promise<Reservation[]> {
-        const allReservations: Reservation[] = await ReservationModel.find({}) as unknown as Reservation[];
+        return this.reservationManager.getReservations();
+    }
 
-        return allReservations;
+    /**
+     * get details about an existing reservation
+     * @param reservationId id of the reservation
+     */
+    async getReservationById(reservationId: number): Promise<Reservation> {
+        return this.reservationManager.getReservationById(reservationId);
     }
 
     /**
@@ -943,55 +620,6 @@ export default class DBClient {
             return Promise.resolve(detailedModel);
         }
         return Promise.resolve(null);
-    }
-
-    /**
-     * Returns all items which are available in the given time frame
-     *
-     * - gets all reservations overlapping with the new one
-     * - gets the items in those reservations
-     * - checks which items won't be available
-     */
-    async itemsAvailableInTimespan(startDate: number, endDate: number): Promise<Item[]> {
-        const allItems = await ItemModel.find() as unknown as Item[];
-        const itemIds = allItems.map((item) => item.itemId);
-        const allReservations = await ReservationModel.find({}) as unknown as Reservation[];
-
-        // 1616421600000
-        // 161642226
-        const reservationsActiveDuringRequestedTime = await ReservationModel.find({
-            $nor: [
-                { // BEFORE RESERVATION
-                    $and: [
-                        { plannedEndDate: { $lt: startDate } },
-                        { startDate: { $lt: startDate } },
-                    ],
-                },
-                { // AFTER RESERVATION
-                    $and: [
-                        { plannedEndDate: { $gt: endDate } },
-                        { startDate: { $gt: endDate } },
-                    ],
-                },
-            ],
-        }) as unknown as Reservation[];
-        console.log('Reservations FOUND during requested time:');
-        console.log(reservationsActiveDuringRequestedTime);
-        const itemsReserved: string[] = [];
-        reservationsActiveDuringRequestedTime.forEach((reservation: Reservation) => {
-            reservation.itemIds.forEach((itemId) => {
-                itemsReserved.push(itemId.toString());
-            });
-        });
-        const availableItems = allItems.filter((item) => !itemsReserved.includes(item.itemId.toString()));
-        availableItems.map(async (item) => {
-            const loadedItem = await this.getItemById(item.itemId);
-            return loadedItem;
-        });
-        // const availableItems = await this.itemsAvailableinCollectionDuringTimespan(allItems, (startDate / 1000), (endDate / 1000));
-        // console.log('Available: ');
-        // console.log(availableItems);
-        return Promise.resolve(availableItems);
     }
 
     /**
