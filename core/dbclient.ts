@@ -500,20 +500,7 @@ export default class DBClient {
      * @returns all users for the group
      */
     async getSuggestedUsers(query: string): Promise<User[]> {
-        const users = await UserModel.find({
-            $or: [
-                {
-                    firstname: { $regex: query, $options: 'i' },
-                },
-                {
-                    surname: { $regex: query, $options: 'i' },
-                },
-                {
-                    username: { $regex: query, $options: 'i' },
-                },
-            ],
-        }).limit(7) as unknown as User[];
-        return users;
+        return this.groupManager.getSuggestedUsers(query);
     }
 
     /**
@@ -524,9 +511,7 @@ export default class DBClient {
      * @returns Group[]
      */
     async addUserToGroup(user: User, group: Group): Promise<User> {
-        // Add group id to user
-        UserModel.updateOne({ userId: user.userId }, { $push: { groupId: group.groupId } }).exec();
-        return UserModel.findOne({ userId: user.userId }) as unknown as User;
+        return this.groupManager.addUserToGroup(user, group);
     }
 
     /**
