@@ -24,7 +24,7 @@ import ReservationManager from './database/ReservationManager';
 import AvailabilityManager from './database/AvailabilityManager';
 import SystemLogManager from './database/SystemLogManager';
 import DeviceModelManager from './database/DeviceModelManager';
-import { GroupManager } from './database/GroupManager';
+import GroupManager from './database/GroupManager';
 import ReservationRequestManager from './database/ReservationRequestManager';
 
 const crypto = require('crypto');

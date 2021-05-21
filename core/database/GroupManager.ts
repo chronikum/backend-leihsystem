@@ -6,7 +6,7 @@ import UserModel from '../../models/mongodb-models/UserModel';
 import { User } from '../../models/User';
 import UserManager from './UserManager';
 
-export class GroupManager {
+export default class GroupManager {
     /**
      * Instance logic
      */
