@@ -103,6 +103,9 @@ export default class Server {
         const developingUri = 'http://localhost:8080';
         const productionUri = process.env.HOST_API || 'https://irrturm.de/api';
 
+        // Generate a session secret for express
+        const sessionSecret = crypto.randomBytes(10).toString('hex');
+
         corsOrigin = developingOrigin;
         this.endpoint = developingUri;
         if (production[0] === 'prod') {
@@ -127,7 +130,7 @@ export default class Server {
         });
         this.app.use(
             session({
-                secret: 'oaiulhsrkfjbdhsg67iegurkzh78owgaukzrs',
+                secret: sessionSecret,
                 resave: false,
                 saveUninitialized: true,
             }),
