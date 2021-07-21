@@ -266,7 +266,6 @@ export default class Server {
                 return done(null, user);
             });
         }
-        return done(null, null);
     }
 
     /**
