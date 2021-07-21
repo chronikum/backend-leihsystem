@@ -10,6 +10,11 @@ export default class ConfigurationClient {
     // Shared instance
     static instance = ConfigurationClient.getInstance();
 
+    /**
+     * Determines if LDAp is available
+     */
+    ldapAvailable: boolean = false;
+
     public static getInstance(): ConfigurationClient {
         if (!ConfigurationClient.instance) {
             ConfigurationClient.instance = new ConfigurationClient();
@@ -44,6 +49,7 @@ export default class ConfigurationClient {
         const newConfiguration = new LDAPConfigurationModel(configuration);
         await LDAPConfigurationModel.deleteMany({});
         await newConfiguration.save();
+        this.ldapAvailable = true;
     }
 
     /**
@@ -58,6 +64,19 @@ export default class ConfigurationClient {
         if (configuration) {
             return Promise.resolve(configuration);
         }
+        return null;
+    }
+
+    /**
+     * Gets the LDAP Configuration if present
+     */
+    async getLDAPConfiguration(): Promise<LDAPConfiguration> {
+        const configuration = await LDAPConfigurationModel.findOne({}) as unknown as LDAPConfiguration;
+        if (configuration) {
+            this.ldapAvailable = true;
+            return Promise.resolve(configuration);
+        }
+        this.ldapAvailable = false;
         return null;
     }
 }

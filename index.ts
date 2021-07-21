@@ -6,6 +6,7 @@ import DBClient from './core/dbclient';
 import SetupService from './core/SetupService';
 import { UserRoles } from './enums/UserRoles';
 import LDAPConfigurationModel from './models/configuration-models/LDAPConfigurationModel';
+import ConfigurationClient from './models/ConfigurationClient';
 import { Group } from './models/Group';
 import { LDAPConfiguration } from './models/LDAPConfiguration';
 import GroupModel from './models/mongodb-models/GroupModel';
@@ -61,6 +62,11 @@ export default class Server {
      * Database Client Instance
      */
     dbClient = DBClient.instance;
+
+    /**
+     * This is the configuration cliet
+     */
+    configurationClient = ConfigurationClient.instance;
 
     /**
      * Constructs a new instance of {@link Server}
@@ -237,55 +243,64 @@ export default class Server {
             }
             return done('ERROR');
         }
-
-        // Local user
-        UserModel.findOne({ username }, (
-            err: any,
-            user: any,
-        ) => {
-            console.log('Authenticating...');
-            if (err) {
-                console.log(err);
-                return done(err);
-            }
-            if (!user) {
-                console.log('User not found!');
-                return done(null, false, { message: 'Incorrect username.' });
-            }
-            const hashedPW = crypto.createHmac('sha256', password).digest('hex');
-            if (user.password !== hashedPW) {
-                console.log('Password incorrect');
-                return done(null, false, { message: 'Incorrect password.' });
-            }
-            return done(null, user);
-        });
+        if (username && password) {
+            // Local user
+            UserModel.findOne({ username }, (
+                err: any,
+                user: any,
+            ) => {
+                console.log('Authenticating...');
+                if (err) {
+                    console.log(err);
+                    return done(null, false, null);
+                }
+                if (!user) {
+                    console.log('User not found!');
+                    return done(null, false, { message: 'Incorrect username.' });
+                }
+                const hashedPW = crypto.createHmac('sha256', password).digest('hex');
+                if (user.password !== hashedPW) {
+                    console.log('Password incorrect');
+                    return done(null, false, { message: 'Incorrect password.' });
+                }
+                return done(null, user);
+            });
+        }
+        return done(null, null);
     }
 
     /**
      * Setup authentication
      */
-    private setupAuth() {
-        const getLDAPConfiguration = async function (req, callback) {
-            // Fetching things from database or whatever
-            const ldapConfigurationModel = await LDAPConfigurationModel.findOne({});
-            console.log(ldapConfigurationModel);
-            if (ldapConfigurationModel) {
-                const ldapConfiguration = ldapConfigurationModel as unknown as LDAPConfiguration;
-                const opts = {
-                    server: {
-                        url: ldapConfiguration.host,
-                        bindDN: ldapConfiguration.bindDN,
-                        bindCredentials: ldapConfiguration.bindCredentials,
-                        searchBase: ldapConfiguration.searchBase,
-                        searchFilter: ldapConfiguration.searchFilter,
-                    },
-                };
-                callback(null, opts);
-            }
-        };
+    private async setupAuth() {
+        // Only will run if ldap is availanle
+        const isLDAPavailable = await this.configurationClient.getLDAPConfiguration();
+        if (isLDAPavailable) {
+            const getLDAPConfiguration = async function (req, callback) {
+                // Fetching things from database or whatever
+                const ldapConfigurationModel = await LDAPConfigurationModel.findOne({});
+                console.log(ldapConfigurationModel);
+                if (ldapConfigurationModel) {
+                    const ldapConfiguration = ldapConfigurationModel as unknown as LDAPConfiguration;
+                    const opts = {
+                        server: {
+                            url: ldapConfiguration.host,
+                            bindDN: ldapConfiguration.bindDN,
+                            bindCredentials: ldapConfiguration.bindCredentials,
+                            searchBase: ldapConfiguration.searchBase,
+                            searchFilter: ldapConfiguration.searchFilter,
+                        },
+                    };
+                    callback(null, opts);
+                }
+                callback(null, null);
+            };
 
-        passport.use(new LdapStrategy(getLDAPConfiguration,
-            ((user, done) => this.checkUser(null, null, done, user))));
+            passport.use(new LdapStrategy(getLDAPConfiguration,
+                ((user, done) => {
+                    this.checkUser(null, null, done, user);
+                })));
+        }
 
         passport.use(
             new LocalStrategy((
@@ -296,12 +311,10 @@ export default class Server {
         );
 
         passport.serializeUser((user: any, done) => {
-            console.log('CHECKING USER');
             done(null, user._id);
         });
 
         passport.deserializeUser((id, done) => {
-            console.log('CHECKING USER');
             UserModel.findOne({ _id: id })
                 .then((user) => {
                     done(null, user);
@@ -324,44 +337,14 @@ export default class Server {
             console.log('Is first start. Configuring system...');
             const group = await this.createAdministrativeGroup();
             console.log('Created administrative group');
-            // const ldapGroup = await this.createLDAPGroup();
             this.dbClient.systemLog('Initiale Admingruppe erstellt.');
-            // 20.05: removed creation of initial admin user. not longer required as we have a fancy web interface
-            // if (this.createInitialUser()) {
-            //     console.log('Admin user created.');
-            //     this.dbClient.systemLog('Adminuser erstellt');
-            //     console.log('System setup completed');
-            //     this.dbClient.systemLog('SETUP COMPLETED');
-            // }
+            this.dbClient.systemLog('SETUP COMPLETED');
         } else {
             console.log('System was started before. System is ready');
             this.dbClient.systemLog('System wurde gestartet');
         }
         this.dbClient.endpoint = this.endpoint;
         return false;
-    }
-
-    /**
- * Create initial administrative users
- * @TODO Remove hardcoded e-mail and hardcoded first and surname
- * @TODO Implement a frontend installation procedure
- *
- * @returns boolean success
- */
-    private async createInitialUser(): Promise<boolean> {
-        // TODO: Create Admin group with identifier 0
-        const initialAdminPassword = crypto.randomBytes(4).toString('hex');
-        const adminUser: User = {
-            firstname: 'Admin',
-            surname: 'user',
-            password: initialAdminPassword,
-            email: 'fritz@nosc.io',
-            role: UserRoles.ADMIN,
-            username: 'systemadmin',
-            groupId: [1],
-        };
-        console.log(`The initial admin password will be: ${adminUser.password}`);
-        return this.dbClient.createUser(adminUser);
     }
 
     /**

@@ -19,6 +19,7 @@ import { DeviceModel } from '../models/DeviceModel';
 import ResetPassword from './ResetPassword';
 import MailService from './MailService';
 import SetupService from './SetupService';
+import ConfigurationClient from '../models/ConfigurationClient';
 
 /**
  * GENERAL TODO:
@@ -56,6 +57,11 @@ const roleCheck = RoleCheck.instance;
 const router = express.Router();
 
 /**
+ * Instance of config client
+ */
+const configurationClient = ConfigurationClient.instance;
+
+/**
  * The setup service
  */
 const setupService = SetupService.instance;
@@ -86,6 +92,11 @@ function checkAdminPrivilege(req: any, res: any, next: any) {
         res.send({ success: false, message: 'You are not allowed to see this resource.' });
     }
 }
+
+/**
+ * Checks if LDAP is available.
+ */
+const isLDAPavailable = configurationClient.ldapAvailable;
 
 /**
  * This will be run with every request
@@ -156,9 +167,22 @@ function removePasswordHashFromUser(user: User): User {
   * User Routes
   */
 /**
+ * Determines login strategies based on
+ * capabilites of the system and configuration
+ */
+function determineLoginStrategies() {
+    const loginStrategies = [];
+    loginStrategies.push('local');
+    if (configurationClient.ldapAvailable) {
+        loginStrategies.push('ldap');
+    }
+    console.log(loginStrategies);
+    return loginStrategies;
+}
+/**
  * Login (local or ldap)
  */
-router.post('/login', passport.authenticate(['local', 'ldapauth']), async (req, res) => {
+router.post('/login', passport.authenticate(determineLoginStrategies()), async (req, res) => {
     // eslint-disable-next-line prefer-const
     let { user } = req;
     dbClient.newLogin(user);
