@@ -185,9 +185,9 @@ function determineLoginStrategies() {
 router.post('/login', passport.authenticate(determineLoginStrategies()), async (req, res) => {
     // eslint-disable-next-line prefer-const
     let { user } = req;
-    dbClient.newLogin(user);
-    user.password = '';
-    res.send({ success: true, user });
+    // dbClient.newLogin(user);
+    // user.password = '';
+    return res.send({ success: true, user });
 });
 
 /**

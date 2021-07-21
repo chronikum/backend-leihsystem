@@ -293,7 +293,6 @@ export default class Server {
                     };
                     callback(null, opts);
                 }
-                callback(null, null);
             };
 
             passport.use(new LdapStrategy(getLDAPConfiguration,
