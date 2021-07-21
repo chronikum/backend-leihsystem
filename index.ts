@@ -209,7 +209,7 @@ export default class Server {
             email: mail,
             role: UserRoles.USER,
             username: user.uid,
-            groupId: [1],
+            groupId: [2],
         };
         console.log('I am going to create the user:');
         console.log(newLdapUser);
@@ -334,7 +334,9 @@ export default class Server {
         if (await this.dbClient.isFirstStart()) {
             console.log('Is first start. Configuring system...');
             const group = await this.createAdministrativeGroup();
+            const ldapGroup = await this.createLDAPGroup();
             console.log('Created administrative group');
+            console.log('Created default ldap group');
             this.dbClient.systemLog('Initiale Admingruppe erstellt.');
             this.dbClient.systemLog('SETUP COMPLETED');
         } else {
@@ -354,7 +356,7 @@ export default class Server {
             description: 'Administrative Gruppe',
             role: [UserRoles.ADMIN],
         };
-        this.dbClient.createGroup(adminGroup);
+        await this.dbClient.createGroup(adminGroup);
         return GroupModel.findOne({ description: 'Administrative Gruppe' }) as unknown as Group;
     }
 
@@ -367,7 +369,7 @@ export default class Server {
             description: 'Diese Gruppe wird allen LDAP-Usern zugewiesen',
             role: [UserRoles.USER],
         };
-        this.dbClient.createGroup(ldapGroup);
+        await this.dbClient.createGroup(ldapGroup);
         return GroupModel.findOne({ description: 'Diese Gruppe wird allen LDAP-Usern zugewiesen' }) as unknown as Group;
     }
 }
