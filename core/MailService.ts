@@ -3,6 +3,7 @@ import { EmailConfiguration } from '../models/EmailConfiguration';
 import { Request } from '../models/Request';
 import { Reservation } from '../models/Reservation';
 import { User } from '../models/User';
+import UserManager from './database/UserManager';
 import DBClient from './dbclient';
 
 const nodemailer = require('nodemailer');
@@ -87,6 +88,33 @@ export default class MailService {
                     subject: 'Konfigurierung funktioniert!', // Subject line
                     text: 'Diese E-Mail ist nur als HTML verfügbar.', // plain text body
                     html: 'Hallo Welt :) Das ist eine Test-Email!',
+                });
+            } catch {
+                this.connectionFailed();
+            }
+        }
+    }
+
+    /**
+     * Notify user about confirmation of their created request
+     *
+     * @param user: User
+     * @param reservation Reservation to notify about
+     */
+    async sendConfirmationMail(user: User, reservation: Request) {
+        await this.createTransport();
+        if (this.configuration?.username) {
+            try {
+                const testMailStatus = await this.transporter.sendMail({
+                    from: `"ZfM Leihsystem 👻" <${process.env.SMTP_USERNAME}>`, // sender address
+                    to: `${user?.firstname} ${user?.surname} <${user?.email}>`, // list of receivers
+                    subject: 'Reservierungsanfrage eingegangen', // Subject line
+                    text: 'Diese E-Mail ist nur als HTML verfügbar.', // plain text body
+                    html: `<h1>ZfM Reservierungsanfrage eingegangen!</h1><br>
+                    Sehr geehrte/r ${user?.firstname} ${user?.surname},<br>
+                    Ihre Reservierungsanfrage für den ${this.parseDate(reservation.startDate)} ist bei uns eingegangen.
+                    Mehr Informationen erhalten Sie demnächst von eine/r Mitarbeiter/in des ZfM.<br>
+                    Mit freundlichen Grüßen,<br>Ihr ZfM Ausleihsystem`,
                 });
             } catch {
                 this.connectionFailed();

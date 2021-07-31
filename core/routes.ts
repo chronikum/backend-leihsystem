@@ -514,7 +514,9 @@ router.post('/createRequest', checkAuthentication, async (req, res) => {
     if (request) {
         request.userCreated = user.userId;
         request.requestingUser = user.userId;
-        const requestCreated: Request = await dbClient.createNewRequest(request);
+        const requestCreated: Request = await dbClient.createNewRequest(request); // Create a new request
+        const userAffected = await dbClient.getUserForId(request?.requestingUser.toString());
+        await mailingService.sendConfirmationMail(userAffected, requestCreated);
         res.send({ success: true, request: requestCreated });
     } else {
         res.send({ success: false });
