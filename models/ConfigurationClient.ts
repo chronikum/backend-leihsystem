@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 import EmailConfigurationModel from './configuration-models/EmailConfigurationModel';
 import LDAPConfigurationModel from './configuration-models/LDAPConfigurationModel';
 import { EmailConfiguration } from './EmailConfiguration';
@@ -10,10 +11,18 @@ export default class ConfigurationClient {
     // Shared instance
     static instance = ConfigurationClient.getInstance();
 
+    private _ldapAvailable: boolean;
+
     /**
      * Determines if LDAp is available
      */
-    ldapAvailable: boolean = false;
+    public get ldapAvailable() {
+        return this._ldapAvailable;
+    }
+
+    public set ldapAvailable(state: boolean) {
+        this._ldapAvailable = state;
+    }
 
     public static getInstance(): ConfigurationClient {
         if (!ConfigurationClient.instance) {
@@ -23,6 +32,10 @@ export default class ConfigurationClient {
         return ConfigurationClient.instance;
     }
 
+    constructor() {
+        console.log('Configuration Service is being started.');
+        this.getLDAPConfiguration();
+    }
     /**
      * Set configurations
      * @TODO add callback to inform the parent if the operations were successful
@@ -73,9 +86,11 @@ export default class ConfigurationClient {
     async getLDAPConfiguration(): Promise<LDAPConfiguration> {
         const configuration = await LDAPConfigurationModel.findOne({}) as unknown as LDAPConfiguration;
         if (configuration) {
+            console.log('FOUND LDAP CONFIGURATION!');
             this.ldapAvailable = true;
             return Promise.resolve(configuration);
         }
+        console.log('There is no ldap configuration available!');
         this.ldapAvailable = false;
         return null;
     }

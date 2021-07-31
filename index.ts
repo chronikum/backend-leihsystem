@@ -88,6 +88,14 @@ export default class Server {
     }
 
     /**
+     * There are a few constants configuration client will provide us.
+     * So we need it to initalize it earlier.
+     */
+    preInitConfigurationClient() {
+        ConfigurationClient.instance.getLDAPConfiguration();
+    }
+
+    /**
      * Configure System with production or development environment
      * - express with json, session, flash and passport
      * - calls setupAuth() when ready
@@ -123,7 +131,6 @@ export default class Server {
         this.app.use('/static', express.static(`${__dirname}/core/public`));
         // Helmet security
         this.app.use(helmet());
-
         this.app.use(express.json());
         this.app.use(cors({ credentials: true, origin: corsOrigin })); // CORS configuration
         this.app.use(fileUpload({
@@ -275,6 +282,7 @@ export default class Server {
         // Only will run if ldap is availanle
         const isLDAPavailable = await this.configurationClient.getLDAPConfiguration();
         if (isLDAPavailable) {
+            console.log('LDAO IS AVAILABLE!');
             const getLDAPConfiguration = async function (req, callback) {
                 // Fetching things from database or whatever
                 const ldapConfigurationModel = await LDAPConfigurationModel.findOne({});

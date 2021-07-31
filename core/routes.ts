@@ -171,6 +171,7 @@ function removePasswordHashFromUser(user: User): User {
  * capabilites of the system and configuration
  */
 function determineLoginStrategies() {
+    console.log('DETERMINE!');
     const loginStrategies = [];
     loginStrategies.push('local');
     if (configurationClient.ldapAvailable) {
@@ -182,7 +183,7 @@ function determineLoginStrategies() {
 /**
  * Login (local or ldap)
  */
-router.post('/login', passport.authenticate(determineLoginStrategies()), async (req, res) => {
+router.post('/login', passport.authenticate(['local', 'ldap']), async (req, res) => {
     // eslint-disable-next-line prefer-const
     let { user } = req;
     // dbClient.newLogin(user);
