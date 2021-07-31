@@ -236,6 +236,7 @@ export default class Server {
     // eslint-disable-next-line consistent-return
     private async checkUser(username?: string, password?: string, done?: any, ldapUser?: any): Promise<any> {
         // LDAP user
+
         if (ldapUser) {
             console.log('USER WHICH IS LOGGING IN IS A LDAP USER!');
             console.log('THE LDAP USER IS:');
@@ -282,30 +283,29 @@ export default class Server {
         // Only will run if ldap is availanle
         const isLDAPavailable = await this.configurationClient.getLDAPConfiguration();
         if (isLDAPavailable) {
-            console.log('LDAO IS AVAILABLE!');
-            const getLDAPConfiguration = async function (req, callback) {
-                // Fetching things from database or whatever
-                const ldapConfigurationModel = await LDAPConfigurationModel.findOne({});
-                console.log(ldapConfigurationModel);
-                if (ldapConfigurationModel) {
-                    const ldapConfiguration = ldapConfigurationModel as unknown as LDAPConfiguration;
-                    const opts = {
-                        server: {
-                            url: ldapConfiguration.host,
-                            bindDN: ldapConfiguration.bindDN,
-                            bindCredentials: ldapConfiguration.bindCredentials,
-                            searchBase: ldapConfiguration.searchBase,
-                            searchFilter: ldapConfiguration.searchFilter,
-                        },
-                    };
-                    callback(null, opts);
-                }
-            };
-
-            passport.use(new LdapStrategy(getLDAPConfiguration,
-                ((user, done) => {
-                    this.checkUser(null, null, done, user);
-                })));
+            const ldapConfigurationModel = await LDAPConfigurationModel.findOne({});
+            console.log(ldapConfigurationModel);
+            if (ldapConfigurationModel) {
+                const ldapConfiguration = ldapConfigurationModel as unknown as LDAPConfiguration;
+                const opts = {
+                    server: {
+                        url: ldapConfiguration.host,
+                        bindDN: ldapConfiguration.bindDN,
+                        bindCredentials: ldapConfiguration.bindCredentials,
+                        searchBase: ldapConfiguration.searchBase,
+                        searchFilter: ldapConfiguration.searchFilter,
+                    },
+                    failureErrorCallback() {
+                        console.log('Something went wring!');
+                    },
+                };
+                passport.use(new LdapStrategy(opts,
+                    ((user, done) => {
+                        console.log('CHECKING USER LDAP');
+                        this.checkUser(null, null, done, user);
+                    })));
+                console.log('Passport now using ldap');
+            }
         }
 
         passport.use(

@@ -183,7 +183,7 @@ function determineLoginStrategies() {
 /**
  * Login (local or ldap)
  */
-router.post('/login', passport.authenticate(['local', 'ldap']), async (req, res) => {
+router.post('/login', passport.authenticate(['local', 'ldapauth']), async (req, res) => {
     // eslint-disable-next-line prefer-const
     let { user } = req;
     // dbClient.newLogin(user);
