@@ -106,7 +106,7 @@ export default class MailService {
         if (this.configuration?.username) {
             try {
                 const testMailStatus = await this.transporter.sendMail({
-                    from: `"ZfM Leihsystem 👻" <${process.env.SMTP_USERNAME}>`, // sender address
+                    from: `"ZfM Leihsystem 👻" <${this.configuration?.username}>`, // sender address
                     to: `${user?.firstname} ${user?.surname} <${user?.email}>`, // list of receivers
                     subject: 'Reservierungsanfrage eingegangen', // Subject line
                     text: 'Diese E-Mail ist nur als HTML verfügbar.', // plain text body
@@ -116,7 +116,7 @@ export default class MailService {
                     Mehr Informationen erhalten Sie demnächst von eine/r Mitarbeiter/in des ZfM.<br>
                     Mit freundlichen Grüßen,<br>Ihr ZfM Ausleihsystem`,
                 });
-            } catch {
+            } catch (e) {
                 this.connectionFailed();
             }
         }
@@ -133,7 +133,7 @@ export default class MailService {
         if (this.configuration?.username) {
             try {
                 const testMailStatus = await this.transporter.sendMail({
-                    from: `"ZfM Leihsystem 👻" <${process.env.SMTP_USERNAME}>`, // sender address
+                    from: `"ZfM Leihsystem 👻" <${this.configuration?.username}>`, // sender address
                     to: `${user?.firstname} ${user?.surname} <${user?.email}>`, // list of receivers
                     subject: 'Reservierungsanfrage bestätigt', // Subject line
                     text: 'Diese E-Mail ist nur als HTML verfügbar.', // plain text body
@@ -160,7 +160,7 @@ export default class MailService {
         if (this.configuration?.username) {
             try {
                 const testMailStatus = await this.transporter.sendMail({
-                    from: `"ZfM Leihsystem 👻" <${process.env.SMTP_USERNAME}>`, // sender address
+                    from: `"ZfM Leihsystem 👻" <${this.configuration?.username}>`, // sender address
                     to: `${user?.firstname} ${user?.surname} <${user?.email}>`, // list of receivers
                     subject: 'Reservierungsanfrage abgelehnt', // Subject line
                     text: 'Diese E-Mail ist nur als HTML verfügbar.', // plain text body

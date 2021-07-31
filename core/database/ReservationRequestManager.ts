@@ -50,7 +50,7 @@ export default class ReservationRequestManager {
             console.log(`Catched error: ${err}`);
         });
         // Verify model was saved
-        const requestCreated = await RequestModel.findOne({ requestId: request.requestId }) as unknown as Request;
+        const requestCreated = await RequestModel.findOne({ requestId: (highestId + 1) }) as unknown as Request;
         // Return the Request
         return Promise.resolve(requestCreated);
     }
@@ -107,5 +107,13 @@ export default class ReservationRequestManager {
     async getAllRequests(): Promise<Request[]> {
         const requests = await RequestModel.find({ requestAccepted: false }) as unknown as Request[];
         return Promise.resolve(requests);
+    }
+
+    /**
+     * Get request by ID
+     */
+    async getRequestById(id: number): Promise<Request> {
+        const request = await RequestModel.findOne({ requestId: id }) as unknown as Request;
+        return Promise.resolve(request);
     }
 }

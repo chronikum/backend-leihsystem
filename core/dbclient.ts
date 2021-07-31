@@ -84,7 +84,6 @@ export default class DBClient {
      */
     newLogin(user: User) {
         const dateNow = Date.now();
-        console.log(user);
         UserModel.updateOne({ userId: user.userId }, { lastLogin: dateNow }).exec();
     }
 
@@ -372,7 +371,8 @@ export default class DBClient {
      * @returns created request or failure
      */
     async createNewRequest(request: Request): Promise<Request> {
-        return this.reservationRequestManager.createNewRequest(request);
+        const requestD = await this.reservationRequestManager.createNewRequest(request);
+        return requestD;
     }
 
     /**
@@ -381,7 +381,7 @@ export default class DBClient {
      * @param request provided by user
      * @returns updated Request
      */
-    async updateRequest(request: Request) {
+    async updateRequest(request: Request): Promise<Request> {
         return this.reservationRequestManager.updateRequest(request);
     }
 
@@ -416,6 +416,13 @@ export default class DBClient {
      */
     async getAllRequests(): Promise<Request[]> {
         return this.reservationRequestManager.getAllRequests();
+    }
+
+    /**
+     * Gets all pending requests
+     */
+    async getRequestById(id: number): Promise<Request> {
+        return this.reservationRequestManager.getRequestById(id);
     }
 
     /**
