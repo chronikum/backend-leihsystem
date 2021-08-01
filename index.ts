@@ -208,7 +208,7 @@ export default class Server {
         const surname = user.displayName?.split(' ')[1] || 'Platzhalter';
         // eslint-disable-next-line no-nested-ternary
         // const mail = user.mail ? (user.mail[0] ? user.mail[0] : user.mail) : 'platzhalter';
-        const mail = user?.mail[0];
+        const mail = user?.mail;
 
         const newLdapUser: User = {
             firstname,
