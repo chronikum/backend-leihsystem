@@ -206,6 +206,7 @@ export default class Server {
 
         const firstname = user.displayName?.split(' ')[0] || 'Platzhalter';
         const surname = user.displayName?.split(' ')[1] || 'Platzhalter';
+        const username = user.mail;
         // eslint-disable-next-line no-nested-ternary
         // const mail = user.mail ? (user.mail[0] ? user.mail[0] : user.mail) : 'platzhalter';
         const mail = user?.mail;
@@ -215,7 +216,7 @@ export default class Server {
             surname,
             email: mail,
             role: UserRoles.USER,
-            username: user.uid,
+            username,
             groupId: [2],
         };
         console.log('I am going to create the user:');
